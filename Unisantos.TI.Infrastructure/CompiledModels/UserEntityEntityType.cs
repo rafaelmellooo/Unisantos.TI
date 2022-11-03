@@ -3,6 +3,7 @@ using System;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Unisantos.TI.Domain.Entities.User;
+using Unisantos.TI.Domain.Enums.User;
 
 #pragma warning disable 219, 612, 618
 #nullable enable
@@ -39,14 +40,6 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
                 fieldInfo: typeof(UserEntity).GetField("<Email>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 maxLength: 255);
 
-            var isAdmin = runtimeEntityType.AddProperty(
-                "IsAdmin",
-                typeof(bool),
-                propertyInfo: typeof(UserEntity).GetProperty("IsAdmin", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(UserEntity).GetField("<IsAdmin>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                valueGenerated: ValueGenerated.OnAdd);
-            isAdmin.AddAnnotation("Relational:DefaultValue", false);
-
             var name = runtimeEntityType.AddProperty(
                 "Name",
                 typeof(string),
@@ -61,9 +54,19 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
                 fieldInfo: typeof(UserEntity).GetField("<Password>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 maxLength: 255);
 
+            var type = runtimeEntityType.AddProperty(
+                "Type",
+                typeof(UserType),
+                propertyInfo: typeof(UserEntity).GetProperty("Type", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(UserEntity).GetField("<Type>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+
             var key = runtimeEntityType.AddKey(
                 new[] { id });
             runtimeEntityType.SetPrimaryKey(key);
+
+            var index = runtimeEntityType.AddIndex(
+                new[] { email },
+                unique: true);
 
             return runtimeEntityType;
         }

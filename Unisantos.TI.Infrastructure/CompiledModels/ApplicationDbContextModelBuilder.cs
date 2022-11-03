@@ -13,11 +13,22 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
     {
         partial void Initialize()
         {
+            var addressEntity = AddressEntityEntityType.Create(this);
+            var cityEntity = CityEntityEntityType.Create(this);
+            var stateEntity = StateEntityEntityType.Create(this);
+            var companyEntity = CompanyEntityEntityType.Create(this);
             var tokenEntity = TokenEntityEntityType.Create(this);
             var userEntity = UserEntityEntityType.Create(this);
 
+            AddressEntityEntityType.CreateForeignKey1(addressEntity, cityEntity);
+            CityEntityEntityType.CreateForeignKey1(cityEntity, stateEntity);
+            CompanyEntityEntityType.CreateForeignKey1(companyEntity, addressEntity);
             TokenEntityEntityType.CreateForeignKey1(tokenEntity, userEntity);
 
+            AddressEntityEntityType.CreateAnnotations(addressEntity);
+            CityEntityEntityType.CreateAnnotations(cityEntity);
+            StateEntityEntityType.CreateAnnotations(stateEntity);
+            CompanyEntityEntityType.CreateAnnotations(companyEntity);
             TokenEntityEntityType.CreateAnnotations(tokenEntity);
             UserEntityEntityType.CreateAnnotations(userEntity);
 

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using Unisantos.TI.Domain.Enums.User;
 using Unisantos.TI.Domain.Validations.Annotations;
 
 namespace Unisantos.TI.Domain.DTO.User;
@@ -19,4 +21,7 @@ public class CreateUserInputDTO
     [Required(ErrorMessage = "A confirmação de senha é obrigatória")]
     [Compare("Password", ErrorMessage = "A confirmação de senha não confere")]
     public string PasswordConfirmation { get; set; }
+    
+    [DefaultValue(UserType.Client)]
+    public UserType Type { get; set; }
 }

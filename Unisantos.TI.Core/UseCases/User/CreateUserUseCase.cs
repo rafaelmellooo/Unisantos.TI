@@ -34,6 +34,7 @@ public class CreateUserUseCase : IUseCase<CreateUserInputDTO>
             Email = request.Email,
             Name = request.Name,
             Password = request.Password,
+            Type = request.Type,
             CreatedAt = DateTime.Now
         }, cancellationToken);
 

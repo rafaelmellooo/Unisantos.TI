@@ -1,4 +1,5 @@
 ﻿using Unisantos.TI.Domain.Entities.Token;
+using Unisantos.TI.Domain.Enums.User;
 
 namespace Unisantos.TI.Domain.Entities.User;
 
@@ -12,7 +13,7 @@ public class UserEntity
 
     public string Password { get; set; }
 
-    public bool IsAdmin { get; set; }
+    public UserType Type { get; set; }
 
     public DateTime CreatedAt { get; set; }
 

@@ -11,9 +11,12 @@ public class UserEntityMapping : IEntityTypeConfiguration<UserEntity>
         builder.HasKey(e => e.Id);
 
         builder.Property(e => e.Id).ValueGeneratedOnAdd();
+        
         builder.Property(e => e.Email).IsRequired();
+        builder.HasIndex(e => e.Email).IsUnique();
+        
         builder.Property(e => e.Password).IsRequired();
-        builder.Property(e => e.IsAdmin).HasDefaultValue(false);
+        builder.Property(e => e.Type).IsRequired();
         builder.Property(e => e.Name).IsRequired();
         builder.Property(e => e.CreatedAt).IsRequired();
     }

@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Unisantos.TI.Domain.Entities.Address;
+using Unisantos.TI.Domain.Entities.Company;
 using Unisantos.TI.Domain.Entities.Token;
 using Unisantos.TI.Domain.Entities.User;
 
@@ -9,6 +11,14 @@ public interface IApplicationDbContext
     DbSet<UserEntity> Users { get; }
     
     DbSet<TokenEntity> Tokens { get; }
+    
+    DbSet<StateEntity> States { get; }
+    
+    DbSet<CityEntity> Cities { get; }
+    
+    DbSet<AddressEntity> Addresses { get; }
+    
+    DbSet<CompanyEntity> Companies { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }
