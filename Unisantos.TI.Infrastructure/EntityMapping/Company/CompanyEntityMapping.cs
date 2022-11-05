@@ -16,5 +16,7 @@ public class CompanyEntityMapping : IEntityTypeConfiguration<CompanyEntity>
 
         builder.HasOne(e => e.Address).WithOne(e => e.Company).HasForeignKey<CompanyEntity>(e => e.AddressId)
             .OnDelete(DeleteBehavior.ClientSetNull);
+
+        builder.HasMany(e => e.Tags).WithMany(e => e.Companies).UsingEntity(j => j.ToTable("CompanyTag"));
     }
 }

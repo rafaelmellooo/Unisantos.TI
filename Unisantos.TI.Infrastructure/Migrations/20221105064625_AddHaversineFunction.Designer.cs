@@ -12,8 +12,8 @@ using Unisantos.TI.Infrastructure;
 namespace Unisantos.TI.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221103184538_AddUserTokenStateCityAddressCompanyTables")]
-    partial class AddUserTokenStateCityAddressCompanyTables
+    [Migration("20221105064625_AddHaversineFunction")]
+    partial class AddHaversineFunction
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,21 @@ namespace Unisantos.TI.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("CompanyEntityTagEntity", b =>
+                {
+                    b.Property<Guid>("CompaniesId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("TagsId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("CompaniesId", "TagsId");
+
+                    b.HasIndex("TagsId");
+
+                    b.ToTable("CompanyTag", (string)null);
+                });
 
             modelBuilder.Entity("Unisantos.TI.Domain.Entities.Address.AddressEntity", b =>
                 {
@@ -138,6 +153,24 @@ namespace Unisantos.TI.Infrastructure.Migrations
                     b.ToTable("Companies");
                 });
 
+            modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.TagEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tags");
+                });
+
             modelBuilder.Entity("Unisantos.TI.Domain.Entities.Token.TokenEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -213,6 +246,21 @@ namespace Unisantos.TI.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("CompanyEntityTagEntity", b =>
+                {
+                    b.HasOne("Unisantos.TI.Domain.Entities.Company.CompanyEntity", null)
+                        .WithMany()
+                        .HasForeignKey("CompaniesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Unisantos.TI.Domain.Entities.Company.TagEntity", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Unisantos.TI.Domain.Entities.Address.AddressEntity", b =>

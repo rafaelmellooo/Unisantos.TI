@@ -24,6 +24,11 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<AddressEntity> Addresses => Set<AddressEntity>();
 
     public DbSet<CompanyEntity> Companies => Set<CompanyEntity>();
+    
+    public DbSet<TagEntity> Tags => Set<TagEntity>();
+
+    public double Haversine(double latitude1, double longitude1, double latitude2, double longitude2) =>
+        throw new NotImplementedException();
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
@@ -36,11 +41,19 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.HasDbFunction(typeof(ApplicationDbContext).GetMethod(nameof(Haversine),
+                new[] {typeof(double), typeof(double), typeof(double), typeof(double)}))
+            .HasName("haversine");
+
         modelBuilder.ApplyConfiguration(new UserEntityMapping());
+        
         modelBuilder.ApplyConfiguration(new TokenEntityMapping());
+        
         modelBuilder.ApplyConfiguration(new CityEntityMapping());
         modelBuilder.ApplyConfiguration(new StateEntityMapping());
         modelBuilder.ApplyConfiguration(new AddressEntityMapping());
+        
         modelBuilder.ApplyConfiguration(new CompanyEntityMapping());
+        modelBuilder.ApplyConfiguration(new TagEntityMapping());
     }
 }

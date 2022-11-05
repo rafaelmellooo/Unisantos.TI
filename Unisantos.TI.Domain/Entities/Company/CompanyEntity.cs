@@ -13,4 +13,6 @@ public class CompanyEntity
     public Guid AddressId { get; set; }
     
     public AddressEntity Address { get; set; }
+    
+    public ICollection<TagEntity> Tags { get; set; }
 }

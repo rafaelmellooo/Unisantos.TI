@@ -16,7 +16,7 @@ builder.Services.AddHealthChecks();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(o =>
 {
-    o.SwaggerDoc("v1", new OpenApiInfo {Title = "Freela.CrisAragoni.Api", Version = "v1"});
+    o.SwaggerDoc("v1", new OpenApiInfo {Title = "Unisantos.TI.Api", Version = "v1"});
 
     o.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
