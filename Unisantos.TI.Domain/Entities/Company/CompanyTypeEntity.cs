@@ -1,10 +1,12 @@
 ﻿namespace Unisantos.TI.Domain.Entities.Company;
 
-public class TagEntity
+public class CompanyTypeEntity
 {
-    public int Id { get; set; }
+    public byte Id { get; set; }
 
     public string Name { get; set; }
 
+    public string Description { get; set; }
+    
     public ICollection<CompanyEntity> Companies { get; set; } = new List<CompanyEntity>();
 }

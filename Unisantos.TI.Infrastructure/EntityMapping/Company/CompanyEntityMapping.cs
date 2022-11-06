@@ -14,8 +14,14 @@ public class CompanyEntityMapping : IEntityTypeConfiguration<CompanyEntity>
         builder.Property(e => e.Name).IsRequired();
         builder.Property(e => e.Description).IsRequired();
 
+        builder.HasOne(e => e.CompanyType).WithMany(e => e.Companies).HasForeignKey(e => e.CompanyTypeId)
+            .OnDelete(DeleteBehavior.ClientSetNull);
+
         builder.HasOne(e => e.Address).WithOne(e => e.Company).HasForeignKey<CompanyEntity>(e => e.AddressId)
             .OnDelete(DeleteBehavior.ClientSetNull);
+
+        builder.HasOne(e => e.Admin).WithOne(e => e.Company).HasForeignKey<CompanyEntity>(e => e.AdminId)
+            .OnDelete(DeleteBehavior.ClientCascade);
 
         builder.HasMany(e => e.Tags).WithMany(e => e.Companies).UsingEntity(j => j.ToTable("CompanyTag"));
     }

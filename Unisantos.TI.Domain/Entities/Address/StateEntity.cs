@@ -6,5 +6,5 @@ public class StateEntity
     
     public string Name { get; set; }
     
-    public ICollection<CityEntity> Cities { get; set; }
+    public ICollection<CityEntity> Cities { get; set; } = new List<CityEntity>();
 }

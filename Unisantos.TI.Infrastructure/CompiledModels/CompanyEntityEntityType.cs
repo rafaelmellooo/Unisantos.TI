@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Unisantos.TI.Domain.Entities.Address;
 using Unisantos.TI.Domain.Entities.Company;
+using Unisantos.TI.Domain.Entities.User;
 
 #pragma warning disable 219, 612, 618
 #nullable enable
@@ -34,6 +36,18 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
                 propertyInfo: typeof(CompanyEntity).GetProperty("AddressId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(CompanyEntity).GetField("<AddressId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
+            var adminId = runtimeEntityType.AddProperty(
+                "AdminId",
+                typeof(Guid),
+                propertyInfo: typeof(CompanyEntity).GetProperty("AdminId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(CompanyEntity).GetField("<AdminId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+
+            var companyTypeId = runtimeEntityType.AddProperty(
+                "CompanyTypeId",
+                typeof(byte),
+                propertyInfo: typeof(CompanyEntity).GetProperty("CompanyTypeId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(CompanyEntity).GetField("<CompanyTypeId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+
             var description = runtimeEntityType.AddProperty(
                 "Description",
                 typeof(string),
@@ -55,6 +69,13 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
             var index = runtimeEntityType.AddIndex(
                 new[] { addressId },
                 unique: true);
+
+            var index0 = runtimeEntityType.AddIndex(
+                new[] { adminId },
+                unique: true);
+
+            var index1 = runtimeEntityType.AddIndex(
+                new[] { companyTypeId });
 
             return runtimeEntityType;
         }
@@ -81,6 +102,57 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
                 typeof(CompanyEntity),
                 propertyInfo: typeof(AddressEntity).GetProperty("Company", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(AddressEntity).GetField("<Company>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+
+            return runtimeForeignKey;
+        }
+
+        public static RuntimeForeignKey CreateForeignKey2(RuntimeEntityType declaringEntityType, RuntimeEntityType principalEntityType)
+        {
+            var runtimeForeignKey = declaringEntityType.AddForeignKey(new[] { declaringEntityType.FindProperty("AdminId")! },
+                principalEntityType.FindKey(new[] { principalEntityType.FindProperty("Id")! })!,
+                principalEntityType,
+                deleteBehavior: DeleteBehavior.ClientCascade,
+                unique: true,
+                required: true,
+                requiredDependent: true);
+
+            var admin = declaringEntityType.AddNavigation("Admin",
+                runtimeForeignKey,
+                onDependent: true,
+                typeof(UserEntity),
+                propertyInfo: typeof(CompanyEntity).GetProperty("Admin", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(CompanyEntity).GetField("<Admin>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+
+            var company = principalEntityType.AddNavigation("Company",
+                runtimeForeignKey,
+                onDependent: false,
+                typeof(CompanyEntity),
+                propertyInfo: typeof(UserEntity).GetProperty("Company", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(UserEntity).GetField("<Company>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+
+            return runtimeForeignKey;
+        }
+
+        public static RuntimeForeignKey CreateForeignKey3(RuntimeEntityType declaringEntityType, RuntimeEntityType principalEntityType)
+        {
+            var runtimeForeignKey = declaringEntityType.AddForeignKey(new[] { declaringEntityType.FindProperty("CompanyTypeId")! },
+                principalEntityType.FindKey(new[] { principalEntityType.FindProperty("Id")! })!,
+                principalEntityType,
+                required: true);
+
+            var companyType = declaringEntityType.AddNavigation("CompanyType",
+                runtimeForeignKey,
+                onDependent: true,
+                typeof(CompanyTypeEntity),
+                propertyInfo: typeof(CompanyEntity).GetProperty("CompanyType", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(CompanyEntity).GetField("<CompanyType>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+
+            var companies = principalEntityType.AddNavigation("Companies",
+                runtimeForeignKey,
+                onDependent: false,
+                typeof(ICollection<CompanyEntity>),
+                propertyInfo: typeof(CompanyTypeEntity).GetProperty("Companies", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(CompanyTypeEntity).GetField("<Companies>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
             return runtimeForeignKey;
         }

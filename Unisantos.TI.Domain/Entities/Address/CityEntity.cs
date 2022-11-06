@@ -10,5 +10,5 @@ public class CityEntity
     
     public StateEntity State { get; set; }
     
-    public ICollection<AddressEntity> Addresses { get; set; }
+    public ICollection<AddressEntity> Addresses { get; set; } = new List<AddressEntity>();
 }

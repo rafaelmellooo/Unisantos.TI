@@ -11,6 +11,19 @@ namespace Unisantos.TI.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "CompanyTypes",
+                columns: table => new
+                {
+                    Id = table.Column<byte>(type: "smallint", nullable: false),
+                    Name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    Description = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CompanyTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "States",
                 columns: table => new
                 {
@@ -124,7 +137,9 @@ namespace Unisantos.TI.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     Description = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    AddressId = table.Column<Guid>(type: "uuid", nullable: false)
+                    AddressId = table.Column<Guid>(type: "uuid", nullable: false),
+                    AdminId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CompanyTypeId = table.Column<byte>(type: "smallint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -133,6 +148,36 @@ namespace Unisantos.TI.Infrastructure.Migrations
                         name: "FK_Companies_Addresses_AddressId",
                         column: x => x.AddressId,
                         principalTable: "Addresses",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Companies_CompanyTypes_CompanyTypeId",
+                        column: x => x.CompanyTypeId,
+                        principalTable: "CompanyTypes",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Companies_Users_AdminId",
+                        column: x => x.AdminId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BusinessHours",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    OpeningTime = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
+                    ClosingTime = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
+                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
+                    DayOfWeek = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BusinessHours", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BusinessHours_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
                         principalColumn: "Id");
                 });
 
@@ -160,10 +205,63 @@ namespace Unisantos.TI.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Favorites",
+                columns: table => new
+                {
+                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Favorites", x => new { x.CompanyId, x.UserId });
+                    table.ForeignKey(
+                        name: "FK_Favorites_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Favorites_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Rates",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Rate = table.Column<float>(type: "real", nullable: false),
+                    Comment = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rates", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Rates_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Rates_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Addresses_CityId",
                 table: "Addresses",
                 column: "CityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BusinessHours_CompanyId",
+                table: "BusinessHours",
+                column: "CompanyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cities_StateId",
@@ -177,9 +275,35 @@ namespace Unisantos.TI.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Companies_AdminId",
+                table: "Companies",
+                column: "AdminId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Companies_CompanyTypeId",
+                table: "Companies",
+                column: "CompanyTypeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CompanyTag_TagsId",
                 table: "CompanyTag",
                 column: "TagsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Favorites_UserId",
+                table: "Favorites",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rates_CompanyId",
+                table: "Rates",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rates_UserId",
+                table: "Rates",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tokens_UserId",
@@ -196,22 +320,34 @@ namespace Unisantos.TI.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "BusinessHours");
+
+            migrationBuilder.DropTable(
                 name: "CompanyTag");
+
+            migrationBuilder.DropTable(
+                name: "Favorites");
+
+            migrationBuilder.DropTable(
+                name: "Rates");
 
             migrationBuilder.DropTable(
                 name: "Tokens");
 
             migrationBuilder.DropTable(
-                name: "Companies");
-
-            migrationBuilder.DropTable(
                 name: "Tags");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Companies");
 
             migrationBuilder.DropTable(
                 name: "Addresses");
+
+            migrationBuilder.DropTable(
+                name: "CompanyTypes");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Cities");

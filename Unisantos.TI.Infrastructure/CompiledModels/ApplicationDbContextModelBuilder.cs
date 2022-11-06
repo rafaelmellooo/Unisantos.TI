@@ -19,7 +19,11 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
             var addressEntity = AddressEntityEntityType.Create(this);
             var cityEntity = CityEntityEntityType.Create(this);
             var stateEntity = StateEntityEntityType.Create(this);
+            var businessHoursEntity = BusinessHoursEntityEntityType.Create(this);
             var companyEntity = CompanyEntityEntityType.Create(this);
+            var companyTypeEntity = CompanyTypeEntityEntityType.Create(this);
+            var favoriteEntity = FavoriteEntityEntityType.Create(this);
+            var rateEntity = RateEntityEntityType.Create(this);
             var tagEntity = TagEntityEntityType.Create(this);
             var tokenEntity = TokenEntityEntityType.Create(this);
             var userEntity = UserEntityEntityType.Create(this);
@@ -28,7 +32,14 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
             CompanyEntityTagEntityEntityType.CreateForeignKey2(companyEntityTagEntity, tagEntity);
             AddressEntityEntityType.CreateForeignKey1(addressEntity, cityEntity);
             CityEntityEntityType.CreateForeignKey1(cityEntity, stateEntity);
+            BusinessHoursEntityEntityType.CreateForeignKey1(businessHoursEntity, companyEntity);
             CompanyEntityEntityType.CreateForeignKey1(companyEntity, addressEntity);
+            CompanyEntityEntityType.CreateForeignKey2(companyEntity, userEntity);
+            CompanyEntityEntityType.CreateForeignKey3(companyEntity, companyTypeEntity);
+            FavoriteEntityEntityType.CreateForeignKey1(favoriteEntity, companyEntity);
+            FavoriteEntityEntityType.CreateForeignKey2(favoriteEntity, userEntity);
+            RateEntityEntityType.CreateForeignKey1(rateEntity, companyEntity);
+            RateEntityEntityType.CreateForeignKey2(rateEntity, userEntity);
             TokenEntityEntityType.CreateForeignKey1(tokenEntity, userEntity);
 
             CompanyEntityEntityType.CreateSkipNavigation1(companyEntity, tagEntity, companyEntityTagEntity);
@@ -38,7 +49,11 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
             AddressEntityEntityType.CreateAnnotations(addressEntity);
             CityEntityEntityType.CreateAnnotations(cityEntity);
             StateEntityEntityType.CreateAnnotations(stateEntity);
+            BusinessHoursEntityEntityType.CreateAnnotations(businessHoursEntity);
             CompanyEntityEntityType.CreateAnnotations(companyEntity);
+            CompanyTypeEntityEntityType.CreateAnnotations(companyTypeEntity);
+            FavoriteEntityEntityType.CreateAnnotations(favoriteEntity);
+            RateEntityEntityType.CreateAnnotations(rateEntity);
             TagEntityEntityType.CreateAnnotations(tagEntity);
             TokenEntityEntityType.CreateAnnotations(tokenEntity);
             UserEntityEntityType.CreateAnnotations(userEntity);
@@ -59,26 +74,26 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
                 scalar: true,
                 nullable: true);
 
-            var latitudeOrigin = haversine.AddParameter(
-                "latitudeOrigin",
+            var latitude1 = haversine.AddParameter(
+                "latitude1",
                 typeof(double),
                 false,
                 "double precision");
 
-            var longitudeOrigin = haversine.AddParameter(
-                "longitudeOrigin",
+            var longitude1 = haversine.AddParameter(
+                "longitude1",
                 typeof(double),
                 false,
                 "double precision");
 
-            var latitudeDestination = haversine.AddParameter(
-                "latitudeDestination",
+            var latitude2 = haversine.AddParameter(
+                "latitude2",
                 typeof(double),
                 false,
                 "double precision");
 
-            var longitudeDestination = haversine.AddParameter(
-                "longitudeDestination",
+            var longitude2 = haversine.AddParameter(
+                "longitude2",
                 typeof(double),
                 false,
                 "double precision");

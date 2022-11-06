@@ -124,6 +124,31 @@ namespace Unisantos.TI.Infrastructure.Migrations
                     b.ToTable("States");
                 });
 
+            modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.BusinessHoursEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<TimeOnly>("ClosingTime")
+                        .HasColumnType("time without time zone");
+
+                    b.Property<Guid>("CompanyId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("DayOfWeek")
+                        .HasColumnType("integer");
+
+                    b.Property<TimeOnly>("OpeningTime")
+                        .HasColumnType("time without time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("BusinessHours");
+                });
+
             modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.CompanyEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -132,6 +157,12 @@ namespace Unisantos.TI.Infrastructure.Migrations
 
                     b.Property<Guid>("AddressId")
                         .HasColumnType("uuid");
+
+                    b.Property<Guid>("AdminId")
+                        .HasColumnType("uuid");
+
+                    b.Property<byte>("CompanyTypeId")
+                        .HasColumnType("smallint");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -148,7 +179,79 @@ namespace Unisantos.TI.Infrastructure.Migrations
                     b.HasIndex("AddressId")
                         .IsUnique();
 
+                    b.HasIndex("AdminId")
+                        .IsUnique();
+
+                    b.HasIndex("CompanyTypeId");
+
                     b.ToTable("Companies");
+                });
+
+            modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.CompanyTypeEntity", b =>
+                {
+                    b.Property<byte>("Id")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CompanyTypes");
+                });
+
+            modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.FavoriteEntity", b =>
+                {
+                    b.Property<Guid>("CompanyId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("CompanyId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Favorites");
+                });
+
+            modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.RateEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<Guid>("CompanyId")
+                        .HasColumnType("uuid");
+
+                    b.Property<float>("Rate")
+                        .HasColumnType("real");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Rates");
                 });
 
             modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.TagEntity", b =>
@@ -282,6 +385,16 @@ namespace Unisantos.TI.Infrastructure.Migrations
                     b.Navigation("State");
                 });
 
+            modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.BusinessHoursEntity", b =>
+                {
+                    b.HasOne("Unisantos.TI.Domain.Entities.Company.CompanyEntity", "Company")
+                        .WithMany("BusinessHours")
+                        .HasForeignKey("CompanyId")
+                        .IsRequired();
+
+                    b.Navigation("Company");
+                });
+
             modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.CompanyEntity", b =>
                 {
                     b.HasOne("Unisantos.TI.Domain.Entities.Address.AddressEntity", "Address")
@@ -289,7 +402,60 @@ namespace Unisantos.TI.Infrastructure.Migrations
                         .HasForeignKey("Unisantos.TI.Domain.Entities.Company.CompanyEntity", "AddressId")
                         .IsRequired();
 
+                    b.HasOne("Unisantos.TI.Domain.Entities.User.UserEntity", "Admin")
+                        .WithOne("Company")
+                        .HasForeignKey("Unisantos.TI.Domain.Entities.Company.CompanyEntity", "AdminId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.HasOne("Unisantos.TI.Domain.Entities.Company.CompanyTypeEntity", "CompanyType")
+                        .WithMany("Companies")
+                        .HasForeignKey("CompanyTypeId")
+                        .IsRequired();
+
                     b.Navigation("Address");
+
+                    b.Navigation("Admin");
+
+                    b.Navigation("CompanyType");
+                });
+
+            modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.FavoriteEntity", b =>
+                {
+                    b.HasOne("Unisantos.TI.Domain.Entities.Company.CompanyEntity", "Company")
+                        .WithMany("Favorites")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.HasOne("Unisantos.TI.Domain.Entities.User.UserEntity", "User")
+                        .WithMany("Favorites")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.RateEntity", b =>
+                {
+                    b.HasOne("Unisantos.TI.Domain.Entities.Company.CompanyEntity", "Company")
+                        .WithMany("Rates")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.HasOne("Unisantos.TI.Domain.Entities.User.UserEntity", "User")
+                        .WithMany("Rates")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Unisantos.TI.Domain.Entities.Token.TokenEntity", b =>
@@ -319,8 +485,29 @@ namespace Unisantos.TI.Infrastructure.Migrations
                     b.Navigation("Cities");
                 });
 
+            modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.CompanyEntity", b =>
+                {
+                    b.Navigation("BusinessHours");
+
+                    b.Navigation("Favorites");
+
+                    b.Navigation("Rates");
+                });
+
+            modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.CompanyTypeEntity", b =>
+                {
+                    b.Navigation("Companies");
+                });
+
             modelBuilder.Entity("Unisantos.TI.Domain.Entities.User.UserEntity", b =>
                 {
+                    b.Navigation("Company")
+                        .IsRequired();
+
+                    b.Navigation("Favorites");
+
+                    b.Navigation("Rates");
+
                     b.Navigation("Tokens");
                 });
 #pragma warning restore 612, 618

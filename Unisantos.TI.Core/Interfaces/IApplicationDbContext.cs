@@ -17,10 +17,18 @@ public interface IApplicationDbContext
     DbSet<CityEntity> Cities { get; }
 
     DbSet<AddressEntity> Addresses { get; }
+    
+    DbSet<CompanyTypeEntity> CompanyTypes { get; }
 
     DbSet<CompanyEntity> Companies { get; }
     
     DbSet<TagEntity> Tags { get; }
+
+    DbSet<FavoriteEntity> Favorites { get; }
+    
+    DbSet<BusinessHoursEntity> BusinessHours { get; }
+    
+    DbSet<RateEntity> Rates { get; }
 
     double Haversine(double latitude1, double longitude1, double latitude2, double longitude2);
 
