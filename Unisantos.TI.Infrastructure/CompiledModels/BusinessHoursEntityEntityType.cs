@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Unisantos.TI.Domain.Entities.Company;
 
 #pragma warning disable 219, 612, 618
@@ -21,10 +22,18 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
 
             var id = runtimeEntityType.AddProperty(
                 "Id",
-                typeof(Guid),
+                typeof(byte),
                 propertyInfo: typeof(BusinessHoursEntity).GetProperty("Id", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(BusinessHoursEntity).GetField("<Id>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 valueGenerated: ValueGenerated.OnAdd,
+                afterSaveBehavior: PropertySaveBehavior.Throw);
+            id.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+            var companyId = runtimeEntityType.AddProperty(
+                "CompanyId",
+                typeof(Guid),
+                propertyInfo: typeof(BusinessHoursEntity).GetProperty("CompanyId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(BusinessHoursEntity).GetField("<CompanyId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 afterSaveBehavior: PropertySaveBehavior.Throw);
 
             var closingTime = runtimeEntityType.AddProperty(
@@ -32,12 +41,6 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
                 typeof(TimeOnly),
                 propertyInfo: typeof(BusinessHoursEntity).GetProperty("ClosingTime", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(BusinessHoursEntity).GetField("<ClosingTime>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
-
-            var companyId = runtimeEntityType.AddProperty(
-                "CompanyId",
-                typeof(Guid),
-                propertyInfo: typeof(BusinessHoursEntity).GetProperty("CompanyId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(BusinessHoursEntity).GetField("<CompanyId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
             var dayOfWeek = runtimeEntityType.AddProperty(
                 "DayOfWeek",
@@ -52,7 +55,7 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
                 fieldInfo: typeof(BusinessHoursEntity).GetField("<OpeningTime>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
             var key = runtimeEntityType.AddKey(
-                new[] { id });
+                new[] { id, companyId });
             runtimeEntityType.SetPrimaryKey(key);
 
             var index = runtimeEntityType.AddIndex(

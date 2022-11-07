@@ -1,6 +1,6 @@
 ﻿namespace Unisantos.TI.Domain.Entities.Company;
 
-public class BusinessHoursEntity
+public class ProductsSectionEntity
 {
     public byte Id { get; set; }
     
@@ -8,9 +8,7 @@ public class BusinessHoursEntity
     
     public CompanyEntity Company { get; set; }
     
-    public TimeOnly OpeningTime { get; set; }
+    public string Title { get; set; }
     
-    public TimeOnly ClosingTime { get; set; }
-
-    public DayOfWeek DayOfWeek { get; set; }
+    public ICollection<ProductEntity> Products { get; set; } = new List<ProductEntity>();
 }

@@ -17,10 +17,10 @@ public interface IApplicationDbContext
     DbSet<CityEntity> Cities { get; }
 
     DbSet<AddressEntity> Addresses { get; }
-    
-    DbSet<CompanyTypeEntity> CompanyTypes { get; }
 
     DbSet<CompanyEntity> Companies { get; }
+    
+    DbSet<TagTypeEntity> TagTypes { get; }
     
     DbSet<TagEntity> Tags { get; }
 
@@ -29,6 +29,10 @@ public interface IApplicationDbContext
     DbSet<BusinessHoursEntity> BusinessHours { get; }
     
     DbSet<RateEntity> Rates { get; }
+    
+    DbSet<ProductsSectionEntity> ProductsSections { get; }
+    
+    DbSet<ProductEntity> Products { get; }
 
     double Haversine(double latitude1, double longitude1, double latitude2, double longitude2);
 

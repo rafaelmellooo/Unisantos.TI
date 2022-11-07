@@ -11,19 +11,6 @@ namespace Unisantos.TI.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "CompanyTypes",
-                columns: table => new
-                {
-                    Id = table.Column<byte>(type: "smallint", nullable: false),
-                    Name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    Description = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CompanyTypes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "States",
                 columns: table => new
                 {
@@ -36,16 +23,16 @@ namespace Unisantos.TI.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tags",
+                name: "TagTypes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<byte>(type: "smallint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tags", x => x.Id);
+                    table.PrimaryKey("PK_TagTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -80,6 +67,25 @@ namespace Unisantos.TI.Infrastructure.Migrations
                         name: "FK_Cities_States_StateId",
                         column: x => x.StateId,
                         principalTable: "States",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tags",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    TagTypeId = table.Column<byte>(type: "smallint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tags", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tags_TagTypes_TagTypeId",
+                        column: x => x.TagTypeId,
+                        principalTable: "TagTypes",
                         principalColumn: "Id");
                 });
 
@@ -136,10 +142,14 @@ namespace Unisantos.TI.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    Description = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    Description = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
+                    Phone = table.Column<string>(type: "character varying(15)", maxLength: 15, nullable: false),
+                    Instagram = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    Facebook = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    ImageUrl = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    ImagePreviewUrl = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     AddressId = table.Column<Guid>(type: "uuid", nullable: false),
-                    AdminId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CompanyTypeId = table.Column<byte>(type: "smallint", nullable: false)
+                    AdminId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -148,11 +158,6 @@ namespace Unisantos.TI.Infrastructure.Migrations
                         name: "FK_Companies_Addresses_AddressId",
                         column: x => x.AddressId,
                         principalTable: "Addresses",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Companies_CompanyTypes_CompanyTypeId",
-                        column: x => x.CompanyTypeId,
-                        principalTable: "CompanyTypes",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Companies_Users_AdminId",
@@ -165,15 +170,16 @@ namespace Unisantos.TI.Infrastructure.Migrations
                 name: "BusinessHours",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<byte>(type: "smallint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
                     OpeningTime = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
                     ClosingTime = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
-                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
                     DayOfWeek = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BusinessHours", x => x.Id);
+                    table.PrimaryKey("PK_BusinessHours", x => new { x.Id, x.CompanyId });
                     table.ForeignKey(
                         name: "FK_BusinessHours_Companies_CompanyId",
                         column: x => x.CompanyId,
@@ -229,6 +235,25 @@ namespace Unisantos.TI.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ProductsSections",
+                columns: table => new
+                {
+                    Id = table.Column<byte>(type: "smallint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Title = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductsSections", x => new { x.Id, x.CompanyId });
+                    table.ForeignKey(
+                        name: "FK_ProductsSections_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Rates",
                 columns: table => new
                 {
@@ -251,6 +276,28 @@ namespace Unisantos.TI.Infrastructure.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    Id = table.Column<short>(type: "smallint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ProductsSectionId = table.Column<byte>(type: "smallint", nullable: false),
+                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
+                    Price = table.Column<float>(type: "real", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => new { x.Id, x.ProductsSectionId, x.CompanyId });
+                    table.ForeignKey(
+                        name: "FK_Products_ProductsSections_ProductsSectionId_CompanyId",
+                        columns: x => new { x.ProductsSectionId, x.CompanyId },
+                        principalTable: "ProductsSections",
+                        principalColumns: new[] { "Id", "CompanyId" });
                 });
 
             migrationBuilder.CreateIndex(
@@ -281,11 +328,6 @@ namespace Unisantos.TI.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Companies_CompanyTypeId",
-                table: "Companies",
-                column: "CompanyTypeId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CompanyTag_TagsId",
                 table: "CompanyTag",
                 column: "TagsId");
@@ -296,6 +338,16 @@ namespace Unisantos.TI.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Products_ProductsSectionId_CompanyId",
+                table: "Products",
+                columns: new[] { "ProductsSectionId", "CompanyId" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductsSections_CompanyId",
+                table: "ProductsSections",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Rates_CompanyId",
                 table: "Rates",
                 column: "CompanyId");
@@ -304,6 +356,11 @@ namespace Unisantos.TI.Infrastructure.Migrations
                 name: "IX_Rates_UserId",
                 table: "Rates",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tags_TagTypeId",
+                table: "Tags",
+                column: "TagTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tokens_UserId",
@@ -329,6 +386,9 @@ namespace Unisantos.TI.Infrastructure.Migrations
                 name: "Favorites");
 
             migrationBuilder.DropTable(
+                name: "Products");
+
+            migrationBuilder.DropTable(
                 name: "Rates");
 
             migrationBuilder.DropTable(
@@ -338,13 +398,16 @@ namespace Unisantos.TI.Infrastructure.Migrations
                 name: "Tags");
 
             migrationBuilder.DropTable(
+                name: "ProductsSections");
+
+            migrationBuilder.DropTable(
+                name: "TagTypes");
+
+            migrationBuilder.DropTable(
                 name: "Companies");
 
             migrationBuilder.DropTable(
                 name: "Addresses");
-
-            migrationBuilder.DropTable(
-                name: "CompanyTypes");
 
             migrationBuilder.DropTable(
                 name: "Users");

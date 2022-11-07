@@ -8,7 +8,7 @@ public class BusinessHoursEntityMapping : IEntityTypeConfiguration<BusinessHours
 {
     public void Configure(EntityTypeBuilder<BusinessHoursEntity> builder)
     {
-        builder.HasKey(e => e.Id);
+        builder.HasKey(e => new {e.Id, e.CompanyId});
 
         builder.Property(e => e.Id).ValueGeneratedOnAdd();
         builder.Property(e => e.OpeningTime).IsRequired();

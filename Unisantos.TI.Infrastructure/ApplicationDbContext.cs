@@ -23,17 +23,21 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 
     public DbSet<AddressEntity> Addresses => Set<AddressEntity>();
 
-    public DbSet<CompanyTypeEntity> CompanyTypes => Set<CompanyTypeEntity>();
-
     public DbSet<CompanyEntity> Companies => Set<CompanyEntity>();
+
+    public DbSet<TagTypeEntity> TagTypes => Set<TagTypeEntity>();
 
     public DbSet<TagEntity> Tags => Set<TagEntity>();
 
     public DbSet<FavoriteEntity> Favorites => Set<FavoriteEntity>();
 
     public DbSet<BusinessHoursEntity> BusinessHours => Set<BusinessHoursEntity>();
-    
+
     public DbSet<RateEntity> Rates => Set<RateEntity>();
+
+    public DbSet<ProductsSectionEntity> ProductsSections => Set<ProductsSectionEntity>();
+
+    public DbSet<ProductEntity> Products => Set<ProductEntity>();
 
     public double Haversine(double latitude1, double longitude1, double latitude2, double longitude2) =>
         throw new NotImplementedException();
@@ -50,8 +54,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDbFunction(typeof(ApplicationDbContext).GetMethod(nameof(Haversine),
-                new[] {typeof(double), typeof(double), typeof(double), typeof(double)}))
-            .HasName("haversine");
+            new[] {typeof(double), typeof(double), typeof(double), typeof(double)})).HasName("haversine");
 
         modelBuilder.ApplyConfiguration(new UserEntityMapping());
 
@@ -62,10 +65,12 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
         modelBuilder.ApplyConfiguration(new AddressEntityMapping());
 
         modelBuilder.ApplyConfiguration(new CompanyEntityMapping());
-        modelBuilder.ApplyConfiguration(new CompanyEntityMapping());
+        modelBuilder.ApplyConfiguration(new TagTypeEntityMapping());
         modelBuilder.ApplyConfiguration(new TagEntityMapping());
         modelBuilder.ApplyConfiguration(new FavoriteEntityMapping());
         modelBuilder.ApplyConfiguration(new BusinessHoursEntityMapping());
         modelBuilder.ApplyConfiguration(new RateEntityMapping());
+        modelBuilder.ApplyConfiguration(new ProductsSectionEntityMapping());
+        modelBuilder.ApplyConfiguration(new ProductEntityMapping());
     }
 }
