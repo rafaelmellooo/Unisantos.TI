@@ -10,6 +10,16 @@ public class CompanyEntity
     public string Name { get; set; }
 
     public string Description { get; set; }
+    
+    public string Phone { get; set; }
+    
+    public string Instagram { get; set; }
+    
+    public string Facebook { get; set; }
+    
+    public string ImageUrl { get; set; }
+    
+    public string ImagePreviewUrl { get; set; }
 
     public Guid AddressId { get; set; }
 
@@ -23,11 +33,9 @@ public class CompanyEntity
 
     public ICollection<FavoriteEntity> Favorites { get; set; } = new List<FavoriteEntity>();
 
-    public byte CompanyTypeId { get; set; }
-
-    public CompanyTypeEntity CompanyType { get; set; }
-    
     public ICollection<BusinessHoursEntity> BusinessHours { get; set; } = new List<BusinessHoursEntity>();
     
     public ICollection<RateEntity> Rates { get; set; } = new List<RateEntity>();
+    
+    public ICollection<ProductsSectionEntity> ProductsSections { get; set; } = new List<ProductsSectionEntity>();
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Unisantos.TI.Domain.Entities.Company;
 
 #pragma warning disable 219, 612, 618
@@ -9,34 +10,29 @@ using Unisantos.TI.Domain.Entities.Company;
 
 namespace Unisantos.TI.Infrastructure.CompiledModels
 {
-    internal partial class CompanyTypeEntityEntityType
+    internal partial class TagTypeEntityEntityType
     {
         public static RuntimeEntityType Create(RuntimeModel model, RuntimeEntityType? baseEntityType = null)
         {
             var runtimeEntityType = model.AddEntityType(
-                "Unisantos.TI.Domain.Entities.Company.CompanyTypeEntity",
-                typeof(CompanyTypeEntity),
+                "Unisantos.TI.Domain.Entities.Company.TagTypeEntity",
+                typeof(TagTypeEntity),
                 baseEntityType);
 
             var id = runtimeEntityType.AddProperty(
                 "Id",
                 typeof(byte),
-                propertyInfo: typeof(CompanyTypeEntity).GetProperty("Id", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(CompanyTypeEntity).GetField("<Id>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                propertyInfo: typeof(TagTypeEntity).GetProperty("Id", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(TagTypeEntity).GetField("<Id>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                valueGenerated: ValueGenerated.OnAdd,
                 afterSaveBehavior: PropertySaveBehavior.Throw);
-
-            var description = runtimeEntityType.AddProperty(
-                "Description",
-                typeof(string),
-                propertyInfo: typeof(CompanyTypeEntity).GetProperty("Description", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(CompanyTypeEntity).GetField("<Description>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                maxLength: 255);
+            id.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
             var name = runtimeEntityType.AddProperty(
                 "Name",
                 typeof(string),
-                propertyInfo: typeof(CompanyTypeEntity).GetProperty("Name", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(CompanyTypeEntity).GetField("<Name>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                propertyInfo: typeof(TagTypeEntity).GetProperty("Name", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(TagTypeEntity).GetField("<Name>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 maxLength: 255);
 
             var key = runtimeEntityType.AddKey(
@@ -51,7 +47,7 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
             runtimeEntityType.AddAnnotation("Relational:FunctionName", null);
             runtimeEntityType.AddAnnotation("Relational:Schema", null);
             runtimeEntityType.AddAnnotation("Relational:SqlQuery", null);
-            runtimeEntityType.AddAnnotation("Relational:TableName", "CompanyTypes");
+            runtimeEntityType.AddAnnotation("Relational:TableName", "TagTypes");
             runtimeEntityType.AddAnnotation("Relational:ViewName", null);
             runtimeEntityType.AddAnnotation("Relational:ViewSchema", null);
 

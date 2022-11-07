@@ -21,10 +21,12 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
             var stateEntity = StateEntityEntityType.Create(this);
             var businessHoursEntity = BusinessHoursEntityEntityType.Create(this);
             var companyEntity = CompanyEntityEntityType.Create(this);
-            var companyTypeEntity = CompanyTypeEntityEntityType.Create(this);
             var favoriteEntity = FavoriteEntityEntityType.Create(this);
+            var productEntity = ProductEntityEntityType.Create(this);
+            var productsSectionEntity = ProductsSectionEntityEntityType.Create(this);
             var rateEntity = RateEntityEntityType.Create(this);
             var tagEntity = TagEntityEntityType.Create(this);
+            var tagTypeEntity = TagTypeEntityEntityType.Create(this);
             var tokenEntity = TokenEntityEntityType.Create(this);
             var userEntity = UserEntityEntityType.Create(this);
 
@@ -35,11 +37,13 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
             BusinessHoursEntityEntityType.CreateForeignKey1(businessHoursEntity, companyEntity);
             CompanyEntityEntityType.CreateForeignKey1(companyEntity, addressEntity);
             CompanyEntityEntityType.CreateForeignKey2(companyEntity, userEntity);
-            CompanyEntityEntityType.CreateForeignKey3(companyEntity, companyTypeEntity);
             FavoriteEntityEntityType.CreateForeignKey1(favoriteEntity, companyEntity);
             FavoriteEntityEntityType.CreateForeignKey2(favoriteEntity, userEntity);
+            ProductEntityEntityType.CreateForeignKey1(productEntity, productsSectionEntity);
+            ProductsSectionEntityEntityType.CreateForeignKey1(productsSectionEntity, companyEntity);
             RateEntityEntityType.CreateForeignKey1(rateEntity, companyEntity);
             RateEntityEntityType.CreateForeignKey2(rateEntity, userEntity);
+            TagEntityEntityType.CreateForeignKey1(tagEntity, tagTypeEntity);
             TokenEntityEntityType.CreateForeignKey1(tokenEntity, userEntity);
 
             CompanyEntityEntityType.CreateSkipNavigation1(companyEntity, tagEntity, companyEntityTagEntity);
@@ -51,10 +55,12 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
             StateEntityEntityType.CreateAnnotations(stateEntity);
             BusinessHoursEntityEntityType.CreateAnnotations(businessHoursEntity);
             CompanyEntityEntityType.CreateAnnotations(companyEntity);
-            CompanyTypeEntityEntityType.CreateAnnotations(companyTypeEntity);
             FavoriteEntityEntityType.CreateAnnotations(favoriteEntity);
+            ProductEntityEntityType.CreateAnnotations(productEntity);
+            ProductsSectionEntityEntityType.CreateAnnotations(productsSectionEntity);
             RateEntityEntityType.CreateAnnotations(rateEntity);
             TagEntityEntityType.CreateAnnotations(tagEntity);
+            TagTypeEntityEntityType.CreateAnnotations(tagTypeEntity);
             TokenEntityEntityType.CreateAnnotations(tokenEntity);
             UserEntityEntityType.CreateAnnotations(userEntity);
 

@@ -12,5 +12,8 @@ public class TagEntityMapping : IEntityTypeConfiguration<TagEntity>
 
         builder.Property(e => e.Id).ValueGeneratedOnAdd();
         builder.Property(e => e.Name).IsRequired();
+
+        builder.HasOne(e => e.TagType).WithMany(e => e.Tags).HasForeignKey(e => e.TagTypeId)
+            .OnDelete(DeleteBehavior.ClientCascade);
     }
 }
