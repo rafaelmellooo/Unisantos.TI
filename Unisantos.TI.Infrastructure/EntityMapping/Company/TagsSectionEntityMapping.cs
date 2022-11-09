@@ -4,13 +4,13 @@ using Unisantos.TI.Domain.Entities.Company;
 
 namespace Unisantos.TI.Infrastructure.EntityMapping.Company;
 
-public class TagTypeEntityMapping : IEntityTypeConfiguration<TagTypeEntity>
+public class TagsSectionEntityMapping : IEntityTypeConfiguration<TagsSectionEntity>
 {
-    public void Configure(EntityTypeBuilder<TagTypeEntity> builder)
+    public void Configure(EntityTypeBuilder<TagsSectionEntity> builder)
     {
         builder.HasKey(e => e.Id);
 
         builder.Property(e => e.Id).ValueGeneratedOnAdd();
-        builder.Property(e => e.Name).IsRequired();
+        builder.Property(e => e.Title).IsRequired();
     }
 }

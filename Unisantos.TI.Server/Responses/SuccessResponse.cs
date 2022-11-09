@@ -1,6 +1,6 @@
 ﻿namespace Unisantos.TI.Server.Responses;
 
-public class SuccessResponse<TData> : BaseResponse
+public class SuccessResponse<TData>
 {
     public TData? Data { get; set; }
     

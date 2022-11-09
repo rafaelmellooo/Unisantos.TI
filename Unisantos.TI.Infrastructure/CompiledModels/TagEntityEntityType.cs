@@ -37,43 +37,43 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
                 fieldInfo: typeof(TagEntity).GetField("<Name>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 maxLength: 255);
 
-            var tagTypeId = runtimeEntityType.AddProperty(
-                "TagTypeId",
+            var tagsSectionId = runtimeEntityType.AddProperty(
+                "TagsSectionId",
                 typeof(byte),
-                propertyInfo: typeof(TagEntity).GetProperty("TagTypeId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(TagEntity).GetField("<TagTypeId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                propertyInfo: typeof(TagEntity).GetProperty("TagsSectionId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(TagEntity).GetField("<TagsSectionId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
             var key = runtimeEntityType.AddKey(
                 new[] { id });
             runtimeEntityType.SetPrimaryKey(key);
 
             var index = runtimeEntityType.AddIndex(
-                new[] { tagTypeId });
+                new[] { tagsSectionId });
 
             return runtimeEntityType;
         }
 
         public static RuntimeForeignKey CreateForeignKey1(RuntimeEntityType declaringEntityType, RuntimeEntityType principalEntityType)
         {
-            var runtimeForeignKey = declaringEntityType.AddForeignKey(new[] { declaringEntityType.FindProperty("TagTypeId")! },
+            var runtimeForeignKey = declaringEntityType.AddForeignKey(new[] { declaringEntityType.FindProperty("TagsSectionId")! },
                 principalEntityType.FindKey(new[] { principalEntityType.FindProperty("Id")! })!,
                 principalEntityType,
                 deleteBehavior: DeleteBehavior.ClientCascade,
                 required: true);
 
-            var tagType = declaringEntityType.AddNavigation("TagType",
+            var tagsSection = declaringEntityType.AddNavigation("TagsSection",
                 runtimeForeignKey,
                 onDependent: true,
-                typeof(TagTypeEntity),
-                propertyInfo: typeof(TagEntity).GetProperty("TagType", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(TagEntity).GetField("<TagType>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                typeof(TagsSectionEntity),
+                propertyInfo: typeof(TagEntity).GetProperty("TagsSection", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(TagEntity).GetField("<TagsSection>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
             var tags = principalEntityType.AddNavigation("Tags",
                 runtimeForeignKey,
                 onDependent: false,
                 typeof(ICollection<TagEntity>),
-                propertyInfo: typeof(TagTypeEntity).GetProperty("Tags", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(TagTypeEntity).GetField("<Tags>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                propertyInfo: typeof(TagsSectionEntity).GetProperty("Tags", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(TagsSectionEntity).GetField("<Tags>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
             return runtimeForeignKey;
         }

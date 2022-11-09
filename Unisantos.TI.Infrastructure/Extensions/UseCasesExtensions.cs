@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Unisantos.TI.Core.UseCases.Company;
 using Unisantos.TI.Core.UseCases.Session;
 using Unisantos.TI.Core.UseCases.User;
 
@@ -11,5 +12,7 @@ public static class UseCasesExtensions
         services.AddScoped<CreateSessionUseCase, CreateSessionUseCase>();
 
         services.AddScoped<CreateUserUseCase, CreateUserUseCase>();
+
+        services.AddScoped<GetTagsUseCase, GetTagsUseCase>();
     }
 }

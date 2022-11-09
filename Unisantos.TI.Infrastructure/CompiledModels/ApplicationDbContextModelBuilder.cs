@@ -26,7 +26,7 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
             var productsSectionEntity = ProductsSectionEntityEntityType.Create(this);
             var rateEntity = RateEntityEntityType.Create(this);
             var tagEntity = TagEntityEntityType.Create(this);
-            var tagTypeEntity = TagTypeEntityEntityType.Create(this);
+            var tagsSectionEntity = TagsSectionEntityEntityType.Create(this);
             var tokenEntity = TokenEntityEntityType.Create(this);
             var userEntity = UserEntityEntityType.Create(this);
 
@@ -43,7 +43,7 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
             ProductsSectionEntityEntityType.CreateForeignKey1(productsSectionEntity, companyEntity);
             RateEntityEntityType.CreateForeignKey1(rateEntity, companyEntity);
             RateEntityEntityType.CreateForeignKey2(rateEntity, userEntity);
-            TagEntityEntityType.CreateForeignKey1(tagEntity, tagTypeEntity);
+            TagEntityEntityType.CreateForeignKey1(tagEntity, tagsSectionEntity);
             TokenEntityEntityType.CreateForeignKey1(tokenEntity, userEntity);
 
             CompanyEntityEntityType.CreateSkipNavigation1(companyEntity, tagEntity, companyEntityTagEntity);
@@ -60,7 +60,7 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
             ProductsSectionEntityEntityType.CreateAnnotations(productsSectionEntity);
             RateEntityEntityType.CreateAnnotations(rateEntity);
             TagEntityEntityType.CreateAnnotations(tagEntity);
-            TagTypeEntityEntityType.CreateAnnotations(tagTypeEntity);
+            TagsSectionEntityEntityType.CreateAnnotations(tagsSectionEntity);
             TokenEntityEntityType.CreateAnnotations(tokenEntity);
             UserEntityEntityType.CreateAnnotations(userEntity);
 
@@ -108,7 +108,7 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
 
             AddAnnotation("Relational:DbFunctions", functions);
             AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-            AddAnnotation("ProductVersion", "6.0.10");
+            AddAnnotation("ProductVersion", "6.0.11");
             AddAnnotation("Relational:MaxIdentifierLength", 63);
         }
     }

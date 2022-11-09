@@ -1,8 +1,11 @@
 ﻿namespace Unisantos.TI.Server.Responses;
 
-public class ErrorResponse : BaseResponse
+public class ErrorResponse
 {
-    public ErrorResponse(string message) : base(true, message)
+    public ErrorResponse(string message)
     {
+        Message = message;
     }
+
+    public string Message { get; set; }
 }

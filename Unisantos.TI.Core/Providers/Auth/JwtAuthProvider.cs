@@ -40,7 +40,7 @@ public class JwtAuthProvider : IAuthProvider
                 new Claim(ClaimTypes.Role, user.Role.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             }),
-            Expires = DateTime.Now.Add(_configurationProvider.AuthSettings.ExpiryTimeFrame),
+            Expires = DateTime.UtcNow.Add(_configurationProvider.AuthSettings.ExpiryTimeFrame),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(SecretKey),
                 SecurityAlgorithms.HmacSha256Signature)
         };
@@ -53,7 +53,7 @@ public class JwtAuthProvider : IAuthProvider
         {
             JwtId = token.Id,
             UserId = user.Id,
-            ExpiryAt = DateTime.Now.AddYears(1),
+            ExpiryAt = DateTime.UtcNow.AddYears(1),
             Type = TokenType.RefreshToken,
             Value = RandomHelpers.RandomString(25) + Guid.NewGuid()
         };
@@ -108,7 +108,7 @@ public class JwtAuthProvider : IAuthProvider
             throw new Exception("Refresh Token inválido");
         }
 
-        if (DateTime.Now > storedRefreshToken.ExpiryAt)
+        if (DateTime.UtcNow > storedRefreshToken.ExpiryAt)
         {
             throw new Exception("Refresh Token expirado");
         }

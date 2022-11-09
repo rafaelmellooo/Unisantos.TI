@@ -13,7 +13,7 @@ public class TagEntityMapping : IEntityTypeConfiguration<TagEntity>
         builder.Property(e => e.Id).ValueGeneratedOnAdd();
         builder.Property(e => e.Name).IsRequired();
 
-        builder.HasOne(e => e.TagType).WithMany(e => e.Tags).HasForeignKey(e => e.TagTypeId)
+        builder.HasOne(e => e.TagsSection).WithMany(e => e.Tags).HasForeignKey(e => e.TagsSectionId)
             .OnDelete(DeleteBehavior.ClientCascade);
     }
 }

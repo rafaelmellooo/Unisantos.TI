@@ -35,7 +35,7 @@ public class CreateUserUseCase : IUseCase<CreateUserInputDTO>
             Name = request.Name,
             Password = request.Password,
             Role = request.Role,
-            CreatedAt = DateTime.Now
+            CreatedAt = DateTime.UtcNow
         }, cancellationToken);
 
         await _applicationDbContext.SaveChangesAsync(cancellationToken);

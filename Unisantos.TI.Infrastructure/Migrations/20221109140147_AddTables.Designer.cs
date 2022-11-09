@@ -12,14 +12,14 @@ using Unisantos.TI.Infrastructure;
 namespace Unisantos.TI.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221109020210_AddTables")]
+    [Migration("20221109140147_AddTables")]
     partial class AddTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.10")
+                .HasAnnotation("ProductVersion", "6.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -328,17 +328,17 @@ namespace Unisantos.TI.Infrastructure.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<byte>("TagTypeId")
+                    b.Property<byte>("TagsSectionId")
                         .HasColumnType("smallint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TagTypeId");
+                    b.HasIndex("TagsSectionId");
 
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.TagTypeEntity", b =>
+            modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.TagsSectionEntity", b =>
                 {
                     b.Property<byte>("Id")
                         .ValueGeneratedOnAdd()
@@ -346,14 +346,14 @@ namespace Unisantos.TI.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<byte>("Id"));
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("TagTypes");
+                    b.ToTable("TagsSections");
                 });
 
             modelBuilder.Entity("Unisantos.TI.Domain.Entities.Token.TokenEntity", b =>
@@ -559,13 +559,13 @@ namespace Unisantos.TI.Infrastructure.Migrations
 
             modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.TagEntity", b =>
                 {
-                    b.HasOne("Unisantos.TI.Domain.Entities.Company.TagTypeEntity", "TagType")
+                    b.HasOne("Unisantos.TI.Domain.Entities.Company.TagsSectionEntity", "TagsSection")
                         .WithMany("Tags")
-                        .HasForeignKey("TagTypeId")
+                        .HasForeignKey("TagsSectionId")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
-                    b.Navigation("TagType");
+                    b.Navigation("TagsSection");
                 });
 
             modelBuilder.Entity("Unisantos.TI.Domain.Entities.Token.TokenEntity", b =>
@@ -611,7 +611,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.TagTypeEntity", b =>
+            modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.TagsSectionEntity", b =>
                 {
                     b.Navigation("Tags");
                 });

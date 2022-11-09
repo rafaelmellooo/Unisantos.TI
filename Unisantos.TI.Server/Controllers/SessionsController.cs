@@ -23,7 +23,8 @@ public class SessionsController : Controller
     [AllowAnonymous]
     [ProducesResponseType(typeof(SuccessResponse<TokenResponseDTO>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> CreateSession([FromBody] CreateSessionInputDTO request)
+    public async Task<IActionResult> CreateSession([FromBody] CreateSessionInputDTO request,
+        CancellationToken cancellationToken)
     {
         if (!ModelState.IsValid)
         {
@@ -32,7 +33,7 @@ public class SessionsController : Controller
 
         try
         {
-            var response = await _createSessionUseCase.Execute(request);
+            var response = await _createSessionUseCase.Execute(request, cancellationToken);
 
             return Ok(new SuccessResponse<TokenResponseDTO>(response));
         }

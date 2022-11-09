@@ -18,9 +18,10 @@ public class UsersController : Controller
     }
 
     [HttpPost]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> CreateUser([FromBody] CreateUserInputDTO request)
+    public async Task<IActionResult> CreateUser([FromBody] CreateUserInputDTO request,
+        CancellationToken cancellationToken)
     {
         if (!ModelState.IsValid)
         {
@@ -29,9 +30,9 @@ public class UsersController : Controller
 
         try
         {
-            await _createUserUseCase.Execute(request);
+            await _createUserUseCase.Execute(request, cancellationToken);
 
-            return NoContent();
+            return Ok();
         }
         catch (Exception exception)
         {

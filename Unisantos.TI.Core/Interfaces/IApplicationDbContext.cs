@@ -20,7 +20,7 @@ public interface IApplicationDbContext
 
     DbSet<CompanyEntity> Companies { get; }
     
-    DbSet<TagTypeEntity> TagTypes { get; }
+    DbSet<TagsSectionEntity> TagsSections { get; }
     
     DbSet<TagEntity> Tags { get; }
 

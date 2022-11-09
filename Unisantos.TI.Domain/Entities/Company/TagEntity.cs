@@ -6,9 +6,9 @@ public class TagEntity
 
     public string Name { get; set; }
 
-    public byte TagTypeId { get; set; }
+    public byte TagsSectionId { get; set; }
 
-    public TagTypeEntity TagType { get; set; }
+    public TagsSectionEntity TagsSection { get; set; }
 
     public ICollection<CompanyEntity> Companies { get; set; } = new List<CompanyEntity>();
 }

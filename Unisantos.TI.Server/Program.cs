@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Microsoft.OpenApi.Models;
 using Unisantos.TI.Infrastructure.Extensions;
 
@@ -9,16 +10,17 @@ builder.Services.AddProviders();
 builder.Services.AddApplicationDbContext();
 builder.Services.AddAuth(builder.Configuration);
 builder.Services.AddUseCases();
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 builder.Services.AddHealthChecks();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(o =>
+builder.Services.AddSwaggerGen(options =>
 {
-    o.SwaggerDoc("v1", new OpenApiInfo {Title = "Unisantos.TI.Api", Version = "v1"});
+    options.SwaggerDoc("v1", new OpenApiInfo {Title = "Unisantos.TI.Api", Version = "v1"});
 
-    o.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
         In = ParameterLocation.Header,
@@ -28,7 +30,7 @@ builder.Services.AddSwaggerGen(o =>
         Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
     });
 
-    o.AddSecurityRequirement(new OpenApiSecurityRequirement
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
             new OpenApiSecurityScheme
