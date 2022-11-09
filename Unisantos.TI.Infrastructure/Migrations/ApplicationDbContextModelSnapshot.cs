@@ -420,7 +420,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<byte>("Type")
+                    b.Property<byte>("Role")
                         .HasColumnType("smallint");
 
                     b.HasKey("Id");

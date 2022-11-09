@@ -14,7 +14,7 @@ public class UserEntity
 
     public string Password { get; set; }
 
-    public UserType Type { get; set; }
+    public UserRole Role { get; set; }
 
     public DateTime CreatedAt { get; set; }
 

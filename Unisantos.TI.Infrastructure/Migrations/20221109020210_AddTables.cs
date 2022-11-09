@@ -43,7 +43,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
                     Email = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     Name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     Password = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    Type = table.Column<byte>(type: "smallint", nullable: false),
+                    Role = table.Column<byte>(type: "smallint", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>

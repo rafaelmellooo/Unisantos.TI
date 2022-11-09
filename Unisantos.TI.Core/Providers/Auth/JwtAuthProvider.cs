@@ -37,6 +37,7 @@ public class JwtAuthProvider : IAuthProvider
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.Name),
+                new Claim(ClaimTypes.Role, user.Role.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             }),
             Expires = DateTime.Now.Add(_configurationProvider.AuthSettings.ExpiryTimeFrame),

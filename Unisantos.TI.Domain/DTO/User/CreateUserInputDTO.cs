@@ -22,6 +22,6 @@ public class CreateUserInputDTO
     [Compare("Password", ErrorMessage = "A confirmação de senha não confere")]
     public string PasswordConfirmation { get; set; }
     
-    [DefaultValue(UserType.Client)]
-    public UserType Type { get; set; }
+    [DefaultValue(UserRole.Client)]
+    public UserRole Role { get; set; }
 }

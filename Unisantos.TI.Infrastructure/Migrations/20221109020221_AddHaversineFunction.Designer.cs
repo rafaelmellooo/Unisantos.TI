@@ -12,8 +12,8 @@ using Unisantos.TI.Infrastructure;
 namespace Unisantos.TI.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221107142148_AddTables")]
-    partial class AddTables
+    [Migration("20221109020221_AddHaversineFunction")]
+    partial class AddHaversineFunction
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -422,7 +422,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<byte>("Type")
+                    b.Property<byte>("Role")
                         .HasColumnType("smallint");
 
                     b.HasKey("Id");

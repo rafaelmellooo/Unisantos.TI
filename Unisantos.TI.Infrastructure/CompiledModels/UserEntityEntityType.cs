@@ -54,11 +54,11 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
                 fieldInfo: typeof(UserEntity).GetField("<Password>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 maxLength: 255);
 
-            var type = runtimeEntityType.AddProperty(
-                "Type",
-                typeof(UserType),
-                propertyInfo: typeof(UserEntity).GetProperty("Type", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(UserEntity).GetField("<Type>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+            var role = runtimeEntityType.AddProperty(
+                "Role",
+                typeof(UserRole),
+                propertyInfo: typeof(UserEntity).GetProperty("Role", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(UserEntity).GetField("<Role>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
             var key = runtimeEntityType.AddKey(
                 new[] { id });

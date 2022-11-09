@@ -16,7 +16,7 @@ public class UserEntityMapping : IEntityTypeConfiguration<UserEntity>
         builder.HasIndex(e => e.Email).IsUnique();
         
         builder.Property(e => e.Password).IsRequired();
-        builder.Property(e => e.Type).IsRequired();
+        builder.Property(e => e.Role).IsRequired();
         builder.Property(e => e.Name).IsRequired();
         builder.Property(e => e.CreatedAt).IsRequired();
     }
