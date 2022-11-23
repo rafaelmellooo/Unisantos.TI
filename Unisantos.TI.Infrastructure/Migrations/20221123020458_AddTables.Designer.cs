@@ -12,8 +12,8 @@ using Unisantos.TI.Infrastructure;
 namespace Unisantos.TI.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221109140154_AddHaversineFunction")]
-    partial class AddHaversineFunction
+    [Migration("20221123020458_AddTables")]
+    partial class AddTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -74,8 +74,9 @@ namespace Unisantos.TI.Infrastructure.Migrations
 
                     b.Property<string>("ZipCode")
                         .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("character varying(8)");
+                        .HasMaxLength(9)
+                        .HasColumnType("character(9)")
+                        .IsFixedLength();
 
                     b.HasKey("Id");
 

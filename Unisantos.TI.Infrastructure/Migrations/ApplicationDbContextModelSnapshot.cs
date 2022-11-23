@@ -72,8 +72,9 @@ namespace Unisantos.TI.Infrastructure.Migrations
 
                     b.Property<string>("ZipCode")
                         .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("character varying(8)");
+                        .HasMaxLength(9)
+                        .HasColumnType("character(9)")
+                        .IsFixedLength();
 
                     b.HasKey("Id");
 

@@ -12,7 +12,7 @@ public class AddressEntityMapping : IEntityTypeConfiguration<AddressEntity>
 
         builder.Property(e => e.Id).ValueGeneratedOnAdd();
         builder.Property(e => e.Street).IsRequired();
-        builder.Property(e => e.ZipCode).HasMaxLength(8).IsRequired();
+        builder.Property(e => e.ZipCode).HasMaxLength(9).IsFixedLength().IsRequired();
         builder.Property(e => e.Neighborhood).IsRequired();
         builder.Property(e => e.Number).IsRequired();
         builder.Property(e => e.Complement);

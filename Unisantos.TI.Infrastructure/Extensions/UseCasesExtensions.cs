@@ -15,5 +15,6 @@ public static class UseCasesExtensions
 
         services.AddScoped<GetTagsUseCase, GetTagsUseCase>();
         services.AddScoped<GetCompaniesUseCase, GetCompaniesUseCase>();
+        services.AddScoped<GetCompanyDetailsUseCase, GetCompanyDetailsUseCase>();
     }
 }

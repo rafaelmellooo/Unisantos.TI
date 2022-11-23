@@ -11,10 +11,13 @@ namespace Unisantos.TI.Server.Controllers;
 public class CompaniesController : Controller
 {
     private readonly GetCompaniesUseCase _getCompaniesUseCase;
+    private readonly GetCompanyDetailsUseCase _getCompanyDetailsUseCase;
 
-    public CompaniesController(GetCompaniesUseCase getCompaniesUseCase)
+    public CompaniesController(GetCompaniesUseCase getCompaniesUseCase,
+        GetCompanyDetailsUseCase getCompanyDetailsUseCase)
     {
         _getCompaniesUseCase = getCompaniesUseCase;
+        _getCompanyDetailsUseCase = getCompanyDetailsUseCase;
     }
 
     [HttpGet]
@@ -28,6 +31,25 @@ public class CompaniesController : Controller
             var response = await _getCompaniesUseCase.Execute(request);
 
             return Ok(new SuccessResponse<CompanyResponseDTO[]>(response));
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(new ErrorResponse(exception.Message));
+        }
+    }
+
+    [HttpGet("{id:guid}")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetCompanyDetails([FromRoute] Guid id)
+    {
+        try
+        {
+            var response = await _getCompanyDetailsUseCase.Execute(new GetCompanyDetailsInputDTO
+            {
+                Id = id
+            });
+
+            return Ok(new SuccessResponse<CompanyDetailsResponseDTO>(response));
         }
         catch (Exception exception)
         {

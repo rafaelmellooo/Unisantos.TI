@@ -17,14 +17,19 @@ public class GetCompaniesUseCase : IUseCase<GetCompaniesInputDTO, CompanyRespons
         CancellationToken cancellationToken = default)
     {
         var query = from company in _applicationDbContext.Companies
-            where _applicationDbContext.Haversine(company.Address.Latitude, company.Address.Longitude, request.Latitude,
+            let address = company.Address
+            where _applicationDbContext.Haversine(address.Latitude, address.Longitude, request.Latitude,
                 request.Longitude) <= request.Distance && company.Tags.Any(tag => request.Tags.Contains(tag.Id))
             select new CompanyResponseDTO
             {
+                Id = company.Id,
                 Name = company.Name,
-                Latitude = company.Address.Latitude,
-                Longitude = company.Address.Longitude,
+                Latitude = address.Latitude,
+                Longitude = address.Longitude,
                 ImagePreviewUrl = company.ImagePreviewUrl,
+                Rating = company.Rates.Sum(rate => rate.Rate) / company.Rates.Count,
+                Address =
+                    $"{address.Street}, {address.Number} - {address.Neighborhood}, {address.City.Name} - {address.City.State.Id}, {address.ZipCode}",
                 Tags = company.Tags.Select(tag => tag.Name).ToArray()
             };
 

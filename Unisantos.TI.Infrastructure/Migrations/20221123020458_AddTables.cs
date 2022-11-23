@@ -118,7 +118,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     CityId = table.Column<int>(type: "integer", nullable: false),
-                    ZipCode = table.Column<string>(type: "character varying(8)", maxLength: 8, nullable: false),
+                    ZipCode = table.Column<string>(type: "character(9)", fixedLength: true, maxLength: 9, nullable: false),
                     Street = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     Neighborhood = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     Number = table.Column<int>(type: "integer", nullable: false),

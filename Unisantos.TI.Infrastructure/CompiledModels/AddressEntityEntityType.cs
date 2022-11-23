@@ -77,7 +77,8 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
                 typeof(string),
                 propertyInfo: typeof(AddressEntity).GetProperty("ZipCode", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(AddressEntity).GetField("<ZipCode>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                maxLength: 8);
+                maxLength: 9);
+            zipCode.AddAnnotation("Relational:IsFixedLength", true);
 
             var key = runtimeEntityType.AddKey(
                 new[] { id });
