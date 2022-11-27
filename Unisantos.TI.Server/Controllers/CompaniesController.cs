@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Unisantos.TI.Core.Helpers;
 using Unisantos.TI.Core.UseCases.Company;
 using Unisantos.TI.Domain.DTO.Company;
 using Unisantos.TI.Server.Responses;
@@ -12,12 +13,14 @@ public class CompaniesController : Controller
 {
     private readonly GetCompaniesUseCase _getCompaniesUseCase;
     private readonly GetCompanyDetailsUseCase _getCompanyDetailsUseCase;
+    private readonly CreateCompanyUseCase _createCompanyUseCase;
 
     public CompaniesController(GetCompaniesUseCase getCompaniesUseCase,
-        GetCompanyDetailsUseCase getCompanyDetailsUseCase)
+        GetCompanyDetailsUseCase getCompanyDetailsUseCase, CreateCompanyUseCase createCompanyUseCase)
     {
         _getCompaniesUseCase = getCompaniesUseCase;
         _getCompanyDetailsUseCase = getCompanyDetailsUseCase;
+        _createCompanyUseCase = createCompanyUseCase;
     }
 
     [HttpGet]
@@ -40,16 +43,42 @@ public class CompaniesController : Controller
 
     [HttpGet("{id:guid}")]
     [AllowAnonymous]
-    public async Task<IActionResult> GetCompanyDetails([FromRoute] Guid id)
+    [ProducesResponseType(typeof(SuccessResponse<CompanyDetailsResponseDTO>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetCompanyDetails([FromRoute] Guid id, CancellationToken cancellationToken)
     {
         try
         {
             var response = await _getCompanyDetailsUseCase.Execute(new GetCompanyDetailsInputDTO
             {
                 Id = id
-            });
+            }, cancellationToken);
 
             return Ok(new SuccessResponse<CompanyDetailsResponseDTO>(response));
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(new ErrorResponse(exception.Message));
+        }
+    }
+
+    [HttpPost]
+    [Authorize(Roles = "Company")]
+    [ProducesResponseType(typeof(SuccessResponse<CreateCompanyResponseDTO>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> CreateCompany([FromBody] CreateCompanyInputDTO request,
+        CancellationToken cancellationToken)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(new ErrorResponse(ModelState.GetErrorMessages()));
+        }
+
+        try
+        {
+            var response = await _createCompanyUseCase.Execute(request, cancellationToken);
+
+            return Ok(new SuccessResponse<CreateCompanyResponseDTO>(response));
         }
         catch (Exception exception)
         {

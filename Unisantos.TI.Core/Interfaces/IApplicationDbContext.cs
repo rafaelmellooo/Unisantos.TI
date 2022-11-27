@@ -34,7 +34,5 @@ public interface IApplicationDbContext
     
     DbSet<ProductEntity> Products { get; }
 
-    double Haversine(double latitude1, double longitude1, double latitude2, double longitude2);
-
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

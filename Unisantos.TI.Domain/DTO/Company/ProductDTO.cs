@@ -1,6 +1,6 @@
 ﻿namespace Unisantos.TI.Domain.DTO.Company;
 
-public class ProductResponseDTO
+public class ProductDTO
 {
     public string Name { get; set; }
     

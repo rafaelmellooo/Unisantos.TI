@@ -1,4 +1,6 @@
-﻿namespace Unisantos.TI.Domain.DTO.Company;
+﻿using Unisantos.TI.Domain.DTO.Address;
+
+namespace Unisantos.TI.Domain.DTO.Company;
 
 public class CompanyResponseDTO
 {
@@ -12,9 +14,9 @@ public class CompanyResponseDTO
     
     public string ImagePreviewUrl { get; set; }
     
-    public float Rating { get; set; }
+    public float? Rating { get; set; }
     
-    public string Address { get; set; }
+    public AddressResponseDTO Address { get; set; }
     
     public ICollection<string> Tags { get; set; } = new List<string>();
 }

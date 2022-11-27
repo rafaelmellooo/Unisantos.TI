@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Unisantos.TI.Core.Helpers;
 using Unisantos.TI.Core.Interfaces;
 using Unisantos.TI.Domain.Entities.Address;
 using Unisantos.TI.Domain.Entities.Company;
@@ -39,9 +40,6 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 
     public DbSet<ProductEntity> Products => Set<ProductEntity>();
 
-    public double Haversine(double latitude1, double longitude1, double latitude2, double longitude2) =>
-        throw new NotImplementedException();
-
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
     }
@@ -53,7 +51,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.HasDbFunction(typeof(ApplicationDbContext).GetMethod(nameof(Haversine),
+        modelBuilder.HasDbFunction(typeof(DbFunctionHelpers).GetMethod(nameof(DbFunctionHelpers.Haversine),
             new[] {typeof(double), typeof(double), typeof(double), typeof(double)})).HasName("haversine");
 
         modelBuilder.ApplyConfiguration(new UserEntityMapping());

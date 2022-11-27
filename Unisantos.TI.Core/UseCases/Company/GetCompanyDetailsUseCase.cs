@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Unisantos.TI.Core.Interfaces;
+using Unisantos.TI.Domain.DTO.Address;
 using Unisantos.TI.Domain.DTO.Company;
 
 namespace Unisantos.TI.Core.UseCases.Company;
@@ -24,20 +25,28 @@ public class GetCompanyDetailsUseCase : IUseCase<GetCompanyDetailsInputDTO, Comp
                 Name = company.Name,
                 Latitude = address.Latitude,
                 Longitude = address.Longitude,
-                ImagePreviewUrl = company.ImagePreviewUrl,
-                Rating = company.Rates.Sum(rate => rate.Rate) / company.Rates.Count,
+                ImageUrl = company.ImageUrl,
+                Rating = company.Rates.Any() ? company.Rates.Sum(rate => rate.Rate) / company.Rates.Count : null,
                 Phone = company.Phone,
                 Facebook = company.Facebook,
                 Instagram = company.Instagram,
                 Description = company.Description,
-                BusinessHours = company.BusinessHours.Select(businessHours => new BusinessHoursResponseDTO
+                BusinessHours = company.BusinessHours.Select(businessHours => new BusinessHoursDTO
                 {
                     DayOfWeek = businessHours.DayOfWeek,
                     OpeningTime = businessHours.OpeningTime,
                     ClosingTime = businessHours.ClosingTime
                 }).ToArray(),
-                Address =
-                    $"{address.Street}, {address.Number} - {address.Neighborhood}, {address.City.Name} - {address.City.State.Id}, {address.ZipCode}",
+                Address = new AddressResponseDTO
+                {
+                    ZipCode = address.ZipCode,
+                    State = address.City.State.Id,
+                    City = address.City.Name,
+                    Street = address.Street,
+                    Neighborhood = address.Neighborhood,
+                    Number = address.Number,
+                    Complement = address.Complement
+                },
                 Tags = company.Tags.Select(tag => tag.Name).ToArray(),
                 Rates = company.Rates.Select(rate => new RateResponseDTO
                 {
@@ -45,10 +54,10 @@ public class GetCompanyDetailsUseCase : IUseCase<GetCompanyDetailsInputDTO, Comp
                     Rate = rate.Rate,
                     Comment = rate.Comment
                 }).ToArray(),
-                ProductsSections = company.ProductsSections.Select(productsSection => new ProductsSectionResponseDTO
+                ProductsSections = company.ProductsSections.Select(productsSection => new ProductsSectionDTO
                 {
                     Title = productsSection.Title,
-                    Products = productsSection.Products.Select(product => new ProductResponseDTO
+                    Products = productsSection.Products.Select(product => new ProductDTO
                     {
                         Name = product.Name,
                         Description = product.Description,

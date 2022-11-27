@@ -5,6 +5,7 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+using Unisantos.TI.Core.Helpers;
 
 #pragma warning disable 219, 612, 618
 #nullable enable
@@ -66,14 +67,14 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
 
             var functions = new SortedDictionary<string, IDbFunction>();
             var haversine = new RuntimeDbFunction(
-                "Unisantos.TI.Infrastructure.ApplicationDbContext.Haversine(double,double,double,double)",
+                "Unisantos.TI.Core.Helpers.DbFunctionHelpers.Haversine(double,double,double,double)",
                 this,
                 typeof(double),
                 "haversine",
                 storeType: "double precision",
-                methodInfo: typeof(ApplicationDbContext).GetMethod(
+                methodInfo: typeof(DbFunctionHelpers).GetMethod(
                     "Haversine",
-                    BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly,
+                    BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly,
                     null,
                     new Type[] { typeof(double), typeof(double), typeof(double), typeof(double) },
                     null),
@@ -104,7 +105,7 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
                 false,
                 "double precision");
 
-            functions["Unisantos.TI.Infrastructure.ApplicationDbContext.Haversine(double,double,double,double)"] = haversine;
+            functions["Unisantos.TI.Core.Helpers.DbFunctionHelpers.Haversine(double,double,double,double)"] = haversine;
 
             AddAnnotation("Relational:DbFunctions", functions);
             AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);

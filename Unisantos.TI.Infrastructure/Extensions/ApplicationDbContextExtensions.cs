@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Unisantos.TI.Core.Interfaces;
 using Unisantos.TI.Domain.Providers;
 using Unisantos.TI.Infrastructure.CompiledModels;
@@ -16,6 +17,7 @@ public static class ApplicationDbContextExtensions
 
             options.UseModel(ApplicationDbContextModel.Instance).UseNpgsql(connectionString);
 
+            options.UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()));
             options.EnableSensitiveDataLogging();
         });
     }
