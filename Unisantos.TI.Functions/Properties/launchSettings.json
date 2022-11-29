@@ -1,9 +1,0 @@
-{
-  "profiles": {
-    "Unisantos.TI.Functions": {
-      "commandName": "Project",
-      "commandLineArgs": "--port 7299",
-      "launchBrowser": false
-    }
-  }
-}

@@ -1,6 +1,6 @@
 ﻿namespace Unisantos.TI.Domain.DTO.Company;
 
-public class CreateCompanyResponseDTO
+public record CreateCompanyResponseDTO
 {
     public Guid Id { get; set; }
 }

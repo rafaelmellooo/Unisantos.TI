@@ -3,15 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unisantos.TI.Domain", "Unisantos.TI.Domain\Unisantos.TI.Domain.csproj", "{B4E60AB6-C803-4F21-BB8B-6BF7226E7B18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unisantos.TI.Domain", "Unisantos.TI.Domain\Unisantos.TI.Domain.csproj", "{B4E60AB6-C803-4F21-BB8B-6BF7226E7B18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unisantos.TI.Core", "Unisantos.TI.Core\Unisantos.TI.Core.csproj", "{A27ECD05-0F27-4482-A37B-AE74C2302262}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unisantos.TI.Core", "Unisantos.TI.Core\Unisantos.TI.Core.csproj", "{A27ECD05-0F27-4482-A37B-AE74C2302262}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unisantos.TI.Infrastructure", "Unisantos.TI.Infrastructure\Unisantos.TI.Infrastructure.csproj", "{E29B1090-C7EE-4226-8EA3-52AA018F362F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unisantos.TI.Infrastructure", "Unisantos.TI.Infrastructure\Unisantos.TI.Infrastructure.csproj", "{E29B1090-C7EE-4226-8EA3-52AA018F362F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unisantos.TI.Server", "Unisantos.TI.Server\Unisantos.TI.Server.csproj", "{DE72008D-D0D2-40E8-A142-12C0429004F1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unisantos.TI.Functions", "Unisantos.TI.Functions\Unisantos.TI.Functions.csproj", "{72E81C91-504C-48E6-AF93-49C847C1044F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unisantos.TI.Server", "Unisantos.TI.Server\Unisantos.TI.Server.csproj", "{DE72008D-D0D2-40E8-A142-12C0429004F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +33,6 @@ Global
 		{DE72008D-D0D2-40E8-A142-12C0429004F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE72008D-D0D2-40E8-A142-12C0429004F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE72008D-D0D2-40E8-A142-12C0429004F1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{72E81C91-504C-48E6-AF93-49C847C1044F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{72E81C91-504C-48E6-AF93-49C847C1044F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{72E81C91-504C-48E6-AF93-49C847C1044F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{72E81C91-504C-48E6-AF93-49C847C1044F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

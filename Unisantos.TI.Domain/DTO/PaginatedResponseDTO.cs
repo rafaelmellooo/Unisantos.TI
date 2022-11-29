@@ -1,8 +1,8 @@
 ﻿namespace Unisantos.TI.Domain.DTO;
 
-public class PaginatedResponseDTO<TData>
+public record PaginatedResponseDTO<TData>
 {
-    public TData Data { get; set; }
+    public required TData Data { get; set; }
 
     public int Total { get; set; }
 

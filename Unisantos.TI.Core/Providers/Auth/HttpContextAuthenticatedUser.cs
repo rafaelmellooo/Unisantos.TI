@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Unisantos.TI.Domain.Providers.Auth;
 
 namespace Unisantos.TI.Core.Providers.Auth;
@@ -10,32 +9,26 @@ public class HttpContextAuthenticatedUser : IAuthenticatedUser
 
     public HttpContextAuthenticatedUser(IHttpContextAccessor httpContextAccessor)
     {
+        if (httpContextAccessor.HttpContext is null)
+        {
+            throw new Exception("Erro ao obter contexto da requisição");
+        }
+
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public Guid Id
+    public Guid? Id
     {
         get
         {
-            if (_httpContextAccessor.HttpContext is null)
+            var id = _httpContextAccessor.HttpContext!.User.Identity?.Name;
+
+            if (string.IsNullOrEmpty(id))
             {
-                throw new Exception("Erro ao obter contexto da requisição");
+                return null;
             }
 
-            return new Guid(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
-        }
-    }
-
-    public string Name
-    {
-        get
-        {
-            if (_httpContextAccessor.HttpContext is null)
-            {
-                throw new Exception("Erro ao obter contexto da requisição");
-            }
-
-            return _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
+            return Guid.Parse(id);
         }
     }
 }

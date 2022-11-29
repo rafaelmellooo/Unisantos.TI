@@ -1,6 +1,6 @@
 ﻿namespace Unisantos.TI.Domain.DTO.Address;
 
-public class GetCitiesInputDTO
+public record GetCitiesInputDTO
 {
-    public string State { get; set; }
+    public required string State { get; set; }
 }

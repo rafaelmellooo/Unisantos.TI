@@ -109,7 +109,7 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
 
             AddAnnotation("Relational:DbFunctions", functions);
             AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-            AddAnnotation("ProductVersion", "6.0.11");
+            AddAnnotation("ProductVersion", "7.0.0");
             AddAnnotation("Relational:MaxIdentifierLength", 63);
         }
     }

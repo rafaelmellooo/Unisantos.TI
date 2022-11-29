@@ -7,11 +7,11 @@ public class TokenEntity
 {
     public Guid Id { get; set; }
     
-    public string Value { get; set; }
+    public required string Value { get; set; }
     
     public DateTime ExpiryAt { get; set; }
     
-    public string JwtId { get; set; }
+    public required string JwtId { get; set; }
     
     public TokenType Type { get; set; }
     
@@ -21,5 +21,5 @@ public class TokenEntity
     
     public Guid UserId { get; set; }
     
-    public UserEntity User { get; set; }
+    public UserEntity? User { get; set; }
 }

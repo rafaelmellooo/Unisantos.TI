@@ -12,7 +12,7 @@ public class ConfigurationProvider : Domain.Providers.IConfigurationProvider
         _configuration = configuration;
     }
 
-    public string ConnectionString => _configuration.GetConnectionString("default");
+    public string ConnectionString => _configuration.GetConnectionString("default")!;
 
-    public AuthSettings AuthSettings => _configuration.GetRequiredSection("AuthSettings").Get<AuthSettings>();
+    public AuthSettings AuthSettings => _configuration.GetRequiredSection("AuthSettings").Get<AuthSettings>()!;
 }

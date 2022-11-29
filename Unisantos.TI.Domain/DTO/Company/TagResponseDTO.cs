@@ -1,8 +1,8 @@
 ﻿namespace Unisantos.TI.Domain.DTO.Company;
 
-public class TagResponseDTO
+public record TagResponseDTO
 {
-    public int Id { get; set; }
+    public required int Id { get; set; }
     
-    public string Name { get; set; }
+    public required string Name { get; set; }
 }

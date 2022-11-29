@@ -21,6 +21,11 @@ public class CreateCompanyUseCase : IUseCase<CreateCompanyInputDTO, CreateCompan
     public async Task<CreateCompanyResponseDTO> Execute(CreateCompanyInputDTO request,
         CancellationToken cancellationToken = default)
     {
+        if (_authenticatedUser.Id is null)
+        {
+            throw new Exception("Usuário não autenticado");
+        }
+
         var tags = await _applicationDbContext.Tags.Where(tag => request.Tags.Contains(tag.Id))
             .ToArrayAsync(cancellationToken);
 
@@ -55,11 +60,12 @@ public class CreateCompanyUseCase : IUseCase<CreateCompanyInputDTO, CreateCompan
                 ZipCode = request.Address.ZipCode,
                 CityId = request.Address.City,
                 Neighborhood = request.Address.Neighborhood,
+                Street = request.Address.Street,
                 Number = request.Address.Number,
                 Complement = request.Address.Complement
             },
             Tags = tags,
-            AdminId = _authenticatedUser.Id
+            AdminId = _authenticatedUser.Id.Value
         };
 
         await _applicationDbContext.Companies.AddAsync(company, cancellationToken);

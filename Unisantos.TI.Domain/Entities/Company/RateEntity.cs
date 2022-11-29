@@ -8,13 +8,13 @@ public class RateEntity
 
     public float Rate { get; set; }
 
-    public string Comment { get; set; }
+    public required string Comment { get; set; }
 
     public Guid CompanyId { get; set; }
 
-    public CompanyEntity Company { get; set; }
+    public required CompanyEntity Company { get; set; }
 
     public Guid UserId { get; set; }
 
-    public UserEntity User { get; set; }
+    public required UserEntity User { get; set; }
 }

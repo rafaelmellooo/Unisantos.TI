@@ -1,6 +1,6 @@
 ﻿namespace Unisantos.TI.Domain.DTO.Company;
 
-public class GetCompaniesInputDTO
+public record GetCompaniesInputDTO
 {
     public double Latitude { get; set; }
     

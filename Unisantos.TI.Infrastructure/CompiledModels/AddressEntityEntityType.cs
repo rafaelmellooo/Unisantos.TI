@@ -38,6 +38,7 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
                 typeof(string),
                 propertyInfo: typeof(AddressEntity).GetProperty("Complement", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(AddressEntity).GetField("<Complement>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                nullable: true,
                 maxLength: 255);
 
             var latitude = runtimeEntityType.AddProperty(

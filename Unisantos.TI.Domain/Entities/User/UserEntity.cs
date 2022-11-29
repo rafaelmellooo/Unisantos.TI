@@ -8,11 +8,11 @@ public class UserEntity
 {
     public Guid Id { get; set; }
 
-    public string Email { get; set; }
+    public required string Email { get; set; }
 
-    public string Name { get; set; }
+    public required string Name { get; set; }
 
-    public string Password { get; set; }
+    public required string Password { get; set; }
 
     public UserRole Role { get; set; }
 
@@ -20,7 +20,7 @@ public class UserEntity
 
     public ICollection<TokenEntity> Tokens { get; set; } = new List<TokenEntity>();
 
-    public CompanyEntity Company { get; set; }
+    public CompanyEntity? Company { get; set; }
 
     public ICollection<FavoriteEntity> Favorites { get; set; } = new List<FavoriteEntity>();
 

@@ -2,9 +2,9 @@
 
 public class SuccessResponse<TData>
 {
-    public TData? Data { get; set; }
+    public TData Data { get; set; }
     
-    public SuccessResponse(TData? data)
+    public SuccessResponse(TData data)
     {
         Data = data;
     }

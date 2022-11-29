@@ -54,6 +54,7 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
                 typeof(string),
                 propertyInfo: typeof(CompanyEntity).GetProperty("Facebook", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(CompanyEntity).GetField("<Facebook>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                nullable: true,
                 maxLength: 255);
 
             var imagePreviewUrl = runtimeEntityType.AddProperty(
@@ -75,6 +76,7 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
                 typeof(string),
                 propertyInfo: typeof(CompanyEntity).GetProperty("Instagram", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(CompanyEntity).GetField("<Instagram>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                nullable: true,
                 maxLength: 255);
 
             var name = runtimeEntityType.AddProperty(
@@ -112,8 +114,7 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
                 principalEntityType.FindKey(new[] { principalEntityType.FindProperty("Id")! })!,
                 principalEntityType,
                 unique: true,
-                required: true,
-                requiredDependent: true);
+                required: true);
 
             var address = declaringEntityType.AddNavigation("Address",
                 runtimeForeignKey,
@@ -139,8 +140,7 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
                 principalEntityType,
                 deleteBehavior: DeleteBehavior.ClientCascade,
                 unique: true,
-                required: true,
-                requiredDependent: true);
+                required: true);
 
             var admin = declaringEntityType.AddNavigation("Admin",
                 runtimeForeignKey,

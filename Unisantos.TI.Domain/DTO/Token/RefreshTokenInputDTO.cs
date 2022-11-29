@@ -2,11 +2,11 @@
 
 namespace Unisantos.TI.Domain.DTO.Token;
 
-public class RefreshTokenInputDTO
+public record RefreshTokenInputDTO
 {
     [Required]
-    public string Token { get; set; }
+    public required string Token { get; set; }
         
     [Required]
-    public string RefreshToken { get; set; }
+    public required string RefreshToken { get; set; }
 }

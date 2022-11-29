@@ -8,21 +8,21 @@ public class AddressEntity
 
     public int CityId { get; set; }
     
-    public CityEntity City { get; set; }
+    public CityEntity? City { get; set; }
 
-    public string ZipCode { get; set; }
+    public required string ZipCode { get; set; }
 
-    public string Street { get; set; }
+    public required string Street { get; set; }
 
-    public string Neighborhood { get; set; }
+    public required string Neighborhood { get; set; }
 
     public int Number { get; set; }
 
-    public string Complement { get; set; }
+    public string? Complement { get; set; }
 
     public double Latitude { get; set; }
 
     public double Longitude { get; set; }
     
-    public CompanyEntity Company { get; set; }
+    public CompanyEntity? Company { get; set; }
 }

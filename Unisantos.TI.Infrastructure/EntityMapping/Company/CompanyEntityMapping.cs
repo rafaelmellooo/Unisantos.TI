@@ -13,7 +13,7 @@ public class CompanyEntityMapping : IEntityTypeConfiguration<CompanyEntity>
         builder.Property(e => e.Id).ValueGeneratedOnAdd();
         builder.Property(e => e.Name).IsRequired();
         builder.Property(e => e.Description).IsRequired().HasMaxLength(500);
-        builder.Property(e => e.Phone).HasMaxLength(15);
+        builder.Property(e => e.Phone).HasMaxLength(15).IsRequired();
         builder.Property(e => e.Instagram);
         builder.Property(e => e.Facebook);
         builder.Property(e => e.ImageUrl);

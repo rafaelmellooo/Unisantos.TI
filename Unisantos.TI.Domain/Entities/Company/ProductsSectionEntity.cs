@@ -6,9 +6,9 @@ public class ProductsSectionEntity
     
     public Guid CompanyId { get; set; }
     
-    public CompanyEntity Company { get; set; }
+    public CompanyEntity? Company { get; set; }
     
-    public string Title { get; set; }
+    public required string Title { get; set; }
     
     public ICollection<ProductEntity> Products { get; set; } = new List<ProductEntity>();
 }

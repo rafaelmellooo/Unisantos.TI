@@ -1,6 +1,6 @@
 ﻿namespace Unisantos.TI.Domain.DTO.Company;
 
-public class BusinessHoursDTO
+public record BusinessHoursDTO
 {
     public DayOfWeek DayOfWeek { get; set; }
     

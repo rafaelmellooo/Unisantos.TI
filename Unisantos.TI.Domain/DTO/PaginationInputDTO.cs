@@ -2,7 +2,7 @@
 
 namespace Unisantos.TI.Domain.DTO;
 
-public class PaginationInputDTO
+public record PaginationInputDTO
 {
     [DefaultValue(1)]
     public int Page { get; set; }

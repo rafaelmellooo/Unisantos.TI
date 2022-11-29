@@ -6,8 +6,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Unisantos.TI.Infrastructure.Migrations
 {
+    /// <inheritdoc />
     public partial class AddTables : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -122,7 +124,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
                     Street = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     Neighborhood = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     Number = table.Column<int>(type: "integer", nullable: false),
-                    Complement = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    Complement = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
                     Latitude = table.Column<double>(type: "double precision", nullable: false),
                     Longitude = table.Column<double>(type: "double precision", nullable: false)
                 },
@@ -144,8 +146,8 @@ namespace Unisantos.TI.Infrastructure.Migrations
                     Name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     Description = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     Phone = table.Column<string>(type: "character varying(15)", maxLength: 15, nullable: false),
-                    Instagram = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    Facebook = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    Instagram = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
+                    Facebook = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
                     ImageUrl = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     ImagePreviewUrl = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     AddressId = table.Column<Guid>(type: "uuid", nullable: false),
@@ -374,6 +376,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
                 unique: true);
         }
 
+        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

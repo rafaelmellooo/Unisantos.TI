@@ -1,10 +1,10 @@
 ﻿namespace Unisantos.TI.Domain.DTO.Company;
 
-public class RateResponseDTO
+public record RateResponseDTO
 {
-    public string User { get; set; }
+    public required string User { get; set; }
     
-    public string Comment { get; set; }
+    public required string Comment { get; set; }
     
     public float Rate { get; set; }
 }
