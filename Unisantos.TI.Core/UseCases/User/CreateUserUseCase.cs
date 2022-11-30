@@ -2,6 +2,7 @@
 using Unisantos.TI.Core.Interfaces;
 using Unisantos.TI.Domain.DTO.User;
 using Unisantos.TI.Domain.Entities.User;
+using Unisantos.TI.Domain.Exceptions.User;
 using Unisantos.TI.Domain.Providers.Security;
 
 namespace Unisantos.TI.Core.UseCases.User;
@@ -24,7 +25,7 @@ public class CreateUserUseCase : IUseCase<CreateUserInputDTO>
 
         if (user is not null)
         {
-            throw new Exception("Já existe um usuário com esse email");
+            throw new EmailAlreadyUsedException();
         }
 
         request.Password = _passwordHashProvider.Hash(request.Password);

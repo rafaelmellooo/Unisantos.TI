@@ -26,11 +26,6 @@ public class SessionsController : Controller
     public async Task<IActionResult> CreateSession([FromBody] CreateSessionInputDTO request,
         CancellationToken cancellationToken)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(new ErrorResponse(ModelState.GetErrorMessages()));
-        }
-
         try
         {
             var response = await _createSessionUseCase.Execute(request, cancellationToken);

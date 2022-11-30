@@ -63,17 +63,12 @@ public class CompaniesController : Controller
     }
 
     [HttpPost]
-    [Authorize(Roles = "Company")]
+    [Authorize(Policy = "Admin")]
     [ProducesResponseType(typeof(SuccessResponse<CreateCompanyResponseDTO>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateCompany([FromBody] CreateCompanyInputDTO request,
         CancellationToken cancellationToken)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(new ErrorResponse(ModelState.GetErrorMessages()));
-        }
-
         try
         {
             var response = await _createCompanyUseCase.Execute(request, cancellationToken);

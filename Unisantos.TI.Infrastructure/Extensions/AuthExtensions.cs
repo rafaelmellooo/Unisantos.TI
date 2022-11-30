@@ -24,12 +24,14 @@ public static class AuthExtensions
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey =
                     new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes(configuration.GetSection("AuthSettings").Get<AuthSettings>()!.Secret)),
+                        Encoding.UTF8.GetBytes(configuration.GetSection("AuthSettings").Get<AuthSettings>().Secret)),
                 ValidateIssuer = false,
                 ValidateAudience = false,
                 ValidateLifetime = true,
                 RequireExpirationTime = false
             };
         });
+
+        services.AddAuthorization(options => { options.AddPolicy("Admin", policy => policy.RequireRole("Admin")); });
     }
 }

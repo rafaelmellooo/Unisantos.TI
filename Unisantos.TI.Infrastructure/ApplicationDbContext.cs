@@ -52,7 +52,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDbFunction(typeof(DbFunctionHelpers).GetMethod(nameof(DbFunctionHelpers.Haversine),
-            new[] {typeof(double), typeof(double), typeof(double), typeof(double)})!).HasName("haversine");
+            new[] {typeof(double), typeof(double), typeof(double), typeof(double)})).HasName("haversine");
 
         modelBuilder.ApplyConfiguration(new UserEntityMapping());
 

@@ -10,11 +10,6 @@ public class HttpContextAuthenticatedUser : IAuthenticatedUser
 
     public HttpContextAuthenticatedUser(IHttpContextAccessor httpContextAccessor)
     {
-        if (httpContextAccessor.HttpContext is null)
-        {
-            throw new Exception("Erro ao obter contexto da requisição");
-        }
-
         _httpContextAccessor = httpContextAccessor;
     }
 
@@ -22,7 +17,7 @@ public class HttpContextAuthenticatedUser : IAuthenticatedUser
     {
         get
         {
-            var id = _httpContextAccessor.HttpContext!.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var id = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (string.IsNullOrEmpty(id))
             {

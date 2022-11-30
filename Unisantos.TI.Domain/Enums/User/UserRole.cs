@@ -2,6 +2,6 @@
 
 public enum UserRole : byte
 {
-    Client = 1,
-    Company = 2
+    User = 1,
+    Admin = 2
 }

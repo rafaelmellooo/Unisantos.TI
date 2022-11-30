@@ -23,11 +23,6 @@ public class UsersController : Controller
     public async Task<IActionResult> CreateUser([FromBody] CreateUserInputDTO request,
         CancellationToken cancellationToken)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(new ErrorResponse(ModelState.GetErrorMessages()));
-        }
-
         try
         {
             await _createUserUseCase.Execute(request, cancellationToken);

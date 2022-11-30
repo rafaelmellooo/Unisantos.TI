@@ -34,8 +34,8 @@ public class GetCompaniesUseCase : IUseCase<GetCompaniesInputDTO, CompanyRespons
                 Address = new AddressResponseDTO
                 {
                     ZipCode = address.ZipCode,
-                    State = address.City!.State.Id,
-                    City = address.City!.Name,
+                    State = address.City.State.Id,
+                    City = address.City.Name,
                     Street = address.Street,
                     Neighborhood = address.Neighborhood,
                     Number = address.Number,

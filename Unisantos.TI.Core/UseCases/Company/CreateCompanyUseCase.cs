@@ -21,11 +21,6 @@ public class CreateCompanyUseCase : IUseCase<CreateCompanyInputDTO, CreateCompan
     public async Task<CreateCompanyResponseDTO> Execute(CreateCompanyInputDTO request,
         CancellationToken cancellationToken = default)
     {
-        if (_authenticatedUser.Id is null)
-        {
-            throw new Exception("Usuário não autenticado");
-        }
-
         var tags = await _applicationDbContext.Tags.Where(tag => request.Tags.Contains(tag.Id))
             .ToArrayAsync(cancellationToken);
 

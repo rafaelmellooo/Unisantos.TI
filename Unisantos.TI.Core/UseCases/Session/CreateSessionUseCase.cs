@@ -2,6 +2,7 @@
 using Unisantos.TI.Core.Interfaces;
 using Unisantos.TI.Domain.DTO.Session;
 using Unisantos.TI.Domain.DTO.Token;
+using Unisantos.TI.Domain.Exceptions.Session;
 using Unisantos.TI.Domain.Providers.Auth;
 using Unisantos.TI.Domain.Providers.Security;
 
@@ -29,12 +30,12 @@ public class CreateSessionUseCase : IUseCase<CreateSessionInputDTO, TokenRespons
 
         if (user is null)
         {
-            throw new Exception("Usuário não encontrado");
+            throw new UserNotFoundException();
         }
 
         if (!_passwordHashProvider.Verify(user.Password, request.Password))
         {
-            throw new Exception("Senha inválida");
+            throw new InvalidPasswordException();
         }
 
         return await _authProvider.GenerateToken(user, cancellationToken);

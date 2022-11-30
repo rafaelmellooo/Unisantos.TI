@@ -9,6 +9,7 @@ using Unisantos.TI.Domain.DTO.Token;
 using Unisantos.TI.Domain.Entities.Token;
 using Unisantos.TI.Domain.Entities.User;
 using Unisantos.TI.Domain.Enums.Token;
+using Unisantos.TI.Domain.Exceptions.Session;
 using Unisantos.TI.Domain.Providers;
 using Unisantos.TI.Domain.Providers.Auth;
 
@@ -85,12 +86,12 @@ public class JwtAuthProvider : IAuthProvider
 
         if (validatedToken is not JwtSecurityToken jwtSecurityToken)
         {
-            throw new Exception("Token inválido");
+            throw new InvalidTokenException();
         }
 
         if (!jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256Signature))
         {
-            throw new Exception("Token não usa o algoritmo correto");
+            throw new InvalidTokenAlgorithmException();
         }
 
         var storedRefreshToken = await _applicationDbContext.Tokens.FirstOrDefaultAsync(t =>
@@ -98,29 +99,29 @@ public class JwtAuthProvider : IAuthProvider
 
         if (storedRefreshToken is null)
         {
-            throw new Exception("Refresh Token não encontrado");
+            throw new RefreshTokenNotFoundException();
         }
 
         var jti = claimsPrincipal.FindFirstValue(JwtRegisteredClaimNames.Jti);
 
         if (!storedRefreshToken.JwtId.Equals(jti))
         {
-            throw new Exception("Refresh Token inválido");
+            throw new RefreshTokenInvalidException();
         }
 
         if (DateTime.UtcNow > storedRefreshToken.ExpiryAt)
         {
-            throw new Exception("Refresh Token expirado");
+            throw new RefreshTokenExpiredException();
         }
 
         if (storedRefreshToken.IsUsed)
         {
-            throw new Exception("Refresh Token já utilizado");
+            throw new RefreshTokenAlreadyUsedException();
         }
 
         if (storedRefreshToken.IsRevoked)
         {
-            throw new Exception("Refresh Token revogado");
+            throw new RefreshTokenRevokedException();
         }
 
         storedRefreshToken.IsUsed = true;

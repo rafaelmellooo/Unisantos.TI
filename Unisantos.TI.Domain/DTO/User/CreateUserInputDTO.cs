@@ -10,6 +10,7 @@ public record CreateUserInputDTO
     public required string Name { get; set; }
 
     [Required(ErrorMessage = "O campo e-mail é obrigatório")]
+    [EmailAddress(ErrorMessage = "O campo e-mail é inválido")]
     public required string Email { get; set; }
 
     [Required(ErrorMessage = "O campo senha é obrigatório")]

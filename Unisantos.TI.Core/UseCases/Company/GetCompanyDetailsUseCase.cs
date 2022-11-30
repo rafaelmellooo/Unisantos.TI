@@ -2,6 +2,7 @@
 using Unisantos.TI.Core.Interfaces;
 using Unisantos.TI.Domain.DTO.Address;
 using Unisantos.TI.Domain.DTO.Company;
+using Unisantos.TI.Domain.Exceptions.Company;
 
 namespace Unisantos.TI.Core.UseCases.Company;
 
@@ -14,7 +15,7 @@ public class GetCompanyDetailsUseCase : IUseCase<GetCompanyDetailsInputDTO, Comp
         _applicationDbContext = applicationDbContext;
     }
 
-    public Task<CompanyDetailsResponseDTO> Execute(GetCompanyDetailsInputDTO request,
+    public async Task<CompanyDetailsResponseDTO> Execute(GetCompanyDetailsInputDTO request,
         CancellationToken cancellationToken = default)
     {
         var query = from company in _applicationDbContext.Companies
@@ -42,8 +43,8 @@ public class GetCompanyDetailsUseCase : IUseCase<GetCompanyDetailsInputDTO, Comp
                 {
                     Id = address.Id,
                     ZipCode = address.ZipCode,
-                    State = address.City!.State.Id,
-                    City = address.City!.Name,
+                    State = address.City.State.Id,
+                    City = address.City.Name,
                     Street = address.Street,
                     Neighborhood = address.Neighborhood,
                     Number = address.Number,
@@ -71,6 +72,13 @@ public class GetCompanyDetailsUseCase : IUseCase<GetCompanyDetailsInputDTO, Comp
                 }).ToArray()
             };
 
-        return query.FirstAsync(cancellationToken);
+        var companyDetails = await query.FirstOrDefaultAsync(cancellationToken);
+
+        if (companyDetails is null)
+        {
+            throw new CompanyNotFoundException();
+        }
+
+        return companyDetails;
     }
 }

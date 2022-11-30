@@ -8,7 +8,7 @@ public class CityEntity
 
     public required string StateId { get; set; }
 
-    public required StateEntity State { get; set; }
+    public StateEntity? State { get; set; }
 
     public ICollection<AddressEntity> Addresses { get; set; } = new List<AddressEntity>();
 }
