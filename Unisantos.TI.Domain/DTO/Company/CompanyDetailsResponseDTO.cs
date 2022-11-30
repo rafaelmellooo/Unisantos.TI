@@ -26,9 +26,9 @@ public record CompanyDetailsResponseDTO
 
     public required string ImageUrl { get; set; }
 
-    public ICollection<BusinessHoursDTO> BusinessHours { get; set; } = new List<BusinessHoursDTO>();
+    public ICollection<BusinessHoursResponseDTO> BusinessHours { get; set; } = new List<BusinessHoursResponseDTO>();
 
-    public ICollection<ProductsSectionDTO> ProductsSections { get; set; } = new List<ProductsSectionDTO>();
+    public ICollection<ProductsSectionResponseDTO> ProductsSections { get; set; } = new List<ProductsSectionResponseDTO>();
 
     public ICollection<RateResponseDTO> Rates { get; set; } = new List<RateResponseDTO>();
 }

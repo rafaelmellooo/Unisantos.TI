@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 using Unisantos.TI.Domain.Providers.Auth;
 
 namespace Unisantos.TI.Core.Providers.Auth;
@@ -21,7 +22,7 @@ public class HttpContextAuthenticatedUser : IAuthenticatedUser
     {
         get
         {
-            var id = _httpContextAccessor.HttpContext!.User.Identity?.Name;
+            var id = _httpContextAccessor.HttpContext!.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (string.IsNullOrEmpty(id))
             {

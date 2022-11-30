@@ -31,17 +31,19 @@ public class GetCompanyDetailsUseCase : IUseCase<GetCompanyDetailsInputDTO, Comp
                 Facebook = company.Facebook,
                 Instagram = company.Instagram,
                 Description = company.Description,
-                BusinessHours = company.BusinessHours.Select(businessHours => new BusinessHoursDTO
+                BusinessHours = company.BusinessHours.Select(businessHours => new BusinessHoursResponseDTO
                 {
+                    Id = businessHours.Id,
                     DayOfWeek = businessHours.DayOfWeek,
                     OpeningTime = businessHours.OpeningTime,
                     ClosingTime = businessHours.ClosingTime
                 }).ToArray(),
                 Address = new AddressResponseDTO
                 {
+                    Id = address.Id,
                     ZipCode = address.ZipCode,
-                    State = address.City.State.Id,
-                    City = address.City.Name,
+                    State = address.City!.State.Id,
+                    City = address.City!.Name,
                     Street = address.Street,
                     Neighborhood = address.Neighborhood,
                     Number = address.Number,
@@ -50,15 +52,18 @@ public class GetCompanyDetailsUseCase : IUseCase<GetCompanyDetailsInputDTO, Comp
                 Tags = company.Tags.Select(tag => tag.Name).ToArray(),
                 Rates = company.Rates.Select(rate => new RateResponseDTO
                 {
+                    Id = rate.Id,
                     User = rate.User.Name,
                     Rate = rate.Rate,
                     Comment = rate.Comment
                 }).ToArray(),
-                ProductsSections = company.ProductsSections.Select(productsSection => new ProductsSectionDTO
+                ProductsSections = company.ProductsSections.Select(productsSection => new ProductsSectionResponseDTO
                 {
+                    Id = productsSection.Id,
                     Title = productsSection.Title,
-                    Products = productsSection.Products.Select(product => new ProductDTO
+                    Products = productsSection.Products.Select(product => new ProductResponseDTO
                     {
+                        Id = product.Id,
                         Name = product.Name,
                         Description = product.Description,
                         Price = product.Price

@@ -31,7 +31,6 @@ public class CreateCompanyUseCase : IUseCase<CreateCompanyInputDTO, CreateCompan
 
         var company = new CompanyEntity
         {
-            Id = new Guid(),
             Name = request.Name,
             Description = request.Description,
             Phone = request.Phone,
@@ -42,8 +41,8 @@ public class CreateCompanyUseCase : IUseCase<CreateCompanyInputDTO, CreateCompan
             BusinessHours = request.BusinessHours.Select(businessHours => new BusinessHoursEntity
             {
                 DayOfWeek = businessHours.DayOfWeek,
-                OpeningTime = businessHours.OpeningTime,
-                ClosingTime = businessHours.ClosingTime
+                OpeningTime = TimeOnly.FromTimeSpan(businessHours.OpeningTime),
+                ClosingTime = TimeOnly.FromTimeSpan(businessHours.ClosingTime)
             }).ToArray(),
             ProductsSections = request.ProductsSections.Select(productsSection => new ProductsSectionEntity
             {
@@ -68,12 +67,12 @@ public class CreateCompanyUseCase : IUseCase<CreateCompanyInputDTO, CreateCompan
             AdminId = _authenticatedUser.Id.Value
         };
 
-        await _applicationDbContext.Companies.AddAsync(company, cancellationToken);
+        var companyEntry = await _applicationDbContext.Companies.AddAsync(company, cancellationToken);
         await _applicationDbContext.SaveChangesAsync(cancellationToken);
 
         return new CreateCompanyResponseDTO
         {
-            Id = company.Id
+            Id = companyEntry.Entity.Id
         };
     }
 }
