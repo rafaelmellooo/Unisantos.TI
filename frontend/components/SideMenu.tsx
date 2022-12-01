@@ -1,8 +1,8 @@
-import { use, useState } from "react";
+import { useState } from "react";
 import { useSpring, animated } from "react-spring";
 import MenuIcon from '@mui/icons-material/Menu';
 
-export default () => {
+export const SideMenu = () => {
     const [opened, setOpened] = useState(false);
 
     const handleMenuToggle = () => {

@@ -1,7 +1,7 @@
 import { AccountCircle, VisibilityOff } from '@mui/icons-material'
 import { Button, InputAdornment, TextField } from '@mui/material'
 import Image from 'next/image'
-import Logo from '../public/Logo.png'
+import Logo from '../public/logo.png'
 
 export default function Home() {
     return (
