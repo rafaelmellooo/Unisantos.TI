@@ -2,12 +2,34 @@ import { SideMenu } from "../components/SideMenu";
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { mapOptions, mapSize } from "../configs/mapConfigs";
 import { Company } from "../interfaces/Company";
+import { useEffect, useState } from "react";
+import { animated, useSpring } from "react-spring";
+import Image from 'next/image'
+import SemImagem from '../public/semImagem.png'
+import { Button } from '@mui/material'
 
 interface HomeProps {
     companies: Company[];
 }
 
-export default function Home({companies}: HomeProps) {
+export default function Home({ companies }: HomeProps) {
+    const [companyModalOpened, setCompanyModalOpened] = useState(true);
+    const [selectedCompany, setSelectedCompany] = useState<Company>();
+
+    const handleCompanyModalToggle = (index: number) => {
+        setSelectedCompany(companies[index]);
+    }
+
+    useEffect(() => {
+        setCompanyModalOpened(companyModalOpened => !companyModalOpened);
+    }, [selectedCompany])
+
+    const { bottom } = useSpring({
+        from: { bottom: "-100%" },
+        bottom: companyModalOpened ? "0" : "-100%"
+    });
+
+
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
         googleMapsApiKey: "AIzaSyAfK14Wxe-6oILjFosaEks5cYU0IkXhrZk"
@@ -26,29 +48,67 @@ export default function Home({companies}: HomeProps) {
         <>
             <SideMenu />
 
-            <div className="map">
-                <GoogleMap
-                    mapContainerStyle={mapSize}
-                    center={center}
-                    zoom={15}
-                    options={mapOptions}
-                >
-                    {companies.map(company => (
-                        <Marker key={company.id}
-                                position={{
-                                    lat: company.latitude,
-                                    lng: company.longitude
-                                }}
+            <GoogleMap
+                mapContainerStyle={mapSize}
+                center={center}
+                zoom={15}
+                options={mapOptions}
+            >
+                <Marker
+                    position={{
+                        lat: -23.96340247042726,
+                        lng: -46.3190778340487
+                    }}
+                />
+                {companies.map((company, index) => (
+                    <Marker key={company.id}
+                        position={{
+                            lat: company.latitude,
+                            lng: company.longitude
+                        }}
+                        onClick={() => handleCompanyModalToggle(index)}
+                    />
+                ))}
+            </GoogleMap>
+
+            <animated.div style={{ bottom: bottom }} className="companyInfo">
+                <div className="companyClose" onClick={() => { setCompanyModalOpened(companyModalOpened => !companyModalOpened) }} />
+
+                <div className="companyContainer">
+                    <div className="companyContainerHeader">
+                        <Image
+                            className='logoBoxCompanyContainer'
+                            src={SemImagem}
+                            alt="logo"
                         />
-                    ))}
-                </GoogleMap>
-            </div>
+
+                        <div className="companyContainerInfos">
+                            <div className="companyContainerItem companyContainerName">
+                                <b>{selectedCompany?.name}</b>
+                            </div>
+
+                            <div className="companyContainerItem companyContainerAddress">
+                                {selectedCompany?.address.street} - {selectedCompany?.address.number} - {selectedCompany?.address.neighborhood}
+                            </div>
+
+                            <div className="companyContainerItem companyContainerRating">
+                                {selectedCompany?.rating}(3,5)
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <Button variant="contained" className="companyRedirectButton">
+                        MAIS INFORMAÇÕES
+                    </Button>
+                </div>
+            </animated.div>
         </>
     )
 }
 
 export async function getServerSideProps() {
-    const response = await fetch('https://unisantos-interdisciplinar-server.azurewebsites.net/companies?Latitude=-23.94647831242809&Longitude=-46.3222917531583&Distance=1');
+    const response = await fetch('https://unisantos-interdisciplinar-server.azurewebsites.net/companies?Latitude=-23.94647831242809&Longitude=-46.3222917531583&Distance=10');
 
     const data = await response.json();
 
