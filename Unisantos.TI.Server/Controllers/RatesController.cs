@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Unisantos.TI.Core.UseCases.Company;
 using Unisantos.TI.Domain.DTO.Company;
 using Unisantos.TI.Server.Responses;
@@ -15,6 +16,7 @@ public class RatesController : Controller
         _rateCompanyUseCase = rateCompanyUseCase;
     }
 
+    [Authorize]
     [HttpPost("companies/{companyId:guid}/rates")]
     [ProducesResponseType(typeof(SuccessResponse<RateResponseDTO>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
