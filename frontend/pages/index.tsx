@@ -7,6 +7,7 @@ import { animated, useSpring } from "react-spring";
 import Image from 'next/image'
 import SemImagem from '../public/semimagem.png'
 import { Button } from '@mui/material'
+import {api} from "../services";
 
 interface HomeProps {
     companies: Company[];
@@ -107,14 +108,16 @@ export default function Home({ companies, googleMapsApiKey }: HomeProps) {
     )
 }
 
-export async function getServerSideProps() {
-    const response = await fetch('https://unisantos-interdisciplinar-server.azurewebsites.net/companies?Latitude=-23.94647831242809&Longitude=-46.3222917531583&Distance=10');
+interface AxiosResponse {
+    data: Company[];
+}
 
-    const data = await response.json();
+export async function getServerSideProps() {
+    const response = await api.get<AxiosResponse>('/companies?Latitude=-23.94647831242809&Longitude=-46.3222917531583&Distance=10');
 
     return {
         props: {
-            companies: data.data,
+            companies: response.data.data,
             googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY
         }
     }
