@@ -3,7 +3,7 @@ import { Button, InputAdornment, TextField } from '@mui/material'
 import Image from 'next/image'
 import Logo from '../public/logo.png'
 
-export default function Home() {
+export default function Login() {
     return (
         <>
             <Image
@@ -45,7 +45,6 @@ export default function Home() {
                 <Button variant="contained" className="login-button">
                     ENTRAR
                 </Button>
-
                 <Button variant="contained" className="login-button">
                     CADASTRE-SE
                 </Button>
