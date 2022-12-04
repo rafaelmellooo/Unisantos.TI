@@ -2,7 +2,7 @@
 
 public record ProductResponseDTO
 {
-    public short Id { get; set; }
+    public Guid Id { get; set; }
     
     public required string Name { get; set; }
     

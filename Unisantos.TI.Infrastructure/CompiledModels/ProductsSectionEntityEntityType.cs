@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Unisantos.TI.Domain.Entities.Company;
 
 #pragma warning disable 219, 612, 618
@@ -23,19 +22,17 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
 
             var id = runtimeEntityType.AddProperty(
                 "Id",
-                typeof(byte),
+                typeof(Guid),
                 propertyInfo: typeof(ProductsSectionEntity).GetProperty("Id", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(ProductsSectionEntity).GetField("<Id>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 valueGenerated: ValueGenerated.OnAdd,
                 afterSaveBehavior: PropertySaveBehavior.Throw);
-            id.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
             var companyId = runtimeEntityType.AddProperty(
                 "CompanyId",
                 typeof(Guid),
                 propertyInfo: typeof(ProductsSectionEntity).GetProperty("CompanyId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(ProductsSectionEntity).GetField("<CompanyId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                afterSaveBehavior: PropertySaveBehavior.Throw);
+                fieldInfo: typeof(ProductsSectionEntity).GetField("<CompanyId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
             var title = runtimeEntityType.AddProperty(
                 "Title",
@@ -45,7 +42,7 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
                 maxLength: 100);
 
             var key = runtimeEntityType.AddKey(
-                new[] { id, companyId });
+                new[] { id });
             runtimeEntityType.SetPrimaryKey(key);
 
             var index = runtimeEntityType.AddIndex(

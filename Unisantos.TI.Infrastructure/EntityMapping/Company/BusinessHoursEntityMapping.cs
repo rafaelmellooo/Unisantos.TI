@@ -8,12 +8,10 @@ public class BusinessHoursEntityMapping : IEntityTypeConfiguration<BusinessHours
 {
     public void Configure(EntityTypeBuilder<BusinessHoursEntity> builder)
     {
-        builder.HasKey(e => new {e.Id, e.CompanyId});
+        builder.HasKey(e => new {e.DayOfWeek, e.CompanyId});
 
-        builder.Property(e => e.Id).ValueGeneratedOnAdd();
         builder.Property(e => e.OpeningTime).IsRequired();
         builder.Property(e => e.ClosingTime).IsRequired();
-        builder.Property(e => e.DayOfWeek).IsRequired();
 
         builder.HasOne(e => e.Company).WithMany(e => e.BusinessHours).HasForeignKey(e => e.CompanyId)
             .OnDelete(DeleteBehavior.ClientSetNull);

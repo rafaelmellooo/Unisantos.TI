@@ -2,7 +2,7 @@
 
 public class ProductsSectionEntity
 {
-    public byte Id { get; set; }
+    public Guid Id { get; set; }
     
     public Guid CompanyId { get; set; }
     

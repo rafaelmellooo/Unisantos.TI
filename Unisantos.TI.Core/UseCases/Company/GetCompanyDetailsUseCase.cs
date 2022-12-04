@@ -40,7 +40,6 @@ public class GetCompanyDetailsUseCase : IUseCase<GetCompanyDetailsInputDTO, Comp
                 Description = company.Description,
                 BusinessHours = company.BusinessHours.Select(businessHours => new BusinessHoursResponseDTO
                 {
-                    Id = businessHours.Id,
                     DayOfWeek = businessHours.DayOfWeek,
                     OpeningTime = businessHours.OpeningTime,
                     ClosingTime = businessHours.ClosingTime

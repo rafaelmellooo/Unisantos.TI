@@ -2,7 +2,7 @@
 
 public record ProductsSectionResponseDTO
 {
-    public byte Id { get; set; }
+    public Guid Id { get; set; }
 
     public required string Title { get; set; }
 

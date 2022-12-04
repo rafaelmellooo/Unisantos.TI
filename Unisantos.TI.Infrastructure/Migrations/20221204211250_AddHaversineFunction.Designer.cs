@@ -12,8 +12,8 @@ using Unisantos.TI.Infrastructure;
 namespace Unisantos.TI.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221204073738_AddColumnRatingTableCompanies")]
-    partial class AddColumnRatingTableCompanies
+    [Migration("20221204211250_AddHaversineFunction")]
+    partial class AddHaversineFunction
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -129,11 +129,8 @@ namespace Unisantos.TI.Infrastructure.Migrations
 
             modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.BusinessHoursEntity", b =>
                 {
-                    b.Property<byte>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("smallint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<byte>("Id"));
+                    b.Property<int>("DayOfWeek")
+                        .HasColumnType("integer");
 
                     b.Property<Guid>("CompanyId")
                         .HasColumnType("uuid");
@@ -141,13 +138,10 @@ namespace Unisantos.TI.Infrastructure.Migrations
                     b.Property<TimeOnly>("ClosingTime")
                         .HasColumnType("time without time zone");
 
-                    b.Property<int>("DayOfWeek")
-                        .HasColumnType("integer");
-
                     b.Property<TimeOnly>("OpeningTime")
                         .HasColumnType("time without time zone");
 
-                    b.HasKey("Id", "CompanyId");
+                    b.HasKey("DayOfWeek", "CompanyId");
 
                     b.HasIndex("CompanyId");
 
@@ -233,14 +227,9 @@ namespace Unisantos.TI.Infrastructure.Migrations
 
             modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.ProductEntity", b =>
                 {
-                    b.Property<short>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("smallint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<short>("Id"));
-
-                    b.Property<byte>("ProductsSectionId")
-                        .HasColumnType("smallint");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("CompanyId")
                         .HasColumnType("uuid");
@@ -258,20 +247,21 @@ namespace Unisantos.TI.Infrastructure.Migrations
                     b.Property<float>("Price")
                         .HasColumnType("real");
 
-                    b.HasKey("Id", "ProductsSectionId", "CompanyId");
+                    b.Property<Guid>("ProductsSectionId")
+                        .HasColumnType("uuid");
 
-                    b.HasIndex("ProductsSectionId", "CompanyId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductsSectionId");
 
                     b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.ProductsSectionEntity", b =>
                 {
-                    b.Property<byte>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("smallint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<byte>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("CompanyId")
                         .HasColumnType("uuid");
@@ -281,7 +271,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.HasKey("Id", "CompanyId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
 
@@ -522,7 +512,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
                 {
                     b.HasOne("Unisantos.TI.Domain.Entities.Company.ProductsSectionEntity", "ProductsSection")
                         .WithMany("Products")
-                        .HasForeignKey("ProductsSectionId", "CompanyId")
+                        .HasForeignKey("ProductsSectionId")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
