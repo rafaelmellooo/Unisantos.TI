@@ -18,7 +18,8 @@ public class RateCompanyUseCase : IUseCase<RateCompanyInputDTO, RateResponseDTO>
         _authenticatedUser = authenticatedUser;
     }
 
-    public async Task<RateResponseDTO> Execute(RateCompanyInputDTO request, CancellationToken cancellationToken = default)
+    public async Task<RateResponseDTO> Execute(RateCompanyInputDTO request,
+        CancellationToken cancellationToken = default)
     {
         var company = await _applicationDbContext.Companies.AsNoTracking()
             .FirstOrDefaultAsync(c => c.Id == request.CompanyId, cancellationToken);
@@ -35,15 +36,15 @@ public class RateCompanyUseCase : IUseCase<RateCompanyInputDTO, RateResponseDTO>
             Rate = request.Rate,
             Comment = request.Comment
         };
-        
-        var response = await _applicationDbContext.Rates.AddAsync(rate, cancellationToken);
+
+        var rateAdded = await _applicationDbContext.Rates.AddAsync(rate, cancellationToken);
         await _applicationDbContext.SaveChangesAsync(cancellationToken);
-        
+
         return new RateResponseDTO
         {
-            Id = response.Entity.Id,
-            Rate = response.Entity.Rate,
-            Comment = response.Entity.Comment,
+            Id = rateAdded.Entity.Id,
+            Rate = rateAdded.Entity.Rate,
+            Comment = rateAdded.Entity.Comment,
             User = _authenticatedUser.Name
         };
     }

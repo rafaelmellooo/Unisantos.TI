@@ -10,9 +10,10 @@ import { Button } from '@mui/material'
 
 interface HomeProps {
     companies: Company[];
+    googleMapsApiKey: string;
 }
 
-export default function Home({ companies }: HomeProps) {
+export default function Home({ companies, googleMapsApiKey }: HomeProps) {
     const [companyModalOpened, setCompanyModalOpened] = useState(true);
     const [selectedCompany, setSelectedCompany] = useState<Company>();
 
@@ -29,10 +30,9 @@ export default function Home({ companies }: HomeProps) {
         bottom: companyModalOpened ? "0" : "-100%"
     });
 
-
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
-        googleMapsApiKey: "AIzaSyAfK14Wxe-6oILjFosaEks5cYU0IkXhrZk"
+        googleMapsApiKey: googleMapsApiKey
     });
 
     if (!isLoaded) {
@@ -114,7 +114,8 @@ export async function getServerSideProps() {
 
     return {
         props: {
-            companies: data.data
+            companies: data.data,
+            googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY
         }
     }
 }

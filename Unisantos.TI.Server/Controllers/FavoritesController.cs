@@ -10,15 +10,18 @@ namespace Unisantos.TI.Server.Controllers;
 public class FavoritesController : Controller
 {
     private readonly FavoriteCompanyUseCase _favoriteCompanyUseCase;
+    private readonly GetFavoriteCompaniesUseCase _getFavoriteCompaniesUseCase;
 
-    public FavoritesController(FavoriteCompanyUseCase favoriteCompanyUseCase)
+    public FavoritesController(FavoriteCompanyUseCase favoriteCompanyUseCase,
+        GetFavoriteCompaniesUseCase getFavoriteCompaniesUseCase)
     {
         _favoriteCompanyUseCase = favoriteCompanyUseCase;
+        _getFavoriteCompaniesUseCase = getFavoriteCompaniesUseCase;
     }
 
     [Authorize]
     [HttpPost("companies/{companyId:guid}/favorites")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> FavoriteCompany([FromRoute] Guid companyId, CancellationToken cancellationToken)
     {
@@ -29,7 +32,26 @@ public class FavoritesController : Controller
                 CompanyId = companyId
             }, cancellationToken);
 
-            return Ok();
+            return NoContent();
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(new ErrorResponse(exception.Message));
+        }
+    }
+
+    [Authorize]
+    [HttpGet("companies/favorites")]
+    [ProducesResponseType(typeof(SuccessResponse<CompanyResponseDTO[]>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetFavoriteCompanies([FromQuery] GetFavoriteCompaniesInputDTO request,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            var response = await _getFavoriteCompaniesUseCase.Execute(request, cancellationToken);
+
+            return Ok(new SuccessResponse<CompanyResponseDTO[]>(response));
         }
         catch (Exception exception)
         {

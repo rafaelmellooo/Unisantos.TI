@@ -31,9 +31,9 @@ public class GetCompanyDetailsUseCase : IUseCase<GetCompanyDetailsInputDTO, Comp
                 Longitude = address.Longitude,
                 ImageUrl = company.ImageUrl,
                 Rating = company.Rating,
-                IsFavorited = _authenticatedUser.Id.HasValue
-                    ? company.Favorites.Any(favorite => favorite.UserId == _authenticatedUser.Id.Value)
-                    : null,
+                IsFavorited = _authenticatedUser.Id is null
+                    ? null
+                    : company.Favorites.Any(favorite => favorite.UserId == _authenticatedUser.Id),
                 Phone = company.Phone,
                 Facebook = company.Facebook,
                 Instagram = company.Instagram,
