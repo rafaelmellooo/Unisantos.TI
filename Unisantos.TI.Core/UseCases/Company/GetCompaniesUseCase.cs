@@ -30,7 +30,7 @@ public class GetCompaniesUseCase : IUseCase<GetCompaniesInputDTO, CompanyRespons
                 Latitude = address.Latitude,
                 Longitude = address.Longitude,
                 ImagePreviewUrl = company.ImagePreviewUrl,
-                Rating = company.Rates.Any() ? company.Rates.Sum(rate => rate.Rate) / company.Rates.Count : null,
+                Rating = company.Rating,
                 Address = new AddressResponseDTO
                 {
                     ZipCode = address.ZipCode,

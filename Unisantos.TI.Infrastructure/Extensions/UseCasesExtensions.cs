@@ -21,5 +21,7 @@ public static class UseCasesExtensions
         services.AddScoped<GetCompaniesUseCase, GetCompaniesUseCase>();
         services.AddScoped<GetCompanyDetailsUseCase, GetCompanyDetailsUseCase>();
         services.AddScoped<CreateCompanyUseCase, CreateCompanyUseCase>();
+        services.AddScoped<FavoriteCompanyUseCase, FavoriteCompanyUseCase>();
+        services.AddScoped<RateCompanyUseCase, RateCompanyUseCase>();
     }
 }

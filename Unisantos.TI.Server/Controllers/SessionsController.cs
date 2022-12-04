@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Unisantos.TI.Core.Helpers;
 using Unisantos.TI.Core.UseCases.Session;
 using Unisantos.TI.Domain.DTO.Session;
 using Unisantos.TI.Domain.DTO.Token;

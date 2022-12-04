@@ -3,16 +3,19 @@ using Unisantos.TI.Core.Interfaces;
 using Unisantos.TI.Domain.DTO.Address;
 using Unisantos.TI.Domain.DTO.Company;
 using Unisantos.TI.Domain.Exceptions.Company;
+using Unisantos.TI.Domain.Providers.Auth;
 
 namespace Unisantos.TI.Core.UseCases.Company;
 
 public class GetCompanyDetailsUseCase : IUseCase<GetCompanyDetailsInputDTO, CompanyDetailsResponseDTO>
 {
     private readonly IApplicationDbContext _applicationDbContext;
+    private readonly IAuthenticatedUser _authenticatedUser;
 
-    public GetCompanyDetailsUseCase(IApplicationDbContext applicationDbContext)
+    public GetCompanyDetailsUseCase(IApplicationDbContext applicationDbContext, IAuthenticatedUser authenticatedUser)
     {
         _applicationDbContext = applicationDbContext;
+        _authenticatedUser = authenticatedUser;
     }
 
     public async Task<CompanyDetailsResponseDTO> Execute(GetCompanyDetailsInputDTO request,
@@ -27,7 +30,10 @@ public class GetCompanyDetailsUseCase : IUseCase<GetCompanyDetailsInputDTO, Comp
                 Latitude = address.Latitude,
                 Longitude = address.Longitude,
                 ImageUrl = company.ImageUrl,
-                Rating = company.Rates.Any() ? company.Rates.Sum(rate => rate.Rate) / company.Rates.Count : null,
+                Rating = company.Rating,
+                IsFavorited = _authenticatedUser.Id.HasValue
+                    ? company.Favorites.Any(favorite => favorite.UserId == _authenticatedUser.Id.Value)
+                    : null,
                 Phone = company.Phone,
                 Facebook = company.Facebook,
                 Instagram = company.Instagram,

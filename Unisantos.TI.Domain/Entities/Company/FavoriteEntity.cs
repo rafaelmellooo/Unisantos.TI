@@ -6,11 +6,11 @@ public class FavoriteEntity
 {
     public Guid CompanyId { get; set; }
 
-    public required CompanyEntity Company { get; set; }
+    public CompanyEntity Company { get; set; }
 
     public Guid UserId { get; set; }
 
-    public required UserEntity User { get; set; }
+    public UserEntity User { get; set; }
 
     public DateTime CreatedAt { get; set; }
 }

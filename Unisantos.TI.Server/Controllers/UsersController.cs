@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Unisantos.TI.Core.Helpers;
 using Unisantos.TI.Core.UseCases.User;
 using Unisantos.TI.Domain.DTO.User;
 using Unisantos.TI.Server.Responses;

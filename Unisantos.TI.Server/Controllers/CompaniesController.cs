@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Unisantos.TI.Core.Helpers;
 using Unisantos.TI.Core.UseCases.Company;
 using Unisantos.TI.Domain.DTO.Company;
 using Unisantos.TI.Server.Responses;
@@ -42,7 +41,6 @@ public class CompaniesController : Controller
     }
 
     [HttpGet("{id:guid}")]
-    [AllowAnonymous]
     [ProducesResponseType(typeof(SuccessResponse<CompanyDetailsResponseDTO>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetCompanyDetails([FromRoute] Guid id, CancellationToken cancellationToken)

@@ -11,6 +11,8 @@ public record CompanyDetailsResponseDTO
     public double Longitude { get; set; }
 
     public float? Rating { get; set; }
+    
+    public bool? IsFavorited { get; set; }
 
     public required AddressResponseDTO Address { get; set; }
 
