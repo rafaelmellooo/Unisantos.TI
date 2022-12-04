@@ -5,7 +5,7 @@ import { Company } from "../interfaces/Company";
 import { useEffect, useState } from "react";
 import { animated, useSpring } from "react-spring";
 import Image from 'next/image'
-import SemImagem from '../public/semImagem.png'
+import SemImagem from '../public/semimagem.png'
 import { Button } from '@mui/material'
 
 interface HomeProps {
