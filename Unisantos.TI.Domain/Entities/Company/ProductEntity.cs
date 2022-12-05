@@ -2,9 +2,9 @@
 
 public class ProductEntity
 {
-    public short Id { get; set; }
+    public Guid Id { get; set; }
     
-    public byte ProductsSectionId { get; set; }
+    public Guid ProductsSectionId { get; set; }
     
     public Guid CompanyId { get; set; }
     

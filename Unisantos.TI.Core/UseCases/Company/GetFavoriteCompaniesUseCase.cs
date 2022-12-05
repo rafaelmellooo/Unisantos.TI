@@ -3,26 +3,29 @@ using Unisantos.TI.Core.Helpers;
 using Unisantos.TI.Core.Interfaces;
 using Unisantos.TI.Domain.DTO.Address;
 using Unisantos.TI.Domain.DTO.Company;
+using Unisantos.TI.Domain.Providers.Auth;
 
 namespace Unisantos.TI.Core.UseCases.Company;
 
-public class GetCompaniesUseCase : IUseCase<GetCompaniesInputDTO, CompanyResponseDTO[]>
+public class GetFavoriteCompaniesUseCase : IUseCase<GetFavoriteCompaniesInputDTO, CompanyResponseDTO[]>
 {
     private readonly IApplicationDbContext _applicationDbContext;
+    private readonly IAuthenticatedUser _authenticatedUser;
 
-    public GetCompaniesUseCase(IApplicationDbContext applicationDbContext)
+    public GetFavoriteCompaniesUseCase(IApplicationDbContext applicationDbContext, IAuthenticatedUser authenticatedUser)
     {
         _applicationDbContext = applicationDbContext;
+        _authenticatedUser = authenticatedUser;
     }
 
-    public Task<CompanyResponseDTO[]> Execute(GetCompaniesInputDTO request,
+    public Task<CompanyResponseDTO[]> Execute(GetFavoriteCompaniesInputDTO request,
         CancellationToken cancellationToken = default)
     {
         var query = from company in _applicationDbContext.Companies
             let address = company.Address
             where DbFunctionHelpers.Haversine(address.Latitude, address.Longitude, request.Latitude,
                       request.Longitude) <= request.Distance &&
-                  (!request.Tags.Any() || company.Tags.Any(tag => request.Tags.Contains(tag.Id)))
+                  company.Favorites.Any(favorite => favorite.UserId == _authenticatedUser.Id)
             select new CompanyResponseDTO
             {
                 Id = company.Id,

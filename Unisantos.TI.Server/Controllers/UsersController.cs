@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Unisantos.TI.Core.Helpers;
 using Unisantos.TI.Core.UseCases.User;
 using Unisantos.TI.Domain.DTO.User;
 using Unisantos.TI.Server.Responses;
@@ -18,7 +17,7 @@ public class UsersController : Controller
     }
 
     [HttpPost]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateUser([FromBody] CreateUserInputDTO request,
         CancellationToken cancellationToken)
@@ -27,7 +26,7 @@ public class UsersController : Controller
         {
             await _createUserUseCase.Execute(request, cancellationToken);
 
-            return Ok();
+            return NoContent();
         }
         catch (Exception exception)
         {

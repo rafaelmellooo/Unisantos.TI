@@ -62,12 +62,12 @@ public class CreateCompanyUseCase : IUseCase<CreateCompanyInputDTO, CreateCompan
             AdminId = _authenticatedUser.Id.Value
         };
 
-        var companyEntry = await _applicationDbContext.Companies.AddAsync(company, cancellationToken);
+        var companyAdded = await _applicationDbContext.Companies.AddAsync(company, cancellationToken);
         await _applicationDbContext.SaveChangesAsync(cancellationToken);
 
         return new CreateCompanyResponseDTO
         {
-            Id = companyEntry.Entity.Id
+            Id = companyAdded.Entity.Id
         };
     }
 }

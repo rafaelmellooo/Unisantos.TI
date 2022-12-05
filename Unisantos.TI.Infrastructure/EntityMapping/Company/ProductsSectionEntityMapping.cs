@@ -8,7 +8,7 @@ public class ProductsSectionEntityMapping : IEntityTypeConfiguration<ProductsSec
 {
     public void Configure(EntityTypeBuilder<ProductsSectionEntity> builder)
     {
-        builder.HasKey(e => new {e.Id, e.CompanyId});
+        builder.HasKey(e => e.Id);
 
         builder.Property(e => e.Id).ValueGeneratedOnAdd();
         builder.Property(e => e.Title).IsRequired().HasMaxLength(100);

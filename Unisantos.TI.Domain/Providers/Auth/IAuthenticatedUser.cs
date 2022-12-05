@@ -3,4 +3,6 @@
 public interface IAuthenticatedUser
 {
     Guid? Id { get; }
+    
+    string Name { get; }
 }

@@ -27,4 +27,6 @@ public class HttpContextAuthenticatedUser : IAuthenticatedUser
             return Guid.Parse(id);
         }
     }
+    
+    public string Name => _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Name);
 }

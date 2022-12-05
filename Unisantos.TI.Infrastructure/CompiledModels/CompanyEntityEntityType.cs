@@ -93,6 +93,13 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
                 fieldInfo: typeof(CompanyEntity).GetField("<Phone>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 maxLength: 15);
 
+            var rating = runtimeEntityType.AddProperty(
+                "Rating",
+                typeof(float?),
+                propertyInfo: typeof(CompanyEntity).GetProperty("Rating", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(CompanyEntity).GetField("<Rating>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                nullable: true);
+
             var key = runtimeEntityType.AddKey(
                 new[] { id });
             runtimeEntityType.SetPrimaryKey(key);

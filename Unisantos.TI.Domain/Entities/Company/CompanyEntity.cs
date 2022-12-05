@@ -16,6 +16,8 @@ public class CompanyEntity
     public string? Instagram { get; set; }
 
     public string? Facebook { get; set; }
+    
+    public float? Rating { get; set; }
 
     public required string ImageUrl { get; set; }
 

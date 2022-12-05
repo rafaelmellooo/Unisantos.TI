@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Unisantos.TI.Domain.Entities.Company;
 
 #pragma warning disable 219, 612, 618
@@ -23,26 +22,17 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
 
             var id = runtimeEntityType.AddProperty(
                 "Id",
-                typeof(short),
+                typeof(Guid),
                 propertyInfo: typeof(ProductEntity).GetProperty("Id", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(ProductEntity).GetField("<Id>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 valueGenerated: ValueGenerated.OnAdd,
-                afterSaveBehavior: PropertySaveBehavior.Throw);
-            id.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-            var productsSectionId = runtimeEntityType.AddProperty(
-                "ProductsSectionId",
-                typeof(byte),
-                propertyInfo: typeof(ProductEntity).GetProperty("ProductsSectionId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(ProductEntity).GetField("<ProductsSectionId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 afterSaveBehavior: PropertySaveBehavior.Throw);
 
             var companyId = runtimeEntityType.AddProperty(
                 "CompanyId",
                 typeof(Guid),
                 propertyInfo: typeof(ProductEntity).GetProperty("CompanyId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(ProductEntity).GetField("<CompanyId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                afterSaveBehavior: PropertySaveBehavior.Throw);
+                fieldInfo: typeof(ProductEntity).GetField("<CompanyId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
             var description = runtimeEntityType.AddProperty(
                 "Description",
@@ -64,20 +54,26 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
                 propertyInfo: typeof(ProductEntity).GetProperty("Price", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(ProductEntity).GetField("<Price>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
+            var productsSectionId = runtimeEntityType.AddProperty(
+                "ProductsSectionId",
+                typeof(Guid),
+                propertyInfo: typeof(ProductEntity).GetProperty("ProductsSectionId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ProductEntity).GetField("<ProductsSectionId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+
             var key = runtimeEntityType.AddKey(
-                new[] { id, productsSectionId, companyId });
+                new[] { id });
             runtimeEntityType.SetPrimaryKey(key);
 
             var index = runtimeEntityType.AddIndex(
-                new[] { productsSectionId, companyId });
+                new[] { productsSectionId });
 
             return runtimeEntityType;
         }
 
         public static RuntimeForeignKey CreateForeignKey1(RuntimeEntityType declaringEntityType, RuntimeEntityType principalEntityType)
         {
-            var runtimeForeignKey = declaringEntityType.AddForeignKey(new[] { declaringEntityType.FindProperty("ProductsSectionId")!, declaringEntityType.FindProperty("CompanyId")! },
-                principalEntityType.FindKey(new[] { principalEntityType.FindProperty("Id")!, principalEntityType.FindProperty("CompanyId")! })!,
+            var runtimeForeignKey = declaringEntityType.AddForeignKey(new[] { declaringEntityType.FindProperty("ProductsSectionId")! },
+                principalEntityType.FindKey(new[] { principalEntityType.FindProperty("Id")! })!,
                 principalEntityType,
                 deleteBehavior: DeleteBehavior.ClientCascade,
                 required: true);
