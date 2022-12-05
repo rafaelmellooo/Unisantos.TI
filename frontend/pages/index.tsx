@@ -93,7 +93,7 @@ export default function Home({ companies, googleMapsApiKey }: HomeProps) {
                             </div>
 
                             <div className="companyContainerItem companyContainerRating">
-                                {selectedCompany?.rating}(3,5)
+                                {selectedCompany?.rating}
                             </div>
                         </div>
 
