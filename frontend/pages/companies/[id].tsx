@@ -2,8 +2,9 @@
 import { WhatsApp, PinDrop, Phone, Facebook, Instagram, StarBorder, Star } from '@mui/icons-material';
 import { Chip, Rating, TextField, Button } from '@mui/material';
 import { api } from '../../services';
-import { CompanyDetails } from "../../interfaces/CompanyDetails";
-import { useCookies } from "react-cookie";
+import {CompanyDetails} from "../../interfaces/CompanyDetails";
+import {useCookies} from "react-cookie";
+import {useState} from "react";
 
 interface ShowCompanyDetailsProps {
     id: string;
@@ -12,6 +13,7 @@ interface ShowCompanyDetailsProps {
 
 export default function ShowCompanyDetails({ id, companyDetails }: ShowCompanyDetailsProps) {
     const [cookies, setCookie] = useCookies(['session-token']);
+    const [isFavorited, setIsFavorited] = useState(companyDetails.isFavorited);
 
     const handleFavorite = async () => {
         console.log(cookies["session-token"]);
@@ -22,6 +24,8 @@ export default function ShowCompanyDetails({ id, companyDetails }: ShowCompanyDe
                     Authorization: `Bearer ${cookies["session-token"]}`
                 }
             });
+
+            setIsFavorited(true);
         } catch {
             alert('Erro ao favoritar');
         }
@@ -35,11 +39,11 @@ export default function ShowCompanyDetails({ id, companyDetails }: ShowCompanyDe
                         className='stb-image'
                         height={200}
                         width={'100%'}
-                        src={companyDetails.imageUrl || '/images/semimagem.png'}
-                        alt="estabelecimento"
+                        src={companyDetails.imageUrl}
+                        alt={`Imagem do estabelecimento ${companyDetails.name}`}
                     />
                 </div>
-                <div className='stb-title'>{companyDetails.name} {companyDetails.isFavorited ? <Star color='warning' fontSize='medium' /> : <StarBorder onClick={handleFavorite} color='warning' fontSize='medium' style={{
+                <div className='stb-title'>{companyDetails.name} {isFavorited ? <Star color='warning' fontSize='medium' /> : <StarBorder onClick={handleFavorite} color='warning' fontSize='medium' style={{
                     cursor: "pointer"
                 }} />}</div>
             </div>
@@ -142,8 +146,14 @@ interface AxiosResponse {
     data: CompanyDetails;
 }
 
-export async function getServerSideProps({ params }: any) {
-    const response = await api.get<AxiosResponse>(`/companies/${params.id}`);
+export async function getServerSideProps({ req, params }: any) {
+    const response = await api.get<AxiosResponse>(`/companies/${params.id}`, {
+        headers: {
+            Authorization: `Bearer ${req.cookies['session-token']}`
+        }
+    });
+
+    console.log(response.data.data);
 
     return {
         props: {

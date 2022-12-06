@@ -4,12 +4,14 @@ import { mapOptions, mapSize } from "../configs/mapConfigs";
 import { Company } from "../interfaces/Company";
 import { useEffect, useState } from "react";
 import { animated, useSpring } from "react-spring";
-import Image from 'next/image'
-import SemImagem from '../public/semimagem.png'
 import { Button } from '@mui/material'
 import {api} from "../services";
+import {TagsSection} from "../interfaces/TagsSection";
+import qs from "qs";
+import Link from "next/link";
 
 interface HomeProps {
+    tagsSections: TagsSection[];
     googleMapsApiKey: string;
 }
 
@@ -17,15 +19,15 @@ interface GetCompaniesResponse {
     data: Company[];
 }
 
-export default function Home({ googleMapsApiKey }: HomeProps) {
+export default function Home({ tagsSections, googleMapsApiKey }: HomeProps) {
     const [companyModalOpened, setCompanyModalOpened] = useState(false);
     const [selectedCompany, setSelectedCompany] = useState<Company>();
 
     const [latitude, setLatitude] = useState(0);
     const [longitude, setLongitude] = useState(0);
     const [companies, setCompanies] = useState<Company[]>([]);
-    const [distance, setDistance] = useState(0);
-    const [tags, setTags] = useState<number[]>([]);
+    const [distance, setDistance] = useState(10);
+    const [selectedTags, setSelectedTags] = useState<number[]>([]);
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(position => {
@@ -40,10 +42,13 @@ export default function Home({ googleMapsApiKey }: HomeProps) {
                 latitude,
                 longitude,
                 distance,
-                tags
+                tags: selectedTags
+            },
+            paramsSerializer: {
+                serialize: params => qs.stringify(params, { arrayFormat: 'repeat' })
             }
         }).then(response => setCompanies(response.data.data));
-    }, [latitude, longitude, distance, tags]);
+    }, [latitude, longitude, distance, selectedTags]);
 
     const handleCompanyModalToggle = (index: number) => {
         setSelectedCompany(companies[index]);
@@ -74,7 +79,7 @@ export default function Home({ googleMapsApiKey }: HomeProps) {
 
     return (
         <>
-            <SideMenu />
+            <SideMenu tagsSections={tagsSections} selectedTags={selectedTags} setSelectedTags={setSelectedTags} distance={distance} setDistance={setDistance} />
 
             <GoogleMap
                 mapContainerStyle={mapSize}
@@ -104,10 +109,10 @@ export default function Home({ googleMapsApiKey }: HomeProps) {
 
                 <div className="companyContainer">
                     <div className="companyContainerHeader">
-                        <Image
+                        <img
                             className='logoBoxCompanyContainer'
-                            src={SemImagem}
-                            alt="logo"
+                            src={selectedCompany?.imagePreviewUrl}
+                            alt={`Imagem do estabelecimento ${selectedCompany?.name}`}
                         />
 
                         <div className="companyContainerInfos">
@@ -126,8 +131,11 @@ export default function Home({ googleMapsApiKey }: HomeProps) {
 
                     </div>
 
-                    <Button variant="contained" className="companyRedirectButton" href={`/establishmentInfo/${selectedCompany?.id}`}>
-                        MAIS INFORMAÇÕES
+                    <Button variant="contained" className="companyRedirectButton">
+                        <Link style={{
+                            textDecoration: 'none',
+                            color: 'white'
+                        }} href={`/companies/${selectedCompany?.id}`}>MAIS INFORMAÇÕES</Link>
                     </Button>
                 </div>
             </animated.div>
@@ -135,9 +143,16 @@ export default function Home({ googleMapsApiKey }: HomeProps) {
     )
 }
 
+interface GetTagsResponse {
+    data: TagsSection[];
+}
+
 export async function getServerSideProps() {
+    const response = await api.get<GetTagsResponse>('/tags');
+
     return {
         props: {
+            tagsSections: response.data.data,
             googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY
         }
     }

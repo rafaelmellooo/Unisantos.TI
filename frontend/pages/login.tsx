@@ -7,7 +7,7 @@ import {api} from "../services";
 import {useCookies} from "react-cookie";
 import {useRouter} from "next/router";
 
-interface CreateSessionAxiosResponse {
+interface CreateSessionResponse {
     data: {
         token: string;
         refreshToken: string;
@@ -27,7 +27,7 @@ export default function Login() {
         setError('');
 
         try {
-            const response = await api.post<CreateSessionAxiosResponse>('sessions', {
+            const response = await api.post<CreateSessionResponse>('sessions', {
                 email, password
             });
 
