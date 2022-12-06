@@ -7,6 +7,7 @@ export interface CompanyDetails {
     latitude: number;
     longitude: number;
     imageUrl: string;
+    isFavorited: boolean;
     rating: number;
     address: Address;
     tags: string[];

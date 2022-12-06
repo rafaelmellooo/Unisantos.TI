@@ -32,7 +32,7 @@ public class GetCompanyDetailsUseCase : IUseCase<GetCompanyDetailsInputDTO, Comp
                 ImageUrl = company.ImageUrl,
                 Rating = company.Rating,
                 IsFavorited = _authenticatedUser.Id.HasValue
-                    ? company.Favorites.Any(favorite => favorite.UserId == _authenticatedUser.Id)
+                    ? company.Favorites.Any(favorite => favorite.UserId == _authenticatedUser.Id.Value)
                     : null,
                 Phone = company.Phone,
                 Facebook = company.Facebook,

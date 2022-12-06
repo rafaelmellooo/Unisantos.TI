@@ -24,6 +24,8 @@ export default function Home({ googleMapsApiKey }: HomeProps) {
     const [latitude, setLatitude] = useState(0);
     const [longitude, setLongitude] = useState(0);
     const [companies, setCompanies] = useState<Company[]>([]);
+    const [distance, setDistance] = useState(0);
+    const [tags, setTags] = useState<number[]>([]);
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(position => {
@@ -37,10 +39,11 @@ export default function Home({ googleMapsApiKey }: HomeProps) {
             params: {
                 latitude,
                 longitude,
-                distance: 10
+                distance,
+                tags
             }
         }).then(response => setCompanies(response.data.data));
-    }, []);
+    }, [latitude, longitude, distance, tags]);
 
     const handleCompanyModalToggle = (index: number) => {
         setSelectedCompany(companies[index]);

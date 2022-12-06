@@ -1,13 +1,31 @@
-import { WhatsApp, PinDrop, Phone, Facebook, Instagram } from '@mui/icons-material';
+import {WhatsApp, PinDrop, Phone, Facebook, Instagram, StarBorder, Star} from '@mui/icons-material';
 import { Chip, Rating } from '@mui/material';
 import { api } from '../../services';
 import {CompanyDetails} from "../../interfaces/CompanyDetails";
+import {useCookies} from "react-cookie";
 
-interface EstablishmentInfoProps {
+interface ShowCompanyDetailsProps {
+    id: string;
     companyDetails: CompanyDetails;
 }
 
-export default function ShowCompanyDetails({ companyDetails }: EstablishmentInfoProps) {
+export default function ShowCompanyDetails({ id, companyDetails }: ShowCompanyDetailsProps) {
+    const [cookies, setCookie] = useCookies(['session-token']);
+
+    const handleFavorite = async () => {
+        console.log(cookies["session-token"]);
+
+        try {
+            await api.post(`/companies/${id}/favorites`, null, {
+                headers: {
+                    Authorization: `Bearer ${cookies["session-token"]}`
+                }
+            });
+        } catch {
+            alert('Erro ao favoritar');
+        }
+    }
+
     return (
         <>
             <div className="stb-image-title-container">
@@ -20,7 +38,9 @@ export default function ShowCompanyDetails({ companyDetails }: EstablishmentInfo
                         alt="estabelecimento"
                     />
                 </div>
-                <div className='stb-title'>{companyDetails.name}</div>
+                <div className='stb-title'>{companyDetails.name} {companyDetails.isFavorited ? <Star color='warning' fontSize='medium' /> : <StarBorder onClick={handleFavorite} color='warning' fontSize='medium' style={{
+                    cursor: "pointer"
+                }} />}</div>
             </div>
             <div className="stb-info">
                 <div className='info'>
@@ -108,6 +128,7 @@ export async function getServerSideProps({ params }: any) {
 
     return {
         props: {
+            id: params.id,
             companyDetails: response.data.data
         }
     }

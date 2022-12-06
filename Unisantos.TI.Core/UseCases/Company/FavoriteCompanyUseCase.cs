@@ -31,7 +31,8 @@ public class FavoriteCompanyUseCase : IUseCase<FavoriteCompanyInputDTO>
         var favorite = new FavoriteEntity
         {
             CompanyId = company.Id,
-            UserId = _authenticatedUser.Id.Value
+            UserId = _authenticatedUser.Id.Value,
+            CreatedAt = DateTime.UtcNow
         };
 
         await _applicationDbContext.Favorites.AddAsync(favorite, cancellationToken);
