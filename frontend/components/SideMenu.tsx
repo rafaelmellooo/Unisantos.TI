@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useSpring, animated } from "react-spring";
 import MenuIcon from '@mui/icons-material/Menu';
+import { Chip } from '@mui/material'
+import { Close } from "@mui/icons-material";
 
 export const SideMenu = () => {
     const [opened, setOpened] = useState(false);
@@ -22,7 +24,49 @@ export const SideMenu = () => {
 
             <animated.div style={{ left: left }} className="sideMenu">
                 <div className="items-container">
-                    Menu aaaaaaaaaa
+                    <div className="filtros-close-container">
+                        Filtros
+                        <Close />
+                    </div>
+                    <div className="filter-section">Bares</div>
+                    <div className="filter-chip-container">
+                        <Chip label="Cerveja" size="small" className='filter-chip' />
+                        <Chip label="Cerveja" size="small" className='filter-chip'/>
+                        <Chip label="Cerveja" size="small" className='filter-chip'/>
+                        <Chip label="Cerveja" size="small" className='filter-chip' />
+                        <Chip label="Cerveja" size="small" className='filter-chip'/>
+                        <Chip label="Cerveja" size="small" className='filter-chip'/>
+                    </div>
+
+                    <div className="filter-section">Bares</div>
+                    <div className="filter-chip-container">
+                        <Chip label="Cerveja" size="small" className='filter-chip' />
+                        <Chip label="Cerveja" size="small" className='filter-chip'/>
+                        <Chip label="Cerveja" size="small" className='filter-chip'/>
+                        <Chip label="Cerveja" size="small" className='filter-chip' />
+                        <Chip label="Cerveja" size="small" className='filter-chip'/>
+                        <Chip label="Cerveja" size="small" className='filter-chip'/>
+                    </div>
+
+                    <div className="filter-section">Bares</div>
+                    <div className="filter-chip-container">
+                        <Chip label="Cerveja" size="small" className='filter-chip' />
+                        <Chip label="Cerveja" size="small" className='filter-chip'/>
+                        <Chip label="Cerveja" size="small" className='filter-chip'/>
+                        <Chip label="Cerveja" size="small" className='filter-chip' />
+                        <Chip label="Cerveja" size="small" className='filter-chip'/>
+                        <Chip label="Cerveja" size="small" className='filter-chip'/>
+                    </div>
+
+                    <div className="filter-section">Bares</div>
+                    <div className="filter-chip-container">
+                        <Chip label="Cerveja" size="small" className='filter-chip' />
+                        <Chip label="Cerveja" size="small" className='filter-chip'/>
+                        <Chip label="Cerveja" size="small" className='filter-chip'/>
+                        <Chip label="Cerveja" size="small" className='filter-chip' />
+                        <Chip label="Cerveja" size="small" className='filter-chip'/>
+                        <Chip label="Cerveja" size="small" className='filter-chip'/>
+                    </div>
                 </div>
 
                 <div className="close-conainer" onClick={handleMenuToggle} />
