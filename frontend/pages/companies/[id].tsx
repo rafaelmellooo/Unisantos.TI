@@ -1,8 +1,9 @@
-import {WhatsApp, PinDrop, Phone, Facebook, Instagram, StarBorder, Star} from '@mui/icons-material';
-import { Chip, Rating } from '@mui/material';
+/* eslint-disable @next/next/no-img-element */
+import { WhatsApp, PinDrop, Phone, Facebook, Instagram, StarBorder, Star } from '@mui/icons-material';
+import { Chip, Rating, TextField, Button } from '@mui/material';
 import { api } from '../../services';
-import {CompanyDetails} from "../../interfaces/CompanyDetails";
-import {useCookies} from "react-cookie";
+import { CompanyDetails } from "../../interfaces/CompanyDetails";
+import { useCookies } from "react-cookie";
 
 interface ShowCompanyDetailsProps {
     id: string;
@@ -82,6 +83,28 @@ export default function ShowCompanyDetails({ id, companyDetails }: ShowCompanyDe
             <div className='stb-description'>
                 {companyDetails.description}
             </div>
+
+            <h3>Cardápio</h3>
+            {companyDetails.productsSections.map(productsSection => (
+                <div key={productsSection.id}>
+                    <div className='product-title'>
+                        {productsSection.title}
+                    </div>
+                    {productsSection.products.map(product => (
+                        <div key={product.id} className='product'>
+                            <div className='product-name-price'>
+                                <div>{product.name}</div>
+                                <div>{product.price}</div>
+                            </div>
+                            <div className='product-description'>
+                                {product.description}
+                            </div>
+                        </div>
+                    ))}
+
+                </div>
+            ))}
+
             <h3>Avaliações</h3>
             {companyDetails.rates.map(rates => (
                 <div key={rates.id} className='rate-container'>
@@ -94,27 +117,23 @@ export default function ShowCompanyDetails({ id, companyDetails }: ShowCompanyDe
                     </div>
                 </div>
             ))}
-
-            <h3>Cardápio</h3>
-            {companyDetails.productsSections.map(productsSection => (
-                <div key={productsSection.id}>
-                <div className='product-title'>
-                    {productsSection.title}
+            <div className='rate-container'>
+                <div className='rate-username-container'>
+                    <div className='rate-username'>Você</div>
+                    <Rating name="read-only" value={0} readOnly size='small' />
                 </div>
-                {productsSection.products.map(product => (
-                    <div key={product.id} className='product'>
-                    <div className='product-name-price'>
-                        <div>{product.name}</div>
-                        <div>{product.price}</div>
-                    </div>
-                    <div className='product-description'>
-                        {product.description}
-                    </div>
+                <div className='user-comment'>
+                    <TextField
+                        label="Comentário"
+                        multiline
+                        rows={4}
+                        fullWidth
+                    />
                 </div>
-                ))}
-                
+                <div className='comment-button-container'>
+                    <Button variant="contained" className='comment-button'>Enviar</Button>
+                </div>
             </div>
-            ))}
         </>
     )
 }
