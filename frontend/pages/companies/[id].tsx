@@ -175,11 +175,22 @@ interface AxiosResponse {
 }
 
 export async function getServerSideProps({ req, params }: any) {
-    const response = await api.get<AxiosResponse>(`/companies/${params.id}`, {
-        headers: {
-            Authorization: `Bearer ${req.cookies['session-token']}`
+    if (req.cookies['session-token']) {
+        const response = await api.get<AxiosResponse>(`/companies/${params.id}`, {
+            headers: {
+                Authorization: `Bearer ${req.cookies['session-token']}`
+            }
+        });
+
+        return {
+            props: {
+                id: params.id,
+                companyDetails: response.data.data
+            }
         }
-    });
+    }
+
+    const response = await api.get<AxiosResponse>(`/companies/${params.id}`);
 
     return {
         props: {
