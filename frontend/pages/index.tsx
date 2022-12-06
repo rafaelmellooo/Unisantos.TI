@@ -10,13 +10,37 @@ import { Button } from '@mui/material'
 import {api} from "../services";
 
 interface HomeProps {
-    companies: Company[];
     googleMapsApiKey: string;
 }
 
-export default function Home({ companies, googleMapsApiKey }: HomeProps) {
+interface GetCompaniesResponse {
+    data: Company[];
+}
+
+export default function Home({ googleMapsApiKey }: HomeProps) {
     const [companyModalOpened, setCompanyModalOpened] = useState(false);
     const [selectedCompany, setSelectedCompany] = useState<Company>();
+
+    const [latitude, setLatitude] = useState(0);
+    const [longitude, setLongitude] = useState(0);
+    const [companies, setCompanies] = useState<Company[]>([]);
+
+    useEffect(() => {
+        navigator.geolocation.getCurrentPosition(position => {
+            setLatitude(position.coords.latitude);
+            setLongitude(position.coords.longitude);
+        });
+    }, []);
+
+    useEffect(() => {
+        api.get<GetCompaniesResponse>('/companies', {
+            params: {
+                latitude,
+                longitude,
+                Distance: 10
+            }
+        }).then(response => setCompanies(response.data.data));
+    }, [latitude, longitude]);
 
     const handleCompanyModalToggle = (index: number) => {
         setSelectedCompany(companies[index]);
@@ -108,16 +132,9 @@ export default function Home({ companies, googleMapsApiKey }: HomeProps) {
     )
 }
 
-interface AxiosResponse {
-    data: Company[];
-}
-
 export async function getServerSideProps() {
-    const response = await api.get<AxiosResponse>('/companies?Latitude=-23.94647831242809&Longitude=-46.3222917531583&Distance=10');
-
     return {
         props: {
-            companies: response.data.data,
             googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY
         }
     }

@@ -1,16 +1,13 @@
-/* eslint-disable @next/next/no-img-element */
-/* eslint-disable react/no-unescaped-entities */
-import { WhatsApp, PinDrop, AccessTime, Phone, Facebook, Instagram } from '@mui/icons-material'
-import { Chip, Rating } from '@mui/material'
-import { Company, ProductsSection } from '../../interfaces/Company';
+import { WhatsApp, PinDrop, Phone, Facebook, Instagram } from '@mui/icons-material';
+import { Chip, Rating } from '@mui/material';
 import { api } from '../../services';
+import {CompanyDetails} from "../../interfaces/CompanyDetails";
 
-
-interface HomeProps {
-    companies: Company;
+interface EstablishmentInfoProps {
+    companyDetails: CompanyDetails;
 }
 
-export default function EstablishmentInfo({ companies }: HomeProps) {
+export default function ShowCompanyDetails({ companyDetails }: EstablishmentInfoProps) {
     return (
         <>
             <div className="stb-image-title-container">
@@ -19,54 +16,54 @@ export default function EstablishmentInfo({ companies }: HomeProps) {
                         className='stb-image'
                         height={200}
                         width={'100%'}
-                        src={companies.imageUrl ? companies.imageUrl : ''}
+                        src={companyDetails.imageUrl || '/images/semimagem.png'}
                         alt="estabelecimento"
                     />
                 </div>
-                <div className='stb-title'>{companies.name}</div>
+                <div className='stb-title'>{companyDetails.name}</div>
             </div>
             <div className="stb-info">
                 <div className='info'>
                     <div className='stb-icon'> <PinDrop /> </div>
                     <div className='stb-text'>
-                        {companies?.address.street} - {companies?.address.number} - {companies?.address.neighborhood}
+                        {companyDetails?.address.street} - {companyDetails?.address.number} - {companyDetails?.address.neighborhood}
                     </div>
                 </div>
                 <div className='info'>
                     <div className='stb-icon'> <Phone /> </div>
                     <div className='stb-text'>
-                        {companies?.phone}
+                        {companyDetails?.phone}
                     </div>
                 </div>
                 <div className='info'>
                     <div className='stb-icon'> <WhatsApp /> </div>
                     <div className='stb-text'>
-                        {companies?.phone}
+                        {companyDetails?.phone}
                     </div>
                 </div>
                 <div className='info'>
                     <div className='stb-icon'> <Facebook /> </div>
                     <div className='stb-text'>
-                        {companies?.facebook}
+                        {companyDetails?.facebook}
                     </div>
                 </div>
                 <div className='info'>
                     <div className='stb-icon'> <Instagram /> </div>
                     <div className='stb-text'>
-                        {companies?.instagram}
+                        {companyDetails?.instagram}
                     </div>
                 </div>
             </div>
             <div className='stb-categories'>
-                {companies.tags.map(tag => (
+                {companyDetails.tags.map(tag => (
                     <Chip key={tag} label={tag} className='stb-chip' />
                 ))}
             </div>
             <div className='stb-description'>
-                {companies.description}
+                {companyDetails.description}
             </div>
             <h3>Avaliações</h3>
-            {companies.rates.map(rates => (
+            {companyDetails.rates.map(rates => (
                 <div key={rates.id} className='rate-container'>
                     <div className='rate-username-container'>
                         <div className='rate-username'>{rates.user}</div>
@@ -79,12 +76,12 @@ export default function EstablishmentInfo({ companies }: HomeProps) {
             ))}
 
             <h3>Cardápio</h3>
-            {companies.productsSections.map(productSection => (
-                <div key={productSection.id}>
+            {companyDetails.productsSections.map(productsSection => (
+                <div key={productsSection.id}>
                 <div className='product-title'>
-                    {productSection.title}
+                    {productsSection.title}
                 </div>
-                {productSection.products.map(product => (
+                {productsSection.products.map(product => (
                     <div key={product.id} className='product'>
                     <div className='product-name-price'>
                         <div>{product.name}</div>
@@ -98,13 +95,12 @@ export default function EstablishmentInfo({ companies }: HomeProps) {
                 
             </div>
             ))}
-            
         </>
     )
 }
 
 interface AxiosResponse {
-    data: Company[];
+    data: CompanyDetails;
 }
 
 export async function getServerSideProps({ params }: any) {
@@ -112,8 +108,7 @@ export async function getServerSideProps({ params }: any) {
 
     return {
         props: {
-            companies: response.data.data,
-            googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY
+            companyDetails: response.data.data
         }
     }
 }
