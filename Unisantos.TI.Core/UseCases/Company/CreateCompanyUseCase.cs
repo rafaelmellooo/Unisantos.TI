@@ -51,6 +51,8 @@ public class CreateCompanyUseCase : IUseCase<CreateCompanyInputDTO, CreateCompan
             }).ToArray(),
             Address = new AddressEntity
             {
+                Latitude = request.Address.Latitude,
+                Longitude = request.Address.Longitude,
                 ZipCode = request.Address.ZipCode,
                 CityId = request.Address.City,
                 Neighborhood = request.Address.Neighborhood,
