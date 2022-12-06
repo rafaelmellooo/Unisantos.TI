@@ -1,10 +1,10 @@
-/* eslint-disable @next/next/no-img-element */
 import { WhatsApp, PinDrop, Phone, Facebook, Instagram, StarBorder, Star } from '@mui/icons-material';
 import { Chip, Rating, TextField, Button } from '@mui/material';
 import { api } from '../../services';
 import {CompanyDetails} from "../../interfaces/CompanyDetails";
 import {useCookies} from "react-cookie";
-import {useState} from "react";
+import {FormEvent, useState} from "react";
+import {Rate} from "../../interfaces/Rate";
 
 interface ShowCompanyDetailsProps {
     id: string;
@@ -14,9 +14,12 @@ interface ShowCompanyDetailsProps {
 export default function ShowCompanyDetails({ id, companyDetails }: ShowCompanyDetailsProps) {
     const [cookies, setCookie] = useCookies(['session-token']);
     const [isFavorited, setIsFavorited] = useState(companyDetails.isFavorited);
+    const [rates, setRates] = useState(companyDetails.rates);
+    const [rate, setRate] = useState<number | null>();
+    const [comment, setComment] = useState('');
 
-    const handleFavorite = async () => {
-        console.log(cookies["session-token"]);
+    const handleFavorite = async (e: FormEvent) => {
+        e.preventDefault();
 
         try {
             await api.post(`/companies/${id}/favorites`, null, {
@@ -28,6 +31,29 @@ export default function ShowCompanyDetails({ id, companyDetails }: ShowCompanyDe
             setIsFavorited(true);
         } catch {
             alert('Erro ao favoritar');
+        }
+    }
+
+    interface RateCompanyResponse {
+        data: Rate;
+    }
+
+    const handleComment = async (e: FormEvent) => {
+        e.preventDefault();
+
+        try {
+            const response = await api.post<RateCompanyResponse>(`/companies/${id}/rates`, {
+                rate,
+                comment
+            }, {
+                headers: {
+                    Authorization: `Bearer ${cookies["session-token"]}`
+                }
+            });
+
+            setRates([...rates, response.data.data]);
+        } catch {
+            alert('Erro ao comentar');
         }
     }
 
@@ -110,21 +136,21 @@ export default function ShowCompanyDetails({ id, companyDetails }: ShowCompanyDe
             ))}
 
             <h3>Avaliações</h3>
-            {companyDetails.rates.map(rates => (
-                <div key={rates.id} className='rate-container'>
+            {rates.map(rate => (
+                <div key={rate.id} className='rate-container'>
                     <div className='rate-username-container'>
-                        <div className='rate-username'>{rates.user}</div>
-                        <Rating name="read-only" value={rates.rate} readOnly size='small' />
+                        <div className='rate-username'>{rate.user}</div>
+                        <Rating name="read-only" value={rate.rate} readOnly size='small' />
                     </div>
                     <div className='rate-text'>
-                        {rates.comment}
+                        {rate.comment}
                     </div>
                 </div>
             ))}
-            <div className='rate-container'>
+            <form className='rate-container' onSubmit={handleComment}>
                 <div className='rate-username-container'>
                     <div className='rate-username'>Você</div>
-                    <Rating name="read-only" value={0} readOnly size='small' />
+                    <Rating value={rate} onChange={(e, newValue) => setRate(newValue)} size='small' />
                 </div>
                 <div className='user-comment'>
                     <TextField
@@ -132,12 +158,14 @@ export default function ShowCompanyDetails({ id, companyDetails }: ShowCompanyDe
                         multiline
                         rows={4}
                         fullWidth
+                        value={comment}
+                        onChange={e => setComment(e.target.value)}
                     />
                 </div>
                 <div className='comment-button-container'>
-                    <Button variant="contained" className='comment-button'>Enviar</Button>
+                    <Button variant="contained" className='comment-button' type="submit">Enviar</Button>
                 </div>
-            </div>
+            </form>
         </>
     )
 }
@@ -152,8 +180,6 @@ export async function getServerSideProps({ req, params }: any) {
             Authorization: `Bearer ${req.cookies['session-token']}`
         }
     });
-
-    console.log(response.data.data);
 
     return {
         props: {
