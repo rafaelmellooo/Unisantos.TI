@@ -99,7 +99,7 @@ export default function Home({ companies, googleMapsApiKey }: HomeProps) {
 
                     </div>
 
-                    <Button variant="contained" className="companyRedirectButton">
+                    <Button variant="contained" className="companyRedirectButton" href={`/establishmentInfo/${selectedCompany?.id}`}>
                         MAIS INFORMAÇÕES
                     </Button>
                 </div>

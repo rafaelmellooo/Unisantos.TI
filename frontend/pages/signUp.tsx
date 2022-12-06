@@ -2,6 +2,8 @@ import Image from 'next/image'
 import Unknown from '../public/unknown-user.png'
 import { ArrowBack, VisibilityOff } from '@mui/icons-material'
 import { InputAdornment, MenuItem, Select, TextField, Button, InputLabel } from '@mui/material';
+import IMaskInput from 'react-imask';
+import { InputTelefone } from '../components/InputTelefone';
 
 export default function SignUp() {
     return (
@@ -56,8 +58,9 @@ export default function SignUp() {
                         label="E-mail"
                         variant="standard"
                         className="signUp-input-large"
-                    />
-
+                    />{/* 
+                    <InputTelefone>
+                    </InputTelefone> */}
                     <TextField
                         label="Senha"
                         type="password"
