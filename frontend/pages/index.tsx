@@ -15,7 +15,7 @@ interface HomeProps {
 }
 
 export default function Home({ companies, googleMapsApiKey }: HomeProps) {
-    const [companyModalOpened, setCompanyModalOpened] = useState(true);
+    const [companyModalOpened, setCompanyModalOpened] = useState(false);
     const [selectedCompany, setSelectedCompany] = useState<Company>();
 
     const handleCompanyModalToggle = (index: number) => {
@@ -93,7 +93,7 @@ export default function Home({ companies, googleMapsApiKey }: HomeProps) {
                             </div>
 
                             <div className="companyContainerItem companyContainerRating">
-                                {selectedCompany?.rating}
+                                {selectedCompany?.rating ? selectedCompany?.rating : "Sem avaliações"}
                             </div>
                         </div>
 
