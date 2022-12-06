@@ -37,10 +37,10 @@ export default function Home({ googleMapsApiKey }: HomeProps) {
             params: {
                 latitude,
                 longitude,
-                Distance: 10
+                distance: 10
             }
         }).then(response => setCompanies(response.data.data));
-    }, [latitude, longitude]);
+    }, []);
 
     const handleCompanyModalToggle = (index: number) => {
         setSelectedCompany(companies[index]);
