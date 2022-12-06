@@ -4,6 +4,12 @@ namespace Unisantos.TI.Domain.DTO.Address;
 
 public record AddressInputDTO
 {
+    [Required(ErrorMessage = "A latitude é obrigatória")]
+    public double Latitude { get; set; }
+    
+    [Required(ErrorMessage = "A longitude é obrigatória")]
+    public double Longitude { get; set; }
+    
     [Required(ErrorMessage = "O CEP é obrigatório")]
     public required string ZipCode { get; set; }
 

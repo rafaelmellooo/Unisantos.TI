@@ -13,7 +13,7 @@ const daysOfWeek = [
     { day: 6, name: "Sábado" },
 ]
 
-export default function Home() {
+export default function NewCompany() {
     const [dayOfWeekChecked, setDayOfWeekChecked] = useState([false, false, false, false, false, false, false])
 
     const handleDayOfWeekCheckChange = (id: number) => {
