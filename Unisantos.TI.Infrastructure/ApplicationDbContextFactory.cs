@@ -8,11 +8,15 @@ public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<Applicati
 {
     public ApplicationDbContext CreateDbContext(string[] args)
     {
-        var configuration = new ConfigurationBuilder().AddEnvironmentVariables().Build();
+        var configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json")
+            .AddEnvironmentVariables()
+            .Build();
 
         var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
 
-        var connectionString = configuration["ConnectionString"];
+        var connectionString = configuration.GetConnectionString("Default");
         builder.UseNpgsql(connectionString);
 
         return new ApplicationDbContext(builder.Options);
