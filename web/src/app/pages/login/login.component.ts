@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
 import {WarningDialogComponent} from "../../shared/components/warning-dialog/warning-dialog.component";
+import {LoginService} from "./login.service";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-login',
@@ -13,6 +15,7 @@ export class LoginComponent {
 
   constructor(
     private readonly formBuilder: FormBuilder,
+    private readonly loginService: LoginService,
     private readonly dialog: MatDialog
   ) {
     this.formGroup = this.getFormGroup();
@@ -26,9 +29,26 @@ export class LoginComponent {
   }
 
   submitForm() {
-    this.dialog.open(WarningDialogComponent, {
-      data: {
-        content: 'E-mail e/ou senha inválidos'
+    this.formGroup.markAllAsTouched();
+
+    if (this.formGroup.invalid) {
+      return;
+    }
+
+    const {email, password} = this.formGroup.getRawValue();
+
+    this.loginService.createSession({
+      email, password
+    }).subscribe({
+      next: response => {
+        localStorage.setItem('token', response.token);
+      },
+      error: (error: HttpErrorResponse) => {
+        this.dialog.open(WarningDialogComponent, {
+          data: {
+            content: error.message
+          }
+        });
       }
     });
   }
