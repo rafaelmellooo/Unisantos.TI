@@ -12,7 +12,11 @@ public class ConfigurationProvider : Domain.Providers.IConfigurationProvider
         _configuration = configuration;
     }
 
-    public string ConnectionString => _configuration.GetConnectionString("default");
+    public string ConnectionString => _configuration.GetConnectionString("Default") ??
+                                      throw new InvalidOperationException(
+                                          "A conexão com o banco de dados não foi configurada.");
 
-    public AuthSettings AuthSettings => _configuration.GetRequiredSection("AuthSettings").Get<AuthSettings>();
+    public AuthSettings AuthSettings => _configuration.GetRequiredSection("AuthSettings").Get<AuthSettings>() ??
+                                        throw new InvalidOperationException(
+                                            "As configurações de autenticação não foram configuradas.");
 }
