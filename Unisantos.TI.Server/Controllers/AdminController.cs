@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Unisantos.TI.Core.UseCases.Admin;
 using Unisantos.TI.Domain.DTO.Admin;
 using Unisantos.TI.Domain.DTO.Company;
@@ -8,6 +9,7 @@ namespace Unisantos.TI.Server.Controllers;
 
 [ApiController]
 [Route("admin")]
+[Authorize(Policy = "Admin")]
 public class AdminController : Controller
 {
     private readonly GetAdminCompaniesUseCase _getAdminCompaniesUseCase;
