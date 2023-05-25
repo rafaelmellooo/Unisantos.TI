@@ -4,14 +4,14 @@ import {LoginComponent} from "./pages/login/login.component";
 
 const routes: Routes = [
   {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
     path: '',
     redirectTo: '/login',
     pathMatch: 'full',
-  }
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
 
   // TODO: redirect to 404 page
 ];

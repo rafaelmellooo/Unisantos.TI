@@ -1,9 +1,6 @@
 import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {MatDialog} from "@angular/material/dialog";
-import {WarningDialogComponent} from "../../shared/components/warning-dialog/warning-dialog.component";
 import {LoginService} from "./login.service";
-import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-login',
@@ -15,8 +12,7 @@ export class LoginComponent {
 
   constructor(
     private readonly formBuilder: FormBuilder,
-    private readonly loginService: LoginService,
-    private readonly dialog: MatDialog
+    private readonly loginService: LoginService
   ) {
     this.formGroup = this.getFormGroup();
   }
@@ -39,17 +35,8 @@ export class LoginComponent {
 
     this.loginService.createSession({
       email, password
-    }).subscribe({
-      next: response => {
-        localStorage.setItem('token', response.token);
-      },
-      error: (error: HttpErrorResponse) => {
-        this.dialog.open(WarningDialogComponent, {
-          data: {
-            content: error.message
-          }
-        });
-      }
+    }).subscribe(response => {
+      localStorage.setItem('token', response.token);
     });
   }
 }

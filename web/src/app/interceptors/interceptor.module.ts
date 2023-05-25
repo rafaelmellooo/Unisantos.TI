@@ -1,13 +1,24 @@
 import {NgModule} from "@angular/core";
-import {AuthInterceptorService} from "./auth-interceptor.service";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {ErrorInterceptor} from "./error.interceptor";
+import {AuthInterceptor} from "./auth.interceptor";
+import {LoadingInterceptor} from "./loading.interceptor";
 
 @NgModule({
   providers: [
-    AuthInterceptorService,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptorService,
+      useClass: LoadingInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
       multi: true
     }
   ]

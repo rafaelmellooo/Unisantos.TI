@@ -18,8 +18,4 @@ export class WarningDialogComponent {
     public readonly data: ErrorDialogData
   ) {
   }
-
-  closeDialog() {
-    this.dialogRef.close();
-  }
 }

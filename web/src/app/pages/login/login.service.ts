@@ -20,6 +20,6 @@ export class LoginService {
   }
 
   createSession(sessionData: CreateSessionData) {
-    return this.httpClient.post<SessionResponse>('', sessionData);
+    return this.httpClient.post<SessionResponse>('https://localhost:7111/sessions', sessionData);
   }
 }

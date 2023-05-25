@@ -30,12 +30,12 @@ public class CreateSessionUseCase : IUseCase<CreateSessionInputDTO, TokenRespons
 
         if (user is null)
         {
-            throw new UserNotFoundException();
+            throw new InvalidSessionException();
         }
 
         if (!_passwordHashProvider.Verify(user.Password, request.Password))
         {
-            throw new InvalidPasswordException();
+            throw new InvalidSessionException();
         }
 
         return await _authProvider.GenerateToken(user, cancellationToken);
