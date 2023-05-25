@@ -17,16 +17,16 @@ public class HttpContextAuthenticatedUser : IAuthenticatedUser
     {
         get
         {
-            var id = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var value = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (string.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(value))
             {
                 return null;
             }
 
-            return Guid.Parse(id);
+            return Guid.Parse(value);
         }
     }
-    
+
     public string Name => _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Name);
 }

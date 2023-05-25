@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Unisantos.TI.Core.UseCases.Address;
+using Unisantos.TI.Core.UseCases.Admin;
 using Unisantos.TI.Core.UseCases.Company;
 using Unisantos.TI.Core.UseCases.Session;
 using Unisantos.TI.Core.UseCases.User;
@@ -24,5 +25,7 @@ public static class UseCasesExtensions
         services.AddScoped<FavoriteCompanyUseCase, FavoriteCompanyUseCase>();
         services.AddScoped<RateCompanyUseCase, RateCompanyUseCase>();
         services.AddScoped<GetFavoriteCompaniesUseCase, GetFavoriteCompaniesUseCase>();
+
+        services.AddScoped<GetAdminCompaniesUseCase, GetAdminCompaniesUseCase>();
     }
 }
