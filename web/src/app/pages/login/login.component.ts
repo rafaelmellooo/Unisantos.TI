@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {LoginService} from "./login.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,8 @@ export class LoginComponent {
 
   constructor(
     private readonly formBuilder: FormBuilder,
-    private readonly loginService: LoginService
+    private readonly loginService: LoginService,
+    private readonly router: Router
   ) {
     this.formGroup = this.getFormGroup();
   }
@@ -37,6 +39,8 @@ export class LoginComponent {
       email, password
     }).subscribe(response => {
       localStorage.setItem('token', response.token);
+
+      this.router.navigateByUrl('/home');
     });
   }
 }

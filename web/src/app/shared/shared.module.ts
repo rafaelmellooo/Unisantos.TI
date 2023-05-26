@@ -3,16 +3,23 @@ import {WarningDialogComponent} from './components/warning-dialog/warning-dialog
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatDialogModule} from "@angular/material/dialog";
+import { HeaderComponent } from './components/header/header.component';
+import {RouterLink} from "@angular/router";
 
 @NgModule({
   declarations: [
-    WarningDialogComponent
+    WarningDialogComponent,
+    HeaderComponent
   ],
-    imports: [
-        MatIconModule,
-        MatButtonModule,
-        MatDialogModule
-    ],
+  imports: [
+    MatIconModule,
+    MatButtonModule,
+    MatDialogModule,
+    RouterLink
+  ],
+  exports: [
+    HeaderComponent
+  ]
 })
 export class SharedModule {
 }
