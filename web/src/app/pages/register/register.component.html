@@ -1,0 +1,35 @@
+<section id="register">
+  <form [formGroup]="formGroup" (ngSubmit)="submitForm()">
+    <h1>Cadastro</h1>
+
+    <mat-form-field appearance="outline" style="width: 400px">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 400px">
+      <mat-label>E-mail</mat-label>
+      <input matInput formControlName="email">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 400px">
+      <mat-label>Senha</mat-label>
+      <input matInput type="password" formControlName="password">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 400px">
+      <mat-label>Confirmação da senha</mat-label>
+      <input matInput type="password" formControlName="passwordConfirmation">
+    </mat-form-field>
+
+    <ul *ngIf="formGroup.errors" class="error-list" style="width: 400px">
+      <ng-container *ngFor="let error of formGroup.errors | keyvalue">
+
+        <li *ngFor="let message of error.value">{{ message }}</li>
+
+      </ng-container>
+    </ul>
+
+    <button mat-flat-button color="accent" type="submit">Cadastrar</button>
+  </form>
+</section>

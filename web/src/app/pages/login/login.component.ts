@@ -38,7 +38,7 @@ export class LoginComponent {
     this.loginService.createSession({
       email, password
     }).subscribe(response => {
-      localStorage.setItem('token', response.token);
+      localStorage.setItem('token', response.data.token);
 
       this.router.navigateByUrl('/home');
     });

@@ -18,11 +18,14 @@ export class ErrorInterceptor implements HttpInterceptor {
       catchError((httpErrorResponse: HttpErrorResponse) => {
         switch (httpErrorResponse.status) {
           case HttpStatusCode.BadRequest:
-            this.dialog.open(WarningDialogComponent, {
-              data: {
-                content: httpErrorResponse.error.message
-              }
-            });
+            if (httpErrorResponse.error.message && typeof(httpErrorResponse.error.message) === 'string') {
+              this.dialog.open(WarningDialogComponent, {
+                data: {
+                  content: httpErrorResponse.error.message
+                }
+              });
+            }
+
             break;
 
           case HttpStatusCode.Unauthorized:

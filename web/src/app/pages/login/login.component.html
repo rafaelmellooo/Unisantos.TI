@@ -1,17 +1,17 @@
 <section id="login">
-  <h1>Login</h1>
-
   <form [formGroup]="formGroup" (ngSubmit)="submitForm()">
-    <mat-form-field appearance="outline">
-      <mat-label>Digite seu e-mail</mat-label>
+    <h1>Login</h1>
+
+    <mat-form-field appearance="outline" style="width: 400px">
+      <mat-label>E-mail</mat-label>
       <input matInput formControlName="email">
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Digite sua senha</mat-label>
+    <mat-form-field appearance="outline" style="width: 400px">
+      <mat-label>Senha</mat-label>
       <input matInput type="password" formControlName="password">
     </mat-form-field>
 
-    <button mat-flat-button color="primary" type="submit">Entrar</button>
+    <button mat-flat-button color="accent" type="submit">Entrar</button>
   </form>
 </section>

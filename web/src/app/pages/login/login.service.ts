@@ -7,7 +7,9 @@ interface CreateSessionData {
 }
 
 interface SessionResponse {
-  token: string;
+  data: {
+    token: string;
+  }
 }
 
 @Injectable({
@@ -19,7 +21,7 @@ export class LoginService {
   ) {
   }
 
-  createSession(sessionData: CreateSessionData) {
-    return this.httpClient.post<SessionResponse>('https://localhost:7111/sessions', sessionData);
+  createSession(createSessionData: CreateSessionData) {
+    return this.httpClient.post<SessionResponse>('https://localhost:7111/sessions', createSessionData);
   }
 }

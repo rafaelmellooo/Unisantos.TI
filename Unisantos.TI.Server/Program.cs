@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using Microsoft.OpenApi.Models;
 using Unisantos.TI.Infrastructure.Extensions;
 
@@ -10,7 +11,9 @@ builder.Services.AddProviders();
 builder.Services.AddApplicationDbContext();
 builder.Services.AddAuth(builder.Configuration);
 builder.Services.AddUseCases();
-builder.Services.AddControllers()
+builder.Services
+    .AddControllers(
+        options => options.ModelMetadataDetailsProviders.Add(new SystemTextJsonValidationMetadataProvider()))
     .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 builder.Services.AddHealthChecks();
 
