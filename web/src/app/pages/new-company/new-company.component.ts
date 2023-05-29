@@ -2,8 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {TagsSectionResponse} from "../../shared/interfaces/TagsSectionResponse";
 import {NewCompanyService} from "./new-company.service";
-import {StateResponse} from "../../shared/interfaces/StateResponse";
-import {CityResponse} from "../../shared/interfaces/CityResponse";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-new-company',
@@ -14,12 +13,11 @@ export class NewCompanyComponent implements OnInit {
   formGroup: FormGroup;
 
   tagsSections: TagsSectionResponse[] = [];
-  states: StateResponse[] = [];
-  cities: CityResponse[] = [];
 
   constructor(
     private readonly formBuilder: FormBuilder,
-    private readonly newCompanyService: NewCompanyService
+    private readonly newCompanyService: NewCompanyService,
+    private readonly location: Location
   ) {
     this.formGroup = this.getFormGroup();
   }
@@ -30,24 +28,11 @@ export class NewCompanyComponent implements OnInit {
 
   ngOnInit() {
     this.loadTags();
-    this.loadStates();
   }
 
   loadTags() {
     this.newCompanyService.getTags().subscribe(response => {
       this.tagsSections = response.data;
-    });
-  }
-
-  loadStates() {
-    this.newCompanyService.getStates().subscribe(response => {
-      this.states = response.data;
-    });
-  }
-
-  loadCities(stateId: number) {
-    this.newCompanyService.getCities(stateId).subscribe(response => {
-      this.cities = response.data;
     });
   }
 
@@ -75,7 +60,13 @@ export class NewCompanyComponent implements OnInit {
     });
   }
 
+  goBack() {
+    this.location.back();
+  }
+
   submitForm() {
+    this.formGroup.markAllAsTouched();
+
     console.log(this.formGroup.getRawValue());
   }
 }

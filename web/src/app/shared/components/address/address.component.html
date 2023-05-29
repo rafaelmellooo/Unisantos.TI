@@ -1,0 +1,64 @@
+<div [formGroup]="addressFormGroup" class="form-section">
+  <h2>Endereço</h2>
+
+  <div class="fields-group" style="grid-template-columns: 1fr 1fr 1fr">
+    <mat-form-field appearance="outline">
+      <mat-label>Latitude</mat-label>
+      <input type="number" matInput formControlName="latitude">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Longitude</mat-label>
+      <input type="number" matInput formControlName="longitude">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>CEP</mat-label>
+      <input matInput formControlName="zipCode" mask="00000-000" [dropSpecialCharacters]="false">
+    </mat-form-field>
+  </div>
+
+  <div class="fields-group" style="grid-template-columns: 1fr 2fr">
+    <mat-form-field>
+      <mat-label>Estado</mat-label>
+      <mat-select (selectionChange)="loadCities($event.value)">
+        <mat-option *ngFor="let state of states" [value]="state.id">
+          {{state.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Cidade</mat-label>
+      <mat-select formControlName="city">
+        <mat-option *ngFor="let city of cities" [value]="city.id">
+          {{city.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="fields-group" style="grid-template-columns: 1fr 2fr">
+    <mat-form-field appearance="outline">
+      <mat-label>Bairro</mat-label>
+      <input matInput formControlName="neighborhood">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Rua</mat-label>
+      <input matInput formControlName="street">
+    </mat-form-field>
+  </div>
+
+  <div class="fields-group" style="grid-template-columns: 1fr 4fr">
+    <mat-form-field appearance="outline">
+      <mat-label>Número</mat-label>
+      <input type="number" matInput formControlName="number">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Complemento</mat-label>
+      <input matInput formControlName="complement">
+    </mat-form-field>
+  </div>
+</div>
