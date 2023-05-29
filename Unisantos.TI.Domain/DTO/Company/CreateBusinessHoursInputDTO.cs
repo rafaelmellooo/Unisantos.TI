@@ -8,8 +8,8 @@ public class CreateBusinessHoursInputDTO
     public DayOfWeek DayOfWeek { get; set; }
     
     [Required(ErrorMessage = "A hora de abertura é obrigatória")]
-    public TimeOnly OpeningTime { get; set; }
+    public required string OpeningTime { get; set; }
     
     [Required(ErrorMessage = "A hora de fechamento é obrigatória")]
-    public TimeOnly ClosingTime { get; set; }
+    public required string ClosingTime { get; set; }
 }

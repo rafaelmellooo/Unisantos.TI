@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {SuccessResponse} from "../../../../shared/interfaces/SuccessResponse";
-import {StateResponse} from "../../../../shared/interfaces/StateResponse";
-import {CityResponse} from "../../../../shared/interfaces/CityResponse";
+import {State} from "../../../../shared/interfaces/State";
+import {City} from "../../../../shared/interfaces/City";
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({
@@ -14,10 +14,10 @@ export class AddressService {
   }
 
   getStates() {
-    return this.httpClient.get<SuccessResponse<StateResponse[]>>('https://localhost:7111/states');
+    return this.httpClient.get<SuccessResponse<State[]>>('https://localhost:7111/states');
   }
 
   getCities(stateId: number) {
-    return this.httpClient.get<SuccessResponse<CityResponse[]>>(`https://localhost:7111/states/${stateId}/cities`);
+    return this.httpClient.get<SuccessResponse<City[]>>(`https://localhost:7111/states/${stateId}/cities`);
   }
 }

@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {SuccessResponse} from "../../shared/interfaces/SuccessResponse";
-import {TagsSectionResponse} from "../../shared/interfaces/TagsSectionResponse";
+import {TagsSection} from "../../shared/interfaces/TagsSection";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class NewCompanyService {
   }
 
   getTags() {
-    return this.httpClient.get<SuccessResponse<TagsSectionResponse[]>>('https://localhost:7111/tags');
+    return this.httpClient.get<SuccessResponse<TagsSection[]>>('https://localhost:7111/tags');
   }
 
   createCompany(company: any) {

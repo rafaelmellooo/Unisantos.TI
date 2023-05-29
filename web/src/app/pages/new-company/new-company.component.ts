@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {TagsSectionResponse} from "../../shared/interfaces/TagsSectionResponse";
+import {TagsSection} from "../../shared/interfaces/TagsSection";
 import {NewCompanyService} from "./new-company.service";
 import {Location} from "@angular/common";
 import {HttpErrorResponse} from "@angular/common/http";
@@ -13,7 +13,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 export class NewCompanyComponent implements OnInit {
   formGroup: FormGroup;
 
-  tagsSections: TagsSectionResponse[] = [];
+  tagsSections: TagsSection[] = [];
 
   constructor(
     private readonly formBuilder: FormBuilder,

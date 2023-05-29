@@ -1,4 +1,4 @@
-export interface CityResponse {
+export interface Tag {
   id: number;
   name: string;
 }

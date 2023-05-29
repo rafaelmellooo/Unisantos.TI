@@ -1,4 +1,4 @@
-export interface AddressResponse {
+export interface Address {
   id: string;
   zipCode: string;
   state: string;

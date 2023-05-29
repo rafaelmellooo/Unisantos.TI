@@ -65,7 +65,7 @@
     <app-address [formGroup]="formGroup" style="width: 800px">
     </app-address>
 
-    <ul *ngIf="formGroup.errors" class="error-list" style="width: 400px">
+    <ul *ngIf="formGroup.errors" class="error-list" style="width: 800px">
       <ng-container *ngFor="let error of formGroup.errors | keyvalue">
 
         <li *ngFor="let message of error.value">{{ message }}</li>

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {StateResponse} from "../../../../shared/interfaces/StateResponse";
-import {CityResponse} from "../../../../shared/interfaces/CityResponse";
+import {State} from "../../../../shared/interfaces/State";
+import {City} from "../../../../shared/interfaces/City";
 import {AddressService} from "./address.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
@@ -15,8 +15,8 @@ export class AddressComponent implements OnInit {
   })
   formGroup: FormGroup;
 
-  states: StateResponse[] = [];
-  cities: CityResponse[] = [];
+  states: State[] = [];
+  cities: City[] = [];
 
   constructor(
     private readonly formBuilder: FormBuilder,

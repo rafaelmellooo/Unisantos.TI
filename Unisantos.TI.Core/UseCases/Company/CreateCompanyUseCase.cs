@@ -36,8 +36,8 @@ public class CreateCompanyUseCase : IUseCase<CreateCompanyInputDTO, CreateCompan
             BusinessHours = request.BusinessHours.Select(businessHours => new BusinessHoursEntity
             {
                 DayOfWeek = businessHours.DayOfWeek,
-                OpeningTime = businessHours.OpeningTime,
-                ClosingTime = businessHours.ClosingTime
+                OpeningTime = TimeOnly.Parse(businessHours.OpeningTime),
+                ClosingTime = TimeOnly.Parse(businessHours.ClosingTime)
             }).ToArray(),
             ProductsSections = request.ProductsSections.Select(productsSection => new ProductsSectionEntity
             {

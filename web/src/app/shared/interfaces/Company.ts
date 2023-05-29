@@ -1,12 +1,12 @@
-import {AddressResponse} from "./AddressResponse";
+import {Address} from "./Address";
 
-export interface CompanyResponse {
+export interface Company {
   id: string;
   name: string;
   latitude: number;
   longitude: number;
   imagePreviewUrl: string;
   rating?: number;
-  address: AddressResponse;
+  address: Address;
   tags: string[];
 }
