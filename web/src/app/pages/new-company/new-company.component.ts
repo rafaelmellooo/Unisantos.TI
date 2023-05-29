@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {TagsSectionResponse} from "../../shared/interfaces/TagsSectionResponse";
 import {NewCompanyService} from "./new-company.service";
 import {Location} from "@angular/common";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-new-company',
@@ -20,10 +21,6 @@ export class NewCompanyComponent implements OnInit {
     private readonly location: Location
   ) {
     this.formGroup = this.getFormGroup();
-  }
-
-  get addressFormGroup() {
-    return this.formGroup.get('address') as FormGroup;
   }
 
   ngOnInit() {
@@ -45,18 +42,7 @@ export class NewCompanyComponent implements OnInit {
       phone: [null],
       instagram: [null],
       facebook: [null],
-      tags: [null],
-
-      address: this.formBuilder.group({
-        latitude: [null, Validators.required],
-        longitude: [null, Validators.required],
-        zipCode: [null, Validators.required],
-        city: [null, Validators.required],
-        neighborhood: [null, Validators.required],
-        street: [null, [Validators.required, Validators.pattern(/[0-9]+/)]],
-        number: [null, Validators.required],
-        complement: [null],
-      })
+      tags: [null]
     });
   }
 
@@ -66,6 +52,21 @@ export class NewCompanyComponent implements OnInit {
 
   submitForm() {
     this.formGroup.markAllAsTouched();
+
+    if (this.formGroup.invalid) {
+      return;
+    }
+
+    this.newCompanyService.createCompany(this.formGroup.getRawValue()).subscribe({
+      next: response => {
+        console.log(response);
+      },
+      error: (httpErrorResponse: HttpErrorResponse) => {
+        if (httpErrorResponse.error.errors && typeof(httpErrorResponse.error.errors) === 'object') {
+          this.formGroup.setErrors(httpErrorResponse.error.errors);
+        }
+      }
+    });
 
     console.log(this.formGroup.getRawValue());
   }

@@ -1,0 +1,49 @@
+<div [formGroup]="formGroup" class="busines-hours">
+  <div formArrayName="businessHours">
+    <h2>
+      <span>Horários de Funcionamento</span>
+
+      <button mat-flat-button type="button" (click)="addBusinessHours()">
+        <mat-icon>add</mat-icon>Horário de Funcionamento
+      </button>
+    </h2>
+
+    <div
+      *ngFor="let businessHours of businessHours.controls; let i = index"
+    >
+      <div
+        class="form-section"
+        [formGroupName]="i"
+      >
+        <h3>
+          <span>{{getInfoBusinessHours(businessHours)}}</span>
+          <button mat-icon-button color="warn" type="button" (click)="removeBusinessHours(i)"><mat-icon>delete</mat-icon></button>
+        </h3>
+
+        <div
+          class="fields-group"
+          style="grid-template-columns: 1fr 1fr 1fr"
+        >
+          <mat-form-field>
+            <mat-label>Dia da Semana</mat-label>
+            <mat-select formControlName="dayOfWeek">
+              <mat-option *ngFor="let dayOfWeek of daysOfWeek" [value]="dayOfWeek.id">
+                {{dayOfWeek.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Horário de Abertura</mat-label>
+            <input matInput formControlName="openingTime" mask="00:00" [dropSpecialCharacters]="false" placeholder="08:00">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Horário de Fechamento</mat-label>
+            <input matInput formControlName="closingTime" mask="00:00" [dropSpecialCharacters]="false" placeholder="18:00">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

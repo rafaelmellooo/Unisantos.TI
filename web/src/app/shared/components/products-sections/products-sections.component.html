@@ -1,0 +1,77 @@
+<div [formGroup]="formGroup" class="products-sections">
+  <div formArrayName="productsSections">
+    <h2>
+      <span>Seções de Produtos</span>
+
+      <button mat-flat-button type="button" (click)="addProductsSection()">
+        <mat-icon>add</mat-icon>Seção de Produtos
+      </button>
+    </h2>
+
+    <div
+      *ngFor="let productsSection of productsSections.controls; let i = index"
+    >
+      <div
+        class="form-section"
+        [formGroupName]="i"
+      >
+        <h3>
+          <span>{{getInfoProductsSection(productsSection)}}</span>
+
+          <button mat-icon-button type="button" color="warn" (click)="removeProductsSection(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+
+          <button mat-flat-button type="button" (click)="addProduct(i)">
+            <mat-icon>add</mat-icon>Produto
+          </button>
+        </h3>
+
+        <mat-form-field>
+          <mat-label>Título</mat-label>
+          <input matInput formControlName="title">
+        </mat-form-field>
+
+        <div formArrayName="products">
+          <div
+            *ngFor="let product of products(i).controls; let j = index"
+          >
+            <div
+              class="form-section"
+              [formGroupName]="j"
+            >
+              <h4>
+                <span>{{getInfoProduct(product)}}</span>
+
+                <button mat-icon-button type="button" color="warn" (click)="removeProduct(i, j)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </h4>
+
+              <div
+                class="fields-group"
+                style="grid-template-columns: 3fr 1fr"
+              >
+                <mat-form-field>
+                  <mat-label>Nome</mat-label>
+                  <input matInput formControlName="name">
+                </mat-form-field>
+
+                <mat-form-field>
+                  <mat-label>Preço</mat-label>
+                  <input type="number" matInput formControlName="price">
+                </mat-form-field>
+              </div>
+
+              <mat-form-field>
+                <mat-label>Descrição</mat-label>
+                <textarea matInput formControlName="description"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

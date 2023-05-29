@@ -1,20 +1,20 @@
-<div [formGroup]="addressFormGroup" class="form-section">
+<div [formGroup]="address" class="form-section">
   <h2>Endereço</h2>
 
   <div class="fields-group" style="grid-template-columns: 1fr 1fr 1fr">
     <mat-form-field appearance="outline">
       <mat-label>Latitude</mat-label>
-      <input type="number" matInput formControlName="latitude">
+      <input type="number" matInput formControlName="latitude" placeholder="-23.9466171">
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Longitude</mat-label>
-      <input type="number" matInput formControlName="longitude">
+      <input type="number" matInput formControlName="longitude" placeholder="-46.3247461">
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>CEP</mat-label>
-      <input matInput formControlName="zipCode" mask="00000-000" [dropSpecialCharacters]="false">
+      <input matInput formControlName="zipCode" mask="00000-000" [dropSpecialCharacters]="false" placeholder="11015-002">
     </mat-form-field>
   </div>
 

@@ -15,4 +15,8 @@ export class NewCompanyService {
   getTags() {
     return this.httpClient.get<SuccessResponse<TagsSectionResponse[]>>('https://localhost:7111/tags');
   }
+
+  createCompany(company: any) {
+    return this.httpClient.post<SuccessResponse<any>>('https://localhost:7111/companies', company);
+  }
 }

@@ -13,12 +13,16 @@ import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import {NgForOf} from "@angular/common";
 import {NgxMaskDirective} from "ngx-mask";
+import { BusinessHoursComponent } from './components/business-hours/business-hours.component';
+import { ProductsSectionsComponent } from './components/products-sections/products-sections.component';
 
 @NgModule({
   declarations: [
     WarningDialogComponent,
     HeaderComponent,
-    AddressComponent
+    AddressComponent,
+    BusinessHoursComponent,
+    ProductsSectionsComponent
   ],
   imports: [
     MatIconModule,
@@ -36,7 +40,9 @@ import {NgxMaskDirective} from "ngx-mask";
   ],
   exports: [
     HeaderComponent,
-    AddressComponent
+    AddressComponent,
+    BusinessHoursComponent,
+    ProductsSectionsComponent
   ]
 })
 export class SharedModule {

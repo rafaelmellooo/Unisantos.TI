@@ -30,7 +30,7 @@ export class AddressComponent implements OnInit {
     this.loadStates();
   }
 
-  get addressFormGroup() {
+  get address() {
     return this.formGroup.get('address') as FormGroup;
   }
 
