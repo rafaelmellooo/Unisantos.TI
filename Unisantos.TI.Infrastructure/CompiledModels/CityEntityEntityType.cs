@@ -59,7 +59,7 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
             var runtimeForeignKey = declaringEntityType.AddForeignKey(new[] { declaringEntityType.FindProperty("StateId")! },
                 principalEntityType.FindKey(new[] { principalEntityType.FindProperty("Id")! })!,
                 principalEntityType,
-                deleteBehavior: DeleteBehavior.ClientCascade,
+                deleteBehavior: DeleteBehavior.Cascade,
                 required: true);
 
             var state = declaringEntityType.AddNavigation("State",

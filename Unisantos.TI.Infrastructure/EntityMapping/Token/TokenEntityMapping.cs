@@ -18,7 +18,10 @@ public class TokenEntityMapping : IEntityTypeConfiguration<TokenEntity>
         builder.Property(e => e.IsRevoked).HasDefaultValue(false);
         builder.Property(e => e.ExpiryAt).IsRequired();
 
-        builder.HasOne(e => e.User).WithMany(e => e.Tokens).HasForeignKey(e => e.UserId)
-            .OnDelete(DeleteBehavior.ClientCascade);
+        builder
+            .HasOne(e => e.User)
+            .WithMany(e => e.Tokens)
+            .HasForeignKey(e => e.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

@@ -13,7 +13,10 @@ public class BusinessHoursEntityMapping : IEntityTypeConfiguration<BusinessHours
         builder.Property(e => e.OpeningTime).IsRequired();
         builder.Property(e => e.ClosingTime).IsRequired();
 
-        builder.HasOne(e => e.Company).WithMany(e => e.BusinessHours).HasForeignKey(e => e.CompanyId)
-            .OnDelete(DeleteBehavior.ClientSetNull);
+        builder
+            .HasOne(e => e.Company)
+            .WithMany(e => e.BusinessHours)
+            .HasForeignKey(e => e.CompanyId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

@@ -36,10 +36,10 @@ export class NewCompanyComponent implements OnInit {
   getFormGroup() {
     return this.formBuilder.group({
       name: [null, Validators.required],
-      imagePreviewUrl: [null],
-      imageUrl: [null],
+      imagePreviewUrl: [null, Validators.required],
+      imageUrl: [null, Validators.required],
       description: [null, Validators.required],
-      phone: [null],
+      phone: [null, Validators.required],
       instagram: [null],
       facebook: [null],
       tags: [null]

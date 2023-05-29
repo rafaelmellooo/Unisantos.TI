@@ -20,7 +20,7 @@ public class UserEntity
 
     public ICollection<TokenEntity> Tokens { get; set; } = new List<TokenEntity>();
 
-    public CompanyEntity? Company { get; set; }
+    public ICollection<CompanyEntity> Company { get; set; } = new List<CompanyEntity>();
 
     public ICollection<FavoriteEntity> Favorites { get; set; } = new List<FavoriteEntity>();
 

@@ -11,7 +11,7 @@ public class CompanyEntity
 
     public required string Description { get; set; }
 
-    public string? Phone { get; set; }
+    public required string Phone { get; set; }
 
     public string? Instagram { get; set; }
 

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {StateResponse} from "../../interfaces/StateResponse";
-import {CityResponse} from "../../interfaces/CityResponse";
+import {StateResponse} from "../../../../shared/interfaces/StateResponse";
+import {CityResponse} from "../../../../shared/interfaces/CityResponse";
 import {AddressService} from "./address.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 

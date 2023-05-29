@@ -15,7 +15,10 @@ public class ProductEntityMapping : IEntityTypeConfiguration<ProductEntity>
         builder.Property(e => e.Description).IsRequired().HasMaxLength(500);
         builder.Property(e => e.Price).IsRequired();
 
-        builder.HasOne(e => e.ProductsSection).WithMany(e => e.Products).HasForeignKey(e => e.ProductsSectionId)
-            .OnDelete(DeleteBehavior.ClientCascade);
+        builder
+            .HasOne(e => e.ProductsSection)
+            .WithMany(e => e.Products)
+            .HasForeignKey(e => e.ProductsSectionId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

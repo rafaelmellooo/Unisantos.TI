@@ -58,7 +58,7 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
             var runtimeForeignKey = declaringEntityType.AddForeignKey(new[] { declaringEntityType.FindProperty("TagsSectionId")! },
                 principalEntityType.FindKey(new[] { principalEntityType.FindProperty("Id")! })!,
                 principalEntityType,
-                deleteBehavior: DeleteBehavior.ClientCascade,
+                deleteBehavior: DeleteBehavior.Cascade,
                 required: true);
 
             var tagsSection = declaringEntityType.AddNavigation("TagsSection",

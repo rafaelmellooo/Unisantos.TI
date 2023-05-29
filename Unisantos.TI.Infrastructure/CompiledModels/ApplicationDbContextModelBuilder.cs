@@ -16,7 +16,7 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
     {
         partial void Initialize()
         {
-            var companyEntityTagEntity = CompanyEntityTagEntityEntityType.Create(this);
+            var companyTag = CompanyTagEntityType.Create(this);
             var addressEntity = AddressEntityEntityType.Create(this);
             var cityEntity = CityEntityEntityType.Create(this);
             var stateEntity = StateEntityEntityType.Create(this);
@@ -31,8 +31,8 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
             var tokenEntity = TokenEntityEntityType.Create(this);
             var userEntity = UserEntityEntityType.Create(this);
 
-            CompanyEntityTagEntityEntityType.CreateForeignKey1(companyEntityTagEntity, companyEntity);
-            CompanyEntityTagEntityEntityType.CreateForeignKey2(companyEntityTagEntity, tagEntity);
+            CompanyTagEntityType.CreateForeignKey1(companyTag, companyEntity);
+            CompanyTagEntityType.CreateForeignKey2(companyTag, tagEntity);
             AddressEntityEntityType.CreateForeignKey1(addressEntity, cityEntity);
             CityEntityEntityType.CreateForeignKey1(cityEntity, stateEntity);
             BusinessHoursEntityEntityType.CreateForeignKey1(businessHoursEntity, companyEntity);
@@ -47,10 +47,10 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
             TagEntityEntityType.CreateForeignKey1(tagEntity, tagsSectionEntity);
             TokenEntityEntityType.CreateForeignKey1(tokenEntity, userEntity);
 
-            CompanyEntityEntityType.CreateSkipNavigation1(companyEntity, tagEntity, companyEntityTagEntity);
-            TagEntityEntityType.CreateSkipNavigation1(tagEntity, companyEntity, companyEntityTagEntity);
+            CompanyEntityEntityType.CreateSkipNavigation1(companyEntity, tagEntity, companyTag);
+            TagEntityEntityType.CreateSkipNavigation1(tagEntity, companyEntity, companyTag);
 
-            CompanyEntityTagEntityEntityType.CreateAnnotations(companyEntityTagEntity);
+            CompanyTagEntityType.CreateAnnotations(companyTag);
             AddressEntityEntityType.CreateAnnotations(addressEntity);
             CityEntityEntityType.CreateAnnotations(cityEntity);
             StateEntityEntityType.CreateAnnotations(stateEntity);
@@ -109,7 +109,7 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
 
             AddAnnotation("Relational:DbFunctions", functions);
             AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-            AddAnnotation("ProductVersion", "7.0.0");
+            AddAnnotation("ProductVersion", "7.0.5");
             AddAnnotation("Relational:MaxIdentifierLength", 63);
         }
     }

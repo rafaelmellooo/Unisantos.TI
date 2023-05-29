@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Unisantos.TI.Domain.Entities.Address;
 
@@ -96,6 +97,7 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
             var runtimeForeignKey = declaringEntityType.AddForeignKey(new[] { declaringEntityType.FindProperty("CityId")! },
                 principalEntityType.FindKey(new[] { principalEntityType.FindProperty("Id")! })!,
                 principalEntityType,
+                deleteBehavior: DeleteBehavior.SetNull,
                 required: true);
 
             var city = declaringEntityType.AddNavigation("City",

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {DayOfWeek} from "../../interfaces/DayOfWeek";
+import {DayOfWeek} from "../../../../shared/interfaces/DayOfWeek";
 import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({

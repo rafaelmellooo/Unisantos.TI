@@ -12,7 +12,7 @@ using Unisantos.TI.Infrastructure;
 namespace Unisantos.TI.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221204211235_AddTables")]
+    [Migration("20230529135636_AddTables")]
     partial class AddTables
     {
         /// <inheritdoc />
@@ -20,12 +20,12 @@ namespace Unisantos.TI.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.0")
+                .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("CompanyEntityTagEntity", b =>
+            modelBuilder.Entity("CompanyTag", b =>
                 {
                     b.Property<Guid>("CompaniesId")
                         .HasColumnType("uuid");
@@ -37,7 +37,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
 
                     b.HasIndex("TagsId");
 
-                    b.ToTable("CompanyTag", (string)null);
+                    b.ToTable("CompanyTag");
                 });
 
             modelBuilder.Entity("Unisantos.TI.Domain.Entities.Address.AddressEntity", b =>
@@ -201,8 +201,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
                     b.HasIndex("AddressId")
                         .IsUnique();
 
-                    b.HasIndex("AdminId")
-                        .IsUnique();
+                    b.HasIndex("AdminId");
 
                     b.ToTable("Companies");
                 });
@@ -425,7 +424,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("CompanyEntityTagEntity", b =>
+            modelBuilder.Entity("CompanyTag", b =>
                 {
                     b.HasOne("Unisantos.TI.Domain.Entities.Company.CompanyEntity", null)
                         .WithMany()
@@ -445,6 +444,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
                     b.HasOne("Unisantos.TI.Domain.Entities.Address.CityEntity", "City")
                         .WithMany("Addresses")
                         .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
                     b.Navigation("City");
@@ -455,7 +455,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
                     b.HasOne("Unisantos.TI.Domain.Entities.Address.StateEntity", "State")
                         .WithMany("Cities")
                         .HasForeignKey("StateId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("State");
@@ -466,6 +466,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
                     b.HasOne("Unisantos.TI.Domain.Entities.Company.CompanyEntity", "Company")
                         .WithMany("BusinessHours")
                         .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Company");
@@ -476,12 +477,13 @@ namespace Unisantos.TI.Infrastructure.Migrations
                     b.HasOne("Unisantos.TI.Domain.Entities.Address.AddressEntity", "Address")
                         .WithOne("Company")
                         .HasForeignKey("Unisantos.TI.Domain.Entities.Company.CompanyEntity", "AddressId")
+                        .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
                     b.HasOne("Unisantos.TI.Domain.Entities.User.UserEntity", "Admin")
-                        .WithOne("Company")
-                        .HasForeignKey("Unisantos.TI.Domain.Entities.Company.CompanyEntity", "AdminId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .WithMany("Company")
+                        .HasForeignKey("AdminId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Address");
@@ -494,13 +496,13 @@ namespace Unisantos.TI.Infrastructure.Migrations
                     b.HasOne("Unisantos.TI.Domain.Entities.Company.CompanyEntity", "Company")
                         .WithMany("Favorites")
                         .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Unisantos.TI.Domain.Entities.User.UserEntity", "User")
                         .WithMany("Favorites")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Company");
@@ -513,7 +515,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
                     b.HasOne("Unisantos.TI.Domain.Entities.Company.ProductsSectionEntity", "ProductsSection")
                         .WithMany("Products")
                         .HasForeignKey("ProductsSectionId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("ProductsSection");
@@ -524,7 +526,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
                     b.HasOne("Unisantos.TI.Domain.Entities.Company.CompanyEntity", "Company")
                         .WithMany("ProductsSections")
                         .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Company");
@@ -535,13 +537,13 @@ namespace Unisantos.TI.Infrastructure.Migrations
                     b.HasOne("Unisantos.TI.Domain.Entities.Company.CompanyEntity", "Company")
                         .WithMany("Rates")
                         .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Unisantos.TI.Domain.Entities.User.UserEntity", "User")
                         .WithMany("Rates")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Company");
@@ -554,7 +556,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
                     b.HasOne("Unisantos.TI.Domain.Entities.Company.TagsSectionEntity", "TagsSection")
                         .WithMany("Tags")
                         .HasForeignKey("TagsSectionId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("TagsSection");
@@ -565,7 +567,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
                     b.HasOne("Unisantos.TI.Domain.Entities.User.UserEntity", "User")
                         .WithMany("Tokens")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");

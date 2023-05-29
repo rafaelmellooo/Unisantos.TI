@@ -8,14 +8,17 @@ public record CreateCompanyInputDTO
     [Required(ErrorMessage = "O nome da empresa é obrigatório")]
     public required string Name { get; set; }
 
+    [Required(ErrorMessage = "A prévia da imagem da empresa é obrigatória")]
     public required string ImagePreviewUrl { get; set; }
 
+    [Required(ErrorMessage = "A imagem da empresa é obrigatória")]
     public required string ImageUrl { get; set; }
 
     [Required(ErrorMessage = "A descrição da empresa é obrigatória")]
     public required string Description { get; set; }
 
-    public string? Phone { get; set; }
+    [Required(ErrorMessage = "O telefone da empresa é obrigatório")]
+    public required string Phone { get; set; }
 
     public string? Instagram { get; set; }
 

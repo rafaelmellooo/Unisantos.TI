@@ -69,7 +69,8 @@ namespace Unisantos.TI.Infrastructure.Migrations
                         name: "FK_Cities_States_StateId",
                         column: x => x.StateId,
                         principalTable: "States",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -88,7 +89,8 @@ namespace Unisantos.TI.Infrastructure.Migrations
                         name: "FK_Tags_TagsSections_TagsSectionId",
                         column: x => x.TagsSectionId,
                         principalTable: "TagsSections",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -111,7 +113,8 @@ namespace Unisantos.TI.Infrastructure.Migrations
                         name: "FK_Tokens_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -135,7 +138,8 @@ namespace Unisantos.TI.Infrastructure.Migrations
                         name: "FK_Addresses_Cities_CityId",
                         column: x => x.CityId,
                         principalTable: "Cities",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -161,12 +165,14 @@ namespace Unisantos.TI.Infrastructure.Migrations
                         name: "FK_Companies_Addresses_AddressId",
                         column: x => x.AddressId,
                         principalTable: "Addresses",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_Companies_Users_AdminId",
                         column: x => x.AdminId,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -185,7 +191,8 @@ namespace Unisantos.TI.Infrastructure.Migrations
                         name: "FK_BusinessHours_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Companies",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -227,12 +234,14 @@ namespace Unisantos.TI.Infrastructure.Migrations
                         name: "FK_Favorites_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Companies",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Favorites_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -250,7 +259,8 @@ namespace Unisantos.TI.Infrastructure.Migrations
                         name: "FK_ProductsSections_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Companies",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -270,12 +280,14 @@ namespace Unisantos.TI.Infrastructure.Migrations
                         name: "FK_Rates_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Companies",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Rates_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -296,7 +308,8 @@ namespace Unisantos.TI.Infrastructure.Migrations
                         name: "FK_Products_ProductsSections_ProductsSectionId",
                         column: x => x.ProductsSectionId,
                         principalTable: "ProductsSections",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -323,8 +336,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Companies_AdminId",
                 table: "Companies",
-                column: "AdminId",
-                unique: true);
+                column: "AdminId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CompanyTag_TagsId",

@@ -14,10 +14,16 @@ public class RateEntityMapping : IEntityTypeConfiguration<RateEntity>
         builder.Property(e => e.Rate).IsRequired();
         builder.Property(e => e.Comment).IsRequired();
 
-        builder.HasOne(e => e.Company).WithMany(e => e.Rates).HasForeignKey(e => e.CompanyId)
-            .OnDelete(DeleteBehavior.ClientCascade);
+        builder
+            .HasOne(e => e.Company)
+            .WithMany(e => e.Rates)
+            .HasForeignKey(e => e.CompanyId)
+            .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasOne(e => e.User).WithMany(e => e.Rates).HasForeignKey(e => e.UserId)
-            .OnDelete(DeleteBehavior.ClientCascade);
+        builder
+            .HasOne(e => e.User)
+            .WithMany(e => e.Rates)
+            .HasForeignKey(e => e.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

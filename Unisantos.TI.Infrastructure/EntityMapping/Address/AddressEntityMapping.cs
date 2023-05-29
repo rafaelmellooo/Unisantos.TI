@@ -19,7 +19,10 @@ public class AddressEntityMapping : IEntityTypeConfiguration<AddressEntity>
         builder.Property(e => e.Latitude).IsRequired();
         builder.Property(e => e.Longitude).IsRequired();
 
-        builder.HasOne(e => e.City).WithMany(e => e.Addresses).HasForeignKey(e => e.CityId)
-            .OnDelete(DeleteBehavior.ClientSetNull);
+        builder
+            .HasOne(e => e.City)
+            .WithMany(e => e.Addresses)
+            .HasForeignKey(e => e.CityId)
+            .OnDelete(DeleteBehavior.SetNull);
     }
 }

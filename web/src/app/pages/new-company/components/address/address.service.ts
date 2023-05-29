@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
-import {SuccessResponse} from "../../interfaces/SuccessResponse";
-import {StateResponse} from "../../interfaces/StateResponse";
-import {CityResponse} from "../../interfaces/CityResponse";
+import {SuccessResponse} from "../../../../shared/interfaces/SuccessResponse";
+import {StateResponse} from "../../../../shared/interfaces/StateResponse";
+import {CityResponse} from "../../../../shared/interfaces/CityResponse";
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({

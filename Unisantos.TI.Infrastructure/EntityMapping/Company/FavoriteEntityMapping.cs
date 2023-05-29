@@ -10,11 +10,16 @@ public class FavoriteEntityMapping : IEntityTypeConfiguration<FavoriteEntity>
     {
         builder.HasKey(e => new {e.CompanyId, e.UserId});
 
-        builder.HasOne(e => e.User).WithMany(e => e.Favorites).HasForeignKey(e => e.UserId)
-            .OnDelete(DeleteBehavior.ClientCascade);
+        builder
+            .HasOne(e => e.User)
+            .WithMany(e => e.Favorites)
+            .HasForeignKey(e => e.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasOne(e => e.Company).WithMany(e => e.Favorites).HasForeignKey(e => e.CompanyId)
-            .OnDelete(DeleteBehavior.ClientCascade);
+        builder.HasOne(e => e.Company)
+            .WithMany(e => e.Favorites)
+            .HasForeignKey(e => e.CompanyId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.Property(e => e.CreatedAt).IsRequired();
     }

@@ -13,7 +13,10 @@ public class ProductsSectionEntityMapping : IEntityTypeConfiguration<ProductsSec
         builder.Property(e => e.Id).ValueGeneratedOnAdd();
         builder.Property(e => e.Title).IsRequired().HasMaxLength(100);
 
-        builder.HasOne(e => e.Company).WithMany(e => e.ProductsSections).HasForeignKey(e => e.CompanyId)
-            .OnDelete(DeleteBehavior.ClientCascade);
+        builder
+            .HasOne(e => e.Company)
+            .WithMany(e => e.ProductsSections)
+            .HasForeignKey(e => e.CompanyId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

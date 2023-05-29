@@ -20,12 +20,25 @@ public class CompanyEntityMapping : IEntityTypeConfiguration<CompanyEntity>
         builder.Property(e => e.ImageUrl);
         builder.Property(e => e.ImagePreviewUrl);
 
-        builder.HasOne(e => e.Address).WithOne(e => e.Company).HasForeignKey<CompanyEntity>(e => e.AddressId)
-            .OnDelete(DeleteBehavior.ClientSetNull);
+        builder
+            .HasOne(e => e.Address)
+            .WithOne(e => e.Company)
+            .HasForeignKey<CompanyEntity>(e => e.AddressId)
+            .OnDelete(DeleteBehavior.SetNull);
 
-        builder.HasOne(e => e.Admin).WithOne(e => e.Company).HasForeignKey<CompanyEntity>(e => e.AdminId)
-            .OnDelete(DeleteBehavior.ClientCascade);
+        builder
+            .HasOne(e => e.Admin)
+            .WithMany(e => e.Company)
+            .HasForeignKey(e => e.AdminId)
+            .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasMany(e => e.Tags).WithMany(e => e.Companies).UsingEntity(j => j.ToTable("CompanyTag"));
+        builder
+            .HasMany(e => e.Tags)
+            .WithMany(e => e.Companies)
+            .UsingEntity(
+                "CompanyTag",
+                l => l.HasOne(typeof(TagEntity)).WithMany().OnDelete(DeleteBehavior.Cascade),
+                r => r.HasOne(typeof(CompanyEntity)).WithMany().OnDelete(DeleteBehavior.Cascade)
+            );
     }
 }
