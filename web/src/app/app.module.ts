@@ -15,13 +15,17 @@ import {HttpClientModule} from "@angular/common/http";
 import {NgxSpinnerModule} from "ngx-spinner";
 import { HomeComponent } from './pages/home/home.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { NewCompanyComponent } from './pages/new-company/new-company.component';
+import {NgxMaskDirective, NgxMaskPipe, provideNgxMask} from "ngx-mask";
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    NewCompanyComponent
   ],
   imports: [
     BrowserModule,
@@ -37,9 +41,14 @@ import { RegisterComponent } from './pages/register/register.component';
     NgxSpinnerModule.forRoot({
       type: "ball-scale-multiple"
     }),
-    SharedModule
+    NgxMaskDirective,
+    NgxMaskPipe,
+    SharedModule,
+    MatSelectModule
   ],
-  providers: [],
+  providers: [
+    provideNgxMask()
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

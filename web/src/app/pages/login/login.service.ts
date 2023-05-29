@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {SuccessResponse} from "../../shared/interfaces/SuccessResponse";
 
 interface CreateSessionData {
   email: string;
@@ -7,9 +8,7 @@ interface CreateSessionData {
 }
 
 interface SessionResponse {
-  data: {
-    token: string;
-  }
+  token: string;
 }
 
 @Injectable({
@@ -22,6 +21,6 @@ export class LoginService {
   }
 
   createSession(createSessionData: CreateSessionData) {
-    return this.httpClient.post<SessionResponse>('https://localhost:7111/sessions', createSessionData);
+    return this.httpClient.post<SuccessResponse<SessionResponse>>('https://localhost:7111/sessions', createSessionData);
   }
 }

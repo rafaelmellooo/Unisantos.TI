@@ -17,7 +17,8 @@ public class GetStatesUseCase : IUseCase<GetStatesInputDTO, StateResponseDTO[]>
     {
         return _applicationDbContext.States.Select(state => new StateResponseDTO
         {
-            Id = state.Id
+            Id = state.Id,
+            Name = state.Name
         }).ToArrayAsync(cancellationToken);
     }
 }

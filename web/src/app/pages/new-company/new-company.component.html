@@ -1,0 +1,134 @@
+<section id="new-company">
+  <form [formGroup]="formGroup" (ngSubmit)="submitForm()">
+    <h1>Nova Empresa</h1>
+
+    <div>
+      <h2>Dados Básicos</h2>
+
+      <mat-form-field appearance="outline" style="width: 800px">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="name">
+      </mat-form-field>
+
+      <div class="fields-group" style="width: 800px; grid-template-columns: 1fr 1fr">
+        <mat-form-field appearance="outline">
+          <mat-label>Prévia da Imagem</mat-label>
+          <input matInput formControlName="imagePreviewUrl">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Imagem</mat-label>
+          <input matInput formControlName="imageUrl">
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline" style="width: 800px">
+        <mat-label>Descrição</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+
+      <div class="fields-group" style="width: 800px; grid-template-columns: 1fr 1fr 1fr">
+        <mat-form-field appearance="outline">
+          <mat-label>Telefone</mat-label>
+          <input matInput formControlName="phone" mask="(00) 0000-0000||(00) 00000-0000" [dropSpecialCharacters]="false">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Instagram</mat-label>
+          <input matInput formControlName="instagram">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Facebook</mat-label>
+          <input matInput formControlName="facebook">
+        </mat-form-field>
+      </div>
+
+      <mat-form-field style="width: 800px">
+        <mat-label>Tags</mat-label>
+        <mat-select formControlName="tags" multiple>
+          <mat-optgroup *ngFor="let tagsSection of tagsSections" [label]="tagsSection.title">
+            <mat-option *ngFor="let tag of tagsSection.tags" [value]="tag.id">
+              {{tag.name}}
+            </mat-option>
+          </mat-optgroup>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div [formGroup]="addressFormGroup">
+      <h2>Endereço</h2>
+
+      <div class="fields-group" style="width: 800px; grid-template-columns: 1fr 1fr 1fr">
+        <mat-form-field appearance="outline">
+          <mat-label>Latitude</mat-label>
+          <input matInput formControlName="latitude">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Longitude</mat-label>
+          <input matInput formControlName="longitude">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>CEP</mat-label>
+          <input matInput formControlName="zipCode" mask="00000-000" [dropSpecialCharacters]="false">
+        </mat-form-field>
+      </div>
+
+      <div class="fields-group" style="width: 800px; grid-template-columns: 1fr 2fr">
+        <mat-form-field>
+          <mat-label>Estado</mat-label>
+          <mat-select (selectionChange)="loadCities($event.value)">
+            <mat-option *ngFor="let state of states" [value]="state.id">
+              {{state.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Cidade</mat-label>
+          <mat-select formControlName="city">
+            <mat-option *ngFor="let city of cities" [value]="city.id">
+              {{city.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="fields-group" style="width: 800px; grid-template-columns: 1fr 2fr">
+        <mat-form-field appearance="outline">
+          <mat-label>Bairro</mat-label>
+          <input matInput formControlName="neighborhood">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Rua</mat-label>
+          <input matInput formControlName="street">
+        </mat-form-field>
+      </div>
+
+      <div class="fields-group" style="width: 800px; grid-template-columns: 1fr 4fr">
+        <mat-form-field appearance="outline">
+          <mat-label>Número</mat-label>
+          <input matInput formControlName="number">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Complemento</mat-label>
+          <input matInput formControlName="complement">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <ul *ngIf="formGroup.errors" class="error-list" style="width: 400px">
+      <ng-container *ngFor="let error of formGroup.errors | keyvalue">
+
+        <li *ngFor="let message of error.value">{{ message }}</li>
+
+      </ng-container>
+    </ul>
+
+    <button mat-flat-button color="accent" type="submit">Finalizar</button>
+  </form>
+</section>

@@ -22,11 +22,12 @@ public class AdressesController : Controller
     [AllowAnonymous]
     [ProducesResponseType(typeof(SuccessResponse<StateResponseDTO[]>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> GetStates(CancellationToken cancellationToken)
+    public async Task<IActionResult> GetStates([FromQuery] GetStatesInputDTO request,
+        CancellationToken cancellationToken)
     {
         try
         {
-            var response = await _getStatesUseCase.Execute(new GetStatesInputDTO(), cancellationToken);
+            var response = await _getStatesUseCase.Execute(request, cancellationToken);
 
             return Ok(new SuccessResponse<StateResponseDTO[]>(response));
         }

@@ -22,11 +22,11 @@ public class AdminController : Controller
     [HttpGet("companies")]
     [ProducesResponseType(typeof(SuccessResponse<CompanyResponseDTO[]>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> GetAdminCompanies([FromQuery] GetAdminCompaniesInputDTO request)
+    public async Task<IActionResult> GetAdminCompanies([FromQuery] GetAdminCompaniesInputDTO request, CancellationToken cancellationToken)
     {
         try
         {
-            var response = await _getAdminCompaniesUseCase.Execute(request);
+            var response = await _getAdminCompaniesUseCase.Execute(request, cancellationToken);
 
             return Ok(new SuccessResponse<CompanyResponseDTO[]>(response));
         }
