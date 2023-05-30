@@ -1,14 +1,8 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "@env/environment";
-
-interface CreateUserData {
-  name: string;
-  email: string;
-  password: string;
-  passwordConfirmation: string;
-  role: string;
-}
+import {lastValueFrom} from "rxjs";
+import {CreateUserData} from "@shared/interfaces/CreateUserData";
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +14,8 @@ export class RegisterService {
   }
 
   createUser(createUserData: CreateUserData) {
-    return this.httpClient.post<void>(`${environment.apiUrl}/users`, createUserData);
+    return lastValueFrom(
+      this.httpClient.post<void>(`${environment.apiUrl}/users`, createUserData)
+    );
   }
 }

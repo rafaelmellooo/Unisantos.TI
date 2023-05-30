@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {NewCompanyService} from "./new-company.service";
+import {CompanyService} from "../../services/company.service";
 import {Location} from "@angular/common";
 import {HttpErrorResponse} from "@angular/common/http";
-import {TagsSection} from "@shared/interfaces/TagsSection";
+import {TagSection} from "@shared/interfaces/TagSection";
 
 @Component({
   selector: 'app-new-company',
@@ -11,29 +11,29 @@ import {TagsSection} from "@shared/interfaces/TagsSection";
   styleUrls: ['./new-company.component.sass']
 })
 export class NewCompanyComponent implements OnInit {
-  formGroup: FormGroup;
+  companyForm: FormGroup;
 
-  tagsSections: TagsSection[] = [];
+  tagSections: TagSection[] = [];
 
   constructor(
     private readonly formBuilder: FormBuilder,
-    private readonly newCompanyService: NewCompanyService,
+    private readonly companyService: CompanyService,
     private readonly location: Location
   ) {
-    this.formGroup = this.getFormGroup();
+    this.companyForm = this.createCompanyForm();
   }
 
   ngOnInit() {
     this.loadTags();
   }
 
-  loadTags() {
-    this.newCompanyService.getTags().subscribe(response => {
-      this.tagsSections = response.data;
-    });
+  async loadTags() {
+    const response = await this.companyService.getTags();
+
+    this.tagSections = response.data;
   }
 
-  getFormGroup() {
+  createCompanyForm() {
     return this.formBuilder.group({
       name: [null, Validators.required],
       imagePreviewUrl: [null, Validators.required],
@@ -50,24 +50,23 @@ export class NewCompanyComponent implements OnInit {
     this.location.back();
   }
 
-  submitForm() {
-    this.formGroup.markAllAsTouched();
+  async submitForm() {
+    this.companyForm.markAllAsTouched();
 
-    if (this.formGroup.invalid) {
+    if (this.companyForm.invalid) {
       return;
     }
 
-    this.newCompanyService.createCompany(this.formGroup.getRawValue()).subscribe({
-      next: response => {
-        console.log(response);
-      },
-      error: (httpErrorResponse: HttpErrorResponse) => {
-        if (httpErrorResponse.error.errors && typeof(httpErrorResponse.error.errors) === 'object') {
-          this.formGroup.setErrors(httpErrorResponse.error.errors);
+    try {
+      const response = await this.companyService.createCompany(this.companyForm.getRawValue());
+
+      console.log(response);
+    } catch (exception) {
+      if (exception instanceof HttpErrorResponse) {
+        if (exception.error.errors && typeof(exception.error.errors) === 'object') {
+          this.companyForm.setErrors(exception.error.errors);
         }
       }
-    });
-
-    console.log(this.formGroup.getRawValue());
+    }
   }
 }

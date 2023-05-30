@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {LoginService} from "./login.service";
 import {Router} from "@angular/router";
+import {CreateSessionData} from "@shared/interfaces/CreateSessionData";
 
 @Component({
   selector: 'app-login',
@@ -9,38 +10,36 @@ import {Router} from "@angular/router";
   styleUrls: ['./login.component.sass']
 })
 export class LoginComponent {
-  formGroup: FormGroup;
+  sessionForm: FormGroup;
 
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly loginService: LoginService,
     private readonly router: Router
   ) {
-    this.formGroup = this.getFormGroup();
+    this.sessionForm = this.createSessionForm();
   }
 
-  getFormGroup() {
+  createSessionForm() {
     return this.formBuilder.group({
       email: [null, [Validators.required, Validators.email]],
       password: [null, Validators.required]
     });
   }
 
-  submitForm() {
-    this.formGroup.markAllAsTouched();
+  async submitForm() {
+    this.sessionForm.markAllAsTouched();
 
-    if (this.formGroup.invalid) {
+    if (this.sessionForm.invalid) {
       return;
     }
 
-    const {email, password} = this.formGroup.getRawValue();
+    const sessionData = this.sessionForm.getRawValue() as CreateSessionData;
 
-    this.loginService.createSession({
-      email, password
-    }).subscribe(response => {
-      localStorage.setItem('token', response.data.token);
+    const response = await this.loginService.createSession(sessionData);
 
-      this.router.navigateByUrl('/home');
-    });
+    localStorage.setItem('token', response.data.token);
+
+    this.router.navigateByUrl('/home');
   }
 }

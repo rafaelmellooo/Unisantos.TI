@@ -1,6 +1,6 @@
 import {Tag} from "./Tag";
 
-export interface TagsSection {
+export interface TagSection {
   title: string;
   tags: Tag[];
 }

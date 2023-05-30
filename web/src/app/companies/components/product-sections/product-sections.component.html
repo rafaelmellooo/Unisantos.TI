@@ -3,13 +3,13 @@
     <h2>
       <span>Seções de Produtos</span>
 
-      <button mat-flat-button type="button" (click)="addProductSection()">
+      <button mat-flat-button type="button" (click)="addProductSectionForm()">
         <mat-icon>add</mat-icon>Seção de Produtos
       </button>
     </h2>
 
     <div
-      *ngFor="let productSection of productSections.controls; let i = index"
+      *ngFor="let productSection of productSectionsForm.controls; let i = index"
     >
       <div
         class="form-section"
@@ -18,11 +18,11 @@
         <h3>
           <span>{{getInfoProductSection(productSection)}}</span>
 
-          <button mat-icon-button type="button" color="warn" (click)="removeProductSection(i)">
+          <button mat-icon-button type="button" color="warn" (click)="removeProductSectionForm(i)">
             <mat-icon>delete</mat-icon>
           </button>
 
-          <button mat-flat-button type="button" (click)="addProduct(i)">
+          <button mat-flat-button type="button" (click)="addProductForm(i)">
             <mat-icon>add</mat-icon>Produto
           </button>
         </h3>
@@ -34,7 +34,7 @@
 
         <div formArrayName="products">
           <div
-            *ngFor="let product of products(i).controls; let j = index"
+            *ngFor="let product of productsForm(i).controls; let j = index"
           >
             <div
               class="form-section"
@@ -43,7 +43,7 @@
               <h4>
                 <span>{{getInfoProduct(product)}}</span>
 
-                <button mat-icon-button type="button" color="warn" (click)="removeProduct(i, j)">
+                <button mat-icon-button type="button" color="warn" (click)="removeProductForm(i, j)">
                   <mat-icon>delete</mat-icon>
                 </button>
               </h4>

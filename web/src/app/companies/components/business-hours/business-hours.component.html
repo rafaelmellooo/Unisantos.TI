@@ -3,13 +3,13 @@
     <h2>
       <span>Horários de Funcionamento</span>
 
-      <button mat-flat-button type="button" (click)="addBusinessHours()">
+      <button mat-flat-button type="button" (click)="addBusinessHoursForm()">
         <mat-icon>add</mat-icon>Horário de Funcionamento
       </button>
     </h2>
 
     <div
-      *ngFor="let businessHours of businessHours.controls; let i = index"
+      *ngFor="let businessHours of businessHoursForm.controls; let i = index"
     >
       <div
         class="form-section"
@@ -17,7 +17,7 @@
       >
         <h3>
           <span>{{getInfoBusinessHours(businessHours)}}</span>
-          <button mat-icon-button color="warn" type="button" (click)="removeBusinessHours(i)"><mat-icon>delete</mat-icon></button>
+          <button mat-icon-button color="warn" type="button" (click)="removeBusinessHoursForm(i)"><mat-icon>delete</mat-icon></button>
         </h3>
 
         <div

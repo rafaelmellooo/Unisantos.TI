@@ -1,8 +1,8 @@
 import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 
 interface ErrorDialogData {
-  content: string;
+  warning: string;
 }
 
 @Component({
@@ -12,8 +12,6 @@ interface ErrorDialogData {
 })
 export class WarningDialogComponent {
   constructor(
-    private readonly dialogRef: MatDialogRef<WarningDialogComponent>,
-
     @Inject(MAT_DIALOG_DATA)
     public readonly data: ErrorDialogData
   ) {

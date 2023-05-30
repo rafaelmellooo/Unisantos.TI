@@ -1,5 +1,5 @@
 <section id="register">
-  <form [formGroup]="formGroup" (ngSubmit)="submitForm()">
+  <form [formGroup]="registerForm" (ngSubmit)="submitForm()">
     <h1>Cadastro</h1>
 
     <mat-form-field appearance="outline" style="width: 400px">
@@ -22,8 +22,8 @@
       <input matInput type="password" formControlName="passwordConfirmation">
     </mat-form-field>
 
-    <ul *ngIf="formGroup.errors" class="error-list" style="width: 400px">
-      <ng-container *ngFor="let error of formGroup.errors | keyvalue">
+    <ul *ngIf="registerForm.errors" class="error-list" style="width: 400px">
+      <ng-container *ngFor="let error of registerForm.errors | keyvalue">
 
         <li *ngFor="let message of error.value">{{ message }}</li>
 

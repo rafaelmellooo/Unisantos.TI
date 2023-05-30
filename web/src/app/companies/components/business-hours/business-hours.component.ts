@@ -13,7 +13,15 @@ export class BusinessHoursComponent implements OnInit {
   })
   formGroup: FormGroup;
 
-  daysOfWeek: DayOfWeek[] = [];
+  daysOfWeek: DayOfWeek[] = [
+    {id: 0, name: 'Domingo'},
+    {id: 1, name: 'Segunda-feira'},
+    {id: 2, name: 'Terça-feira'},
+    {id: 3, name: 'Quarta-feira'},
+    {id: 4, name: 'Quinta-feira'},
+    {id: 5, name: 'Sexta-feira'},
+    {id: 6, name: 'Sábado'},
+  ];
 
   constructor(
     private readonly formBuilder: FormBuilder
@@ -22,27 +30,13 @@ export class BusinessHoursComponent implements OnInit {
 
   ngOnInit() {
     this.formGroup.addControl('businessHours', this.formBuilder.array([]));
-
-    this.loadDaysOfWeek();
   }
 
-  get businessHours() {
+  get businessHoursForm() {
     return this.formGroup.get('businessHours') as FormArray;
   }
 
-  loadDaysOfWeek() {
-    this.daysOfWeek = [
-      {id: 0, name: 'Domingo'},
-      {id: 1, name: 'Segunda-feira'},
-      {id: 2, name: 'Terça-feira'},
-      {id: 3, name: 'Quarta-feira'},
-      {id: 4, name: 'Quinta-feira'},
-      {id: 5, name: 'Sexta-feira'},
-      {id: 6, name: 'Sábado'},
-    ];
-  }
-
-  getFormGroup() {
+  createBusinessHoursForm() {
     return this.formBuilder.group({
       dayOfWeek: [null, Validators.required],
       openingTime: [null, Validators.required],
@@ -62,11 +56,11 @@ export class BusinessHoursComponent implements OnInit {
     return `${dayOfWeek} - ${openingTime} às ${closingTime}`;
   }
 
-  addBusinessHours() {
-    this.businessHours.push(this.getFormGroup());
+  addBusinessHoursForm() {
+    this.businessHoursForm.push(this.createBusinessHoursForm());
   }
 
-  removeBusinessHours(index: number) {
-    this.businessHours.removeAt(index);
+  removeBusinessHoursForm(index: number) {
+    this.businessHoursForm.removeAt(index);
   }
 }

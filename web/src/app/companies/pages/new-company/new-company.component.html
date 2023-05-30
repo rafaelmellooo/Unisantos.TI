@@ -1,5 +1,5 @@
 <section id="new-company">
-  <form [formGroup]="formGroup" (ngSubmit)="submitForm()">
+  <form [formGroup]="companyForm" (ngSubmit)="submitForm()">
     <h1>Nova Empresa</h1>
 
     <div class="form-section" style="width: 800px">
@@ -47,8 +47,8 @@
       <mat-form-field>
         <mat-label>Tags</mat-label>
         <mat-select formControlName="tags" multiple>
-          <mat-optgroup *ngFor="let tagsSection of tagsSections" [label]="tagsSection.title">
-            <mat-option *ngFor="let tag of tagsSection.tags" [value]="tag.id">
+          <mat-optgroup *ngFor="let tagSection of tagSections" [label]="tagSection.title">
+            <mat-option *ngFor="let tag of tagSection.tags" [value]="tag.id">
               {{tag.name}}
             </mat-option>
           </mat-optgroup>
@@ -56,17 +56,17 @@
       </mat-form-field>
     </div>
 
-    <app-business-hours [formGroup]="formGroup" style="width: 800px">
+    <app-business-hours [formGroup]="companyForm" style="width: 800px">
     </app-business-hours>
 
-    <app-product-sections [formGroup]="formGroup" style="width: 800px">
+    <app-product-sections [formGroup]="companyForm" style="width: 800px">
     </app-product-sections>
 
-    <app-address [formGroup]="formGroup" style="width: 800px">
+    <app-address [formGroup]="companyForm" style="width: 800px">
     </app-address>
 
-    <ul *ngIf="formGroup.errors" class="error-list" style="width: 800px">
-      <ng-container *ngFor="let error of formGroup.errors | keyvalue">
+    <ul *ngIf="companyForm.errors" class="error-list" style="width: 800px">
+      <ng-container *ngFor="let error of companyForm.errors | keyvalue">
 
         <li *ngFor="let message of error.value">{{ message }}</li>
 

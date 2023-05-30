@@ -1,7 +1,19 @@
-<div [formGroup]="address" class="form-section">
+<div [formGroup]="addressForm" class="form-section">
   <h2>Endereço</h2>
 
   <div class="fields-group" style="grid-template-columns: 1fr 1fr 1fr">
+    <mat-form-field appearance="outline">
+      <mat-label>CEP</mat-label>
+      <input
+        matInput
+        formControlName="cep"
+        mask="00000-000"
+        [dropSpecialCharacters]="false"
+        placeholder="11015-002"
+        (focusout)="fetchCep()"
+      >
+    </mat-form-field>
+
     <mat-form-field appearance="outline">
       <mat-label>Latitude</mat-label>
       <input type="number" matInput formControlName="latitude" placeholder="-23.9466171">
@@ -11,17 +23,12 @@
       <mat-label>Longitude</mat-label>
       <input type="number" matInput formControlName="longitude" placeholder="-46.3247461">
     </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>CEP</mat-label>
-      <input matInput formControlName="cep" mask="00000-000" [dropSpecialCharacters]="false" placeholder="11015-002">
-    </mat-form-field>
   </div>
 
   <div class="fields-group" style="grid-template-columns: 1fr 2fr">
     <mat-form-field>
       <mat-label>Estado</mat-label>
-      <mat-select (selectionChange)="loadCities($event.value)">
+      <mat-select formControlName="state" (selectionChange)="loadCities($event.value)">
         <mat-option *ngFor="let state of states" [value]="state.id">
           {{state.name}}
         </mat-option>

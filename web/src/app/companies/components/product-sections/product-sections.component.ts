@@ -21,18 +21,18 @@ export class ProductSectionsComponent implements OnInit {
     this.formGroup.addControl('productSections', this.formBuilder.array([]));
   }
 
-  get productSections() {
+  get productSectionsForm() {
     return this.formGroup.get('productSections') as FormArray;
   }
 
-  getFormGroup() {
+  createProductSectionsForm() {
     return this.formBuilder.group({
       title: [null, Validators.required],
       products: this.formBuilder.array([]),
     });
   }
 
-  getProductFormGroup() {
+  createProductForm() {
     return this.formBuilder.group({
       name: [null, Validators.required],
       description: [null, Validators.required],
@@ -40,8 +40,8 @@ export class ProductSectionsComponent implements OnInit {
     });
   }
 
-  products(section: number) {
-    return this.productSections.controls[section].get('products') as FormArray;
+  productsForm(section: number) {
+    return this.productSectionsForm.controls[section].get('products') as FormArray;
   }
 
   getInfoProductSection(productSection: AbstractControl) {
@@ -61,19 +61,19 @@ export class ProductSectionsComponent implements OnInit {
     return `${name} - ${price}`;
   }
 
-  addProductSection() {
-    this.productSections.push(this.getFormGroup());
+  addProductSectionForm() {
+    this.productSectionsForm.push(this.createProductSectionsForm());
   }
 
-  addProduct(section: number) {
-    this.products(section).push(this.getProductFormGroup());
+  addProductForm(section: number) {
+    this.productsForm(section).push(this.createProductForm());
   }
 
-  removeProductSection(index: number) {
-    this.productSections.removeAt(index);
+  removeProductSectionForm(index: number) {
+    this.productSectionsForm.removeAt(index);
   }
 
-  removeProduct(section: number, index: number) {
-    this.products(section).removeAt(index);
+  removeProductForm(section: number, index: number) {
+    this.productsForm(section).removeAt(index);
   }
 }

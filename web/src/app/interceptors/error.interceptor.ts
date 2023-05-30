@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpErrorResponse, HttpHandler, HttpInterceptor, HttpRequest, HttpStatusCode} from "@angular/common/http";
 import {catchError, throwError} from "rxjs";
-import {WarningDialogComponent} from "../shared/components/warning-dialog/warning-dialog.component";
+import {WarningDialogComponent} from "@shared/components/warning-dialog/warning-dialog.component";
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 
@@ -21,7 +21,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             if (httpErrorResponse.error.message && typeof(httpErrorResponse.error.message) === 'string') {
               this.dialog.open(WarningDialogComponent, {
                 data: {
-                  content: httpErrorResponse.error.message
+                  warning: httpErrorResponse.error.message
                 }
               });
             }

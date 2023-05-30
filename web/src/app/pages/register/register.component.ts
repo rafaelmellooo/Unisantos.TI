@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {RegisterService} from "./register.service";
 import {Router} from "@angular/router";
 import {HttpErrorResponse} from "@angular/common/http";
+import {CreateUserData} from "@shared/interfaces/CreateUserData";
 
 @Component({
   selector: 'app-register',
@@ -10,17 +11,17 @@ import {HttpErrorResponse} from "@angular/common/http";
   styleUrls: ['./register.component.sass']
 })
 export class RegisterComponent {
-  formGroup: FormGroup;
+  registerForm: FormGroup;
 
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly registerService: RegisterService,
     private readonly router: Router
   ) {
-    this.formGroup = this.getFormGroup();
+    this.registerForm = this.createRegisterForm();
   }
 
-  getFormGroup() {
+  createRegisterForm() {
     return this.formBuilder.group({
       name: [null, Validators.required],
       email: [null, [Validators.required, Validators.email]],
@@ -30,26 +31,25 @@ export class RegisterComponent {
     });
   }
 
-  submitForm() {
-    this.formGroup.markAllAsTouched();
+  async submitForm() {
+    this.registerForm.markAllAsTouched();
 
-    if (this.formGroup.invalid) {
+    if (this.registerForm.invalid) {
       return;
     }
 
-    const {name, email, password, passwordConfirmation, role} = this.formGroup.getRawValue();
+    const userData = this.registerForm.getRawValue() as CreateUserData;
 
-    this.registerService.createUser({
-      name, email, password, passwordConfirmation, role
-    }).subscribe({
-      complete: () => {
-        this.router.navigateByUrl('/login');
-      },
-      error: (httpErrorResponse: HttpErrorResponse) => {
-        if (httpErrorResponse.error.errors && typeof(httpErrorResponse.error.errors) === 'object') {
-          this.formGroup.setErrors(httpErrorResponse.error.errors);
+    try {
+      await this.registerService.createUser(userData);
+
+      this.router.navigateByUrl('/login');
+    } catch (exception) {
+      if (exception instanceof HttpErrorResponse) {
+        if (exception.error.errors && typeof(exception.error.errors) === 'object') {
+          this.registerForm.setErrors(exception.error.errors);
         }
       }
-    });
+    }
   }
 }
