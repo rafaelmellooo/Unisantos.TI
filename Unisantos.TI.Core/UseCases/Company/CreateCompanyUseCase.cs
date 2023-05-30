@@ -39,10 +39,10 @@ public class CreateCompanyUseCase : IUseCase<CreateCompanyInputDTO, CreateCompan
                 OpeningTime = TimeOnly.Parse(businessHours.OpeningTime),
                 ClosingTime = TimeOnly.Parse(businessHours.ClosingTime)
             }).ToArray(),
-            ProductsSections = request.ProductsSections.Select(productsSection => new ProductsSectionEntity
+            ProductSections = request.ProductSections.Select(productSection => new ProductSectionEntity
             {
-                Title = productsSection.Title,
-                Products = productsSection.Products.Select(product => new ProductEntity
+                Title = productSection.Title,
+                Products = productSection.Products.Select(product => new ProductEntity
                 {
                     Name = product.Name,
                     Description = product.Description,
@@ -53,7 +53,7 @@ public class CreateCompanyUseCase : IUseCase<CreateCompanyInputDTO, CreateCompan
             {
                 Latitude = request.Address.Latitude,
                 Longitude = request.Address.Longitude,
-                ZipCode = request.Address.ZipCode,
+                Cep = request.Address.Cep,
                 CityId = request.Address.City,
                 Neighborhood = request.Address.Neighborhood,
                 Street = request.Address.Street,

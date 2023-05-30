@@ -1,6 +1,6 @@
 ﻿namespace Unisantos.TI.Domain.Entities.Company;
 
-public class ProductsSectionEntity
+public class ProductSectionEntity
 {
     public Guid Id { get; set; }
     

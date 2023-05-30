@@ -36,7 +36,7 @@ public class GetFavoriteCompaniesUseCase : IUseCase<GetFavoriteCompaniesInputDTO
                 Rating = company.Rating,
                 Address = new AddressResponseDTO
                 {
-                    ZipCode = address.ZipCode,
+                    Cep = address.Cep,
                     State = address.City.State.Id,
                     City = address.City.Name,
                     Street = address.Street,

@@ -11,7 +11,7 @@ public record AddressInputDTO
     public double Longitude { get; set; }
     
     [Required(ErrorMessage = "O CEP é obrigatório")]
-    public required string ZipCode { get; set; }
+    public required string Cep { get; set; }
 
     [Required(ErrorMessage = "O código da cidade é obrigatório")]
     public required int City { get; set; }

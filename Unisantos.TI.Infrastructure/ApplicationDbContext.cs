@@ -36,7 +36,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 
     public DbSet<RateEntity> Rates => Set<RateEntity>();
 
-    public DbSet<ProductsSectionEntity> ProductsSections => Set<ProductsSectionEntity>();
+    public DbSet<ProductSectionEntity> ProductSections => Set<ProductSectionEntity>();
 
     public DbSet<ProductEntity> Products => Set<ProductEntity>();
 
@@ -68,7 +68,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
         modelBuilder.ApplyConfiguration(new FavoriteEntityMapping());
         modelBuilder.ApplyConfiguration(new BusinessHoursEntityMapping());
         modelBuilder.ApplyConfiguration(new RateEntityMapping());
-        modelBuilder.ApplyConfiguration(new ProductsSectionEntityMapping());
+        modelBuilder.ApplyConfiguration(new ProductSectionEntityMapping());
         modelBuilder.ApplyConfiguration(new ProductEntityMapping());
     }
 }

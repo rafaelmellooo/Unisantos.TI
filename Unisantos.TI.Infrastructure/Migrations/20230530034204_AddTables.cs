@@ -123,7 +123,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     CityId = table.Column<int>(type: "integer", nullable: false),
-                    ZipCode = table.Column<string>(type: "character(9)", fixedLength: true, maxLength: 9, nullable: false),
+                    Cep = table.Column<string>(type: "character(9)", fixedLength: true, maxLength: 9, nullable: false),
                     Street = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     Neighborhood = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     Number = table.Column<int>(type: "integer", nullable: false),
@@ -245,7 +245,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductsSections",
+                name: "ProductSections",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -254,9 +254,9 @@ namespace Unisantos.TI.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductsSections", x => x.Id);
+                    table.PrimaryKey("PK_ProductSections", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductsSections_Companies_CompanyId",
+                        name: "FK_ProductSections_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Companies",
                         principalColumn: "Id",
@@ -295,7 +295,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    ProductsSectionId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ProductSectionId = table.Column<Guid>(type: "uuid", nullable: false),
                     CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
@@ -305,9 +305,9 @@ namespace Unisantos.TI.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_ProductsSections_ProductsSectionId",
-                        column: x => x.ProductsSectionId,
-                        principalTable: "ProductsSections",
+                        name: "FK_Products_ProductSections_ProductSectionId",
+                        column: x => x.ProductSectionId,
+                        principalTable: "ProductSections",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -349,13 +349,13 @@ namespace Unisantos.TI.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_ProductsSectionId",
+                name: "IX_Products_ProductSectionId",
                 table: "Products",
-                column: "ProductsSectionId");
+                column: "ProductSectionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductsSections_CompanyId",
-                table: "ProductsSections",
+                name: "IX_ProductSections_CompanyId",
+                table: "ProductSections",
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
@@ -410,7 +410,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
                 name: "Tags");
 
             migrationBuilder.DropTable(
-                name: "ProductsSections");
+                name: "ProductSections");
 
             migrationBuilder.DropTable(
                 name: "TagsSections");

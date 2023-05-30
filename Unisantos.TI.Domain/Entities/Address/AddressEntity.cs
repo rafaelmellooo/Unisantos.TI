@@ -10,7 +10,7 @@ public class AddressEntity
     
     public CityEntity? City { get; set; }
 
-    public required string ZipCode { get; set; }
+    public required string Cep { get; set; }
 
     public required string Street { get; set; }
 

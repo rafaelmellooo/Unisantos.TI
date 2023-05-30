@@ -43,6 +43,12 @@ namespace Unisantos.TI.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<string>("Cep")
+                        .IsRequired()
+                        .HasMaxLength(9)
+                        .HasColumnType("character(9)")
+                        .IsFixedLength();
+
                     b.Property<int>("CityId")
                         .HasColumnType("integer");
 
@@ -68,12 +74,6 @@ namespace Unisantos.TI.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
-
-                    b.Property<string>("ZipCode")
-                        .IsRequired()
-                        .HasMaxLength(9)
-                        .HasColumnType("character(9)")
-                        .IsFixedLength();
 
                     b.HasKey("Id");
 
@@ -243,17 +243,17 @@ namespace Unisantos.TI.Infrastructure.Migrations
                     b.Property<float>("Price")
                         .HasColumnType("real");
 
-                    b.Property<Guid>("ProductsSectionId")
+                    b.Property<Guid>("ProductSectionId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductsSectionId");
+                    b.HasIndex("ProductSectionId");
 
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.ProductsSectionEntity", b =>
+            modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.ProductSectionEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -271,7 +271,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("ProductsSections");
+                    b.ToTable("ProductSections");
                 });
 
             modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.RateEntity", b =>
@@ -509,19 +509,19 @@ namespace Unisantos.TI.Infrastructure.Migrations
 
             modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.ProductEntity", b =>
                 {
-                    b.HasOne("Unisantos.TI.Domain.Entities.Company.ProductsSectionEntity", "ProductsSection")
+                    b.HasOne("Unisantos.TI.Domain.Entities.Company.ProductSectionEntity", "ProductSection")
                         .WithMany("Products")
-                        .HasForeignKey("ProductsSectionId")
+                        .HasForeignKey("ProductSectionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ProductsSection");
+                    b.Navigation("ProductSection");
                 });
 
-            modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.ProductsSectionEntity", b =>
+            modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.ProductSectionEntity", b =>
                 {
                     b.HasOne("Unisantos.TI.Domain.Entities.Company.CompanyEntity", "Company")
-                        .WithMany("ProductsSections")
+                        .WithMany("ProductSections")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -591,12 +591,12 @@ namespace Unisantos.TI.Infrastructure.Migrations
 
                     b.Navigation("Favorites");
 
-                    b.Navigation("ProductsSections");
+                    b.Navigation("ProductSections");
 
                     b.Navigation("Rates");
                 });
 
-            modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.ProductsSectionEntity", b =>
+            modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.ProductSectionEntity", b =>
                 {
                     b.Navigation("Products");
                 });

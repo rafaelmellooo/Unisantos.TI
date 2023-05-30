@@ -2,7 +2,7 @@
 
 namespace Unisantos.TI.Domain.DTO.Company;
 
-public class CreateProductsSectionInputDTO
+public class CreateProductSectionInputDTO
 {
     [Required(ErrorMessage = "O título da seção de produtos é obrigatório")]
     public required string Title { get; set; }

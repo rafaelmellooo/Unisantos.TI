@@ -1,3 +1,3 @@
 export const environment = {
-  apiUrl: 'https://unisantos-interdisciplinar-server.azurewebsites.net/',
+  apiUrl: 'https://unisantos-interdisciplinar-server.azurewebsites.net',
 };

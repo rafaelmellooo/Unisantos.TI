@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {environment} from "../../../environments/environment";
+import {environment} from "@env/environment";
 
 interface CreateUserData {
   name: string;
@@ -20,6 +20,6 @@ export class RegisterService {
   }
 
   createUser(createUserData: CreateUserData) {
-    return this.httpClient.post<void>(`${environment.apiUrl}users`, createUserData);
+    return this.httpClient.post<void>(`${environment.apiUrl}/users`, createUserData);
   }
 }

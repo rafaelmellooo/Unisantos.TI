@@ -47,7 +47,7 @@ public class GetCompanyDetailsUseCase : IUseCase<GetCompanyDetailsInputDTO, Comp
                 Address = new AddressResponseDTO
                 {
                     Id = address.Id,
-                    ZipCode = address.ZipCode,
+                    Cep = address.Cep,
                     State = address.City.State.Id,
                     City = address.City.Name,
                     Street = address.Street,
@@ -63,11 +63,11 @@ public class GetCompanyDetailsUseCase : IUseCase<GetCompanyDetailsInputDTO, Comp
                     Rate = rate.Rate,
                     Comment = rate.Comment
                 }).ToArray(),
-                ProductsSections = company.ProductsSections.Select(productsSection => new ProductsSectionResponseDTO
+                ProductSections = company.ProductSections.Select(productSection => new ProductSectionResponseDTO
                 {
-                    Id = productsSection.Id,
-                    Title = productsSection.Title,
-                    Products = productsSection.Products.Select(product => new ProductResponseDTO
+                    Id = productSection.Id,
+                    Title = productSection.Title,
+                    Products = productSection.Products.Select(product => new ProductResponseDTO
                     {
                         Id = product.Id,
                         Name = product.Name,

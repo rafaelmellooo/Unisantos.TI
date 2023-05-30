@@ -1,24 +1,24 @@
-<div [formGroup]="formGroup" class="products-sections">
-  <div formArrayName="productsSections">
+<div [formGroup]="formGroup" class="product-sections">
+  <div formArrayName="productSections">
     <h2>
       <span>Seções de Produtos</span>
 
-      <button mat-flat-button type="button" (click)="addProductsSection()">
+      <button mat-flat-button type="button" (click)="addProductSection()">
         <mat-icon>add</mat-icon>Seção de Produtos
       </button>
     </h2>
 
     <div
-      *ngFor="let productsSection of productsSections.controls; let i = index"
+      *ngFor="let productSection of productSections.controls; let i = index"
     >
       <div
         class="form-section"
         [formGroupName]="i"
       >
         <h3>
-          <span>{{getInfoProductsSection(productsSection)}}</span>
+          <span>{{getInfoProductSection(productSection)}}</span>
 
-          <button mat-icon-button type="button" color="warn" (click)="removeProductsSection(i)">
+          <button mat-icon-button type="button" color="warn" (click)="removeProductSection(i)">
             <mat-icon>delete</mat-icon>
           </button>
 

@@ -2,11 +2,11 @@ import {Component, Input, OnInit} from '@angular/core';
 import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
-  selector: 'app-products-sections',
-  templateUrl: './products-sections.component.html',
-  styleUrls: ['./products-sections.component.sass']
+  selector: 'app-product-sections',
+  templateUrl: './product-sections.component.html',
+  styleUrls: ['./product-sections.component.sass']
 })
-export class ProductsSectionsComponent implements OnInit {
+export class ProductSectionsComponent implements OnInit {
   @Input({
     required: true
   })
@@ -18,11 +18,11 @@ export class ProductsSectionsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.formGroup.addControl('productsSections', this.formBuilder.array([]));
+    this.formGroup.addControl('productSections', this.formBuilder.array([]));
   }
 
-  get productsSections() {
-    return this.formGroup.get('productsSections') as FormArray;
+  get productSections() {
+    return this.formGroup.get('productSections') as FormArray;
   }
 
   getFormGroup() {
@@ -41,11 +41,11 @@ export class ProductsSectionsComponent implements OnInit {
   }
 
   products(section: number) {
-    return this.productsSections.controls[section].get('products') as FormArray;
+    return this.productSections.controls[section].get('products') as FormArray;
   }
 
-  getInfoProductsSection(productsSection: AbstractControl) {
-    const title = productsSection.get('title')?.value || 'Título da seção';
+  getInfoProductSection(productSection: AbstractControl) {
+    const title = productSection.get('title')?.value || 'Título da seção';
 
     return `${title}`;
   }
@@ -61,16 +61,16 @@ export class ProductsSectionsComponent implements OnInit {
     return `${name} - ${price}`;
   }
 
-  addProductsSection() {
-    this.productsSections.push(this.getFormGroup());
+  addProductSection() {
+    this.productSections.push(this.getFormGroup());
   }
 
   addProduct(section: number) {
     this.products(section).push(this.getProductFormGroup());
   }
 
-  removeProductsSection(index: number) {
-    this.productsSections.removeAt(index);
+  removeProductSection(index: number) {
+    this.productSections.removeAt(index);
   }
 
   removeProduct(section: number, index: number) {

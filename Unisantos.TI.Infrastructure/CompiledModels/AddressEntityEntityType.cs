@@ -28,6 +28,14 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
                 valueGenerated: ValueGenerated.OnAdd,
                 afterSaveBehavior: PropertySaveBehavior.Throw);
 
+            var cep = runtimeEntityType.AddProperty(
+                "Cep",
+                typeof(string),
+                propertyInfo: typeof(AddressEntity).GetProperty("Cep", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(AddressEntity).GetField("<Cep>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                maxLength: 9);
+            cep.AddAnnotation("Relational:IsFixedLength", true);
+
             var cityId = runtimeEntityType.AddProperty(
                 "CityId",
                 typeof(int),
@@ -73,14 +81,6 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
                 propertyInfo: typeof(AddressEntity).GetProperty("Street", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(AddressEntity).GetField("<Street>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 maxLength: 255);
-
-            var zipCode = runtimeEntityType.AddProperty(
-                "ZipCode",
-                typeof(string),
-                propertyInfo: typeof(AddressEntity).GetProperty("ZipCode", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(AddressEntity).GetField("<ZipCode>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                maxLength: 9);
-            zipCode.AddAnnotation("Relational:IsFixedLength", true);
 
             var key = runtimeEntityType.AddKey(
                 new[] { id });

@@ -39,5 +39,5 @@ public class CompanyEntity
 
     public ICollection<RateEntity> Rates { get; set; } = new List<RateEntity>();
 
-    public ICollection<ProductsSectionEntity> ProductsSections { get; set; } = new List<ProductsSectionEntity>();
+    public ICollection<ProductSectionEntity> ProductSections { get; set; } = new List<ProductSectionEntity>();
 }

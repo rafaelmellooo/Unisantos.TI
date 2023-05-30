@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {SuccessResponse} from "../../shared/interfaces/SuccessResponse";
-import {environment} from "../../../environments/environment";
+import {SuccessResponse} from "@shared/interfaces/SuccessResponse";
+import {environment} from "@env/environment";
 
 interface CreateSessionData {
   email: string;
@@ -22,6 +22,6 @@ export class LoginService {
   }
 
   createSession(createSessionData: CreateSessionData) {
-    return this.httpClient.post<SuccessResponse<SessionResponse>>(`${environment.apiUrl}sessions`, createSessionData);
+    return this.httpClient.post<SuccessResponse<SessionResponse>>(`${environment.apiUrl}/sessions`, createSessionData);
   }
 }

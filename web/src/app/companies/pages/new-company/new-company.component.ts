@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {TagsSection} from "../../shared/interfaces/TagsSection";
 import {NewCompanyService} from "./new-company.service";
 import {Location} from "@angular/common";
 import {HttpErrorResponse} from "@angular/common/http";
+import {TagsSection} from "@shared/interfaces/TagsSection";
 
 @Component({
   selector: 'app-new-company',

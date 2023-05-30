@@ -4,7 +4,7 @@ public record AddressResponseDTO
 {
     public Guid Id { get; init; }
     
-    public required string ZipCode { get; set; }
+    public required string Cep { get; set; }
     
     public required string State { get; set; }
     

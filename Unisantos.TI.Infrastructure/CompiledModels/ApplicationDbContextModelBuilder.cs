@@ -24,7 +24,7 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
             var companyEntity = CompanyEntityEntityType.Create(this);
             var favoriteEntity = FavoriteEntityEntityType.Create(this);
             var productEntity = ProductEntityEntityType.Create(this);
-            var productsSectionEntity = ProductsSectionEntityEntityType.Create(this);
+            var productSectionEntity = ProductSectionEntityEntityType.Create(this);
             var rateEntity = RateEntityEntityType.Create(this);
             var tagEntity = TagEntityEntityType.Create(this);
             var tagsSectionEntity = TagsSectionEntityEntityType.Create(this);
@@ -40,8 +40,8 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
             CompanyEntityEntityType.CreateForeignKey2(companyEntity, userEntity);
             FavoriteEntityEntityType.CreateForeignKey1(favoriteEntity, companyEntity);
             FavoriteEntityEntityType.CreateForeignKey2(favoriteEntity, userEntity);
-            ProductEntityEntityType.CreateForeignKey1(productEntity, productsSectionEntity);
-            ProductsSectionEntityEntityType.CreateForeignKey1(productsSectionEntity, companyEntity);
+            ProductEntityEntityType.CreateForeignKey1(productEntity, productSectionEntity);
+            ProductSectionEntityEntityType.CreateForeignKey1(productSectionEntity, companyEntity);
             RateEntityEntityType.CreateForeignKey1(rateEntity, companyEntity);
             RateEntityEntityType.CreateForeignKey2(rateEntity, userEntity);
             TagEntityEntityType.CreateForeignKey1(tagEntity, tagsSectionEntity);
@@ -58,7 +58,7 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
             CompanyEntityEntityType.CreateAnnotations(companyEntity);
             FavoriteEntityEntityType.CreateAnnotations(favoriteEntity);
             ProductEntityEntityType.CreateAnnotations(productEntity);
-            ProductsSectionEntityEntityType.CreateAnnotations(productsSectionEntity);
+            ProductSectionEntityEntityType.CreateAnnotations(productSectionEntity);
             RateEntityEntityType.CreateAnnotations(rateEntity);
             TagEntityEntityType.CreateAnnotations(tagEntity);
             TagsSectionEntityEntityType.CreateAnnotations(tagsSectionEntity);

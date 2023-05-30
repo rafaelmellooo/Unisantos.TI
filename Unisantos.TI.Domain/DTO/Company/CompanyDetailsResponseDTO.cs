@@ -30,7 +30,7 @@ public record CompanyDetailsResponseDTO
 
     public ICollection<BusinessHoursResponseDTO> BusinessHours { get; set; } = new List<BusinessHoursResponseDTO>();
 
-    public ICollection<ProductsSectionResponseDTO> ProductsSections { get; set; } = new List<ProductsSectionResponseDTO>();
+    public ICollection<ProductSectionResponseDTO> ProductSections { get; set; } = new List<ProductSectionResponseDTO>();
 
     public ICollection<RateResponseDTO> Rates { get; set; } = new List<RateResponseDTO>();
 }

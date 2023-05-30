@@ -11,34 +11,34 @@ using Unisantos.TI.Domain.Entities.Company;
 
 namespace Unisantos.TI.Infrastructure.CompiledModels
 {
-    internal partial class ProductsSectionEntityEntityType
+    internal partial class ProductSectionEntityEntityType
     {
         public static RuntimeEntityType Create(RuntimeModel model, RuntimeEntityType? baseEntityType = null)
         {
             var runtimeEntityType = model.AddEntityType(
-                "Unisantos.TI.Domain.Entities.Company.ProductsSectionEntity",
-                typeof(ProductsSectionEntity),
+                "Unisantos.TI.Domain.Entities.Company.ProductSectionEntity",
+                typeof(ProductSectionEntity),
                 baseEntityType);
 
             var id = runtimeEntityType.AddProperty(
                 "Id",
                 typeof(Guid),
-                propertyInfo: typeof(ProductsSectionEntity).GetProperty("Id", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(ProductsSectionEntity).GetField("<Id>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                propertyInfo: typeof(ProductSectionEntity).GetProperty("Id", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ProductSectionEntity).GetField("<Id>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 valueGenerated: ValueGenerated.OnAdd,
                 afterSaveBehavior: PropertySaveBehavior.Throw);
 
             var companyId = runtimeEntityType.AddProperty(
                 "CompanyId",
                 typeof(Guid),
-                propertyInfo: typeof(ProductsSectionEntity).GetProperty("CompanyId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(ProductsSectionEntity).GetField("<CompanyId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                propertyInfo: typeof(ProductSectionEntity).GetProperty("CompanyId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ProductSectionEntity).GetField("<CompanyId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
             var title = runtimeEntityType.AddProperty(
                 "Title",
                 typeof(string),
-                propertyInfo: typeof(ProductsSectionEntity).GetProperty("Title", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(ProductsSectionEntity).GetField("<Title>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                propertyInfo: typeof(ProductSectionEntity).GetProperty("Title", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ProductSectionEntity).GetField("<Title>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 maxLength: 100);
 
             var key = runtimeEntityType.AddKey(
@@ -63,15 +63,15 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
                 runtimeForeignKey,
                 onDependent: true,
                 typeof(CompanyEntity),
-                propertyInfo: typeof(ProductsSectionEntity).GetProperty("Company", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(ProductsSectionEntity).GetField("<Company>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                propertyInfo: typeof(ProductSectionEntity).GetProperty("Company", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ProductSectionEntity).GetField("<Company>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
-            var productsSections = principalEntityType.AddNavigation("ProductsSections",
+            var productSections = principalEntityType.AddNavigation("ProductSections",
                 runtimeForeignKey,
                 onDependent: false,
-                typeof(ICollection<ProductsSectionEntity>),
-                propertyInfo: typeof(CompanyEntity).GetProperty("ProductsSections", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(CompanyEntity).GetField("<ProductsSections>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                typeof(ICollection<ProductSectionEntity>),
+                propertyInfo: typeof(CompanyEntity).GetProperty("ProductSections", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(CompanyEntity).GetField("<ProductSections>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
             return runtimeForeignKey;
         }
@@ -81,7 +81,7 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
             runtimeEntityType.AddAnnotation("Relational:FunctionName", null);
             runtimeEntityType.AddAnnotation("Relational:Schema", null);
             runtimeEntityType.AddAnnotation("Relational:SqlQuery", null);
-            runtimeEntityType.AddAnnotation("Relational:TableName", "ProductsSections");
+            runtimeEntityType.AddAnnotation("Relational:TableName", "ProductSections");
             runtimeEntityType.AddAnnotation("Relational:ViewName", null);
             runtimeEntityType.AddAnnotation("Relational:ViewSchema", null);
 

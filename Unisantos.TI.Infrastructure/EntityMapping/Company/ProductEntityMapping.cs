@@ -16,9 +16,9 @@ public class ProductEntityMapping : IEntityTypeConfiguration<ProductEntity>
         builder.Property(e => e.Price).IsRequired();
 
         builder
-            .HasOne(e => e.ProductsSection)
+            .HasOne(e => e.ProductSection)
             .WithMany(e => e.Products)
-            .HasForeignKey(e => e.ProductsSectionId)
+            .HasForeignKey(e => e.ProductSectionId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

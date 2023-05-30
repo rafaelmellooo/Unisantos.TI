@@ -24,8 +24,8 @@ public record CreateCompanyInputDTO
 
     public string? Facebook { get; set; }
 
-    public ICollection<CreateProductsSectionInputDTO> ProductsSections { get; set; } =
-        new List<CreateProductsSectionInputDTO>();
+    public ICollection<CreateProductSectionInputDTO> ProductSections { get; set; } =
+        new List<CreateProductSectionInputDTO>();
 
     public ICollection<CreateBusinessHoursInputDTO> BusinessHours { get; set; } =
         new List<CreateBusinessHoursInputDTO>();

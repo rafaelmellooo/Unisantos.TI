@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {State} from "../../../../shared/interfaces/State";
-import {City} from "../../../../shared/interfaces/City";
 import {AddressService} from "./address.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {State} from "@shared/interfaces/State";
+import {City} from "@shared/interfaces/City";
 
 @Component({
   selector: 'app-address',
@@ -38,7 +38,7 @@ export class AddressComponent implements OnInit {
     return this.formBuilder.group({
       latitude: [null, Validators.required],
       longitude: [null, Validators.required],
-      zipCode: [null, Validators.required],
+      cep: [null, Validators.required],
       city: [null, Validators.required],
       neighborhood: [null, Validators.required],
       street: [null, Validators.required],

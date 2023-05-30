@@ -30,7 +30,7 @@ public interface IApplicationDbContext
     
     DbSet<RateEntity> Rates { get; }
     
-    DbSet<ProductsSectionEntity> ProductsSections { get; }
+    DbSet<ProductSectionEntity> ProductSections { get; }
     
     DbSet<ProductEntity> Products { get; }
 

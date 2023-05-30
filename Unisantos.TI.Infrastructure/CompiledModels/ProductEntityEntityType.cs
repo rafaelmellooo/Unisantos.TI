@@ -54,43 +54,43 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
                 propertyInfo: typeof(ProductEntity).GetProperty("Price", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(ProductEntity).GetField("<Price>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
-            var productsSectionId = runtimeEntityType.AddProperty(
-                "ProductsSectionId",
+            var productSectionId = runtimeEntityType.AddProperty(
+                "ProductSectionId",
                 typeof(Guid),
-                propertyInfo: typeof(ProductEntity).GetProperty("ProductsSectionId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(ProductEntity).GetField("<ProductsSectionId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                propertyInfo: typeof(ProductEntity).GetProperty("ProductSectionId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ProductEntity).GetField("<ProductSectionId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
             var key = runtimeEntityType.AddKey(
                 new[] { id });
             runtimeEntityType.SetPrimaryKey(key);
 
             var index = runtimeEntityType.AddIndex(
-                new[] { productsSectionId });
+                new[] { productSectionId });
 
             return runtimeEntityType;
         }
 
         public static RuntimeForeignKey CreateForeignKey1(RuntimeEntityType declaringEntityType, RuntimeEntityType principalEntityType)
         {
-            var runtimeForeignKey = declaringEntityType.AddForeignKey(new[] { declaringEntityType.FindProperty("ProductsSectionId")! },
+            var runtimeForeignKey = declaringEntityType.AddForeignKey(new[] { declaringEntityType.FindProperty("ProductSectionId")! },
                 principalEntityType.FindKey(new[] { principalEntityType.FindProperty("Id")! })!,
                 principalEntityType,
                 deleteBehavior: DeleteBehavior.Cascade,
                 required: true);
 
-            var productsSection = declaringEntityType.AddNavigation("ProductsSection",
+            var productSection = declaringEntityType.AddNavigation("ProductSection",
                 runtimeForeignKey,
                 onDependent: true,
-                typeof(ProductsSectionEntity),
-                propertyInfo: typeof(ProductEntity).GetProperty("ProductsSection", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(ProductEntity).GetField("<ProductsSection>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                typeof(ProductSectionEntity),
+                propertyInfo: typeof(ProductEntity).GetProperty("ProductSection", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ProductEntity).GetField("<ProductSection>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
             var products = principalEntityType.AddNavigation("Products",
                 runtimeForeignKey,
                 onDependent: false,
                 typeof(ICollection<ProductEntity>),
-                propertyInfo: typeof(ProductsSectionEntity).GetProperty("Products", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(ProductsSectionEntity).GetField("<Products>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                propertyInfo: typeof(ProductSectionEntity).GetProperty("Products", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ProductSectionEntity).GetField("<Products>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
             return runtimeForeignKey;
         }

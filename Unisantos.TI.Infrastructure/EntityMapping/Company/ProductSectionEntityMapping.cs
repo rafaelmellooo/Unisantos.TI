@@ -4,9 +4,9 @@ using Unisantos.TI.Domain.Entities.Company;
 
 namespace Unisantos.TI.Infrastructure.EntityMapping.Company;
 
-public class ProductsSectionEntityMapping : IEntityTypeConfiguration<ProductsSectionEntity>
+public class ProductSectionEntityMapping : IEntityTypeConfiguration<ProductSectionEntity>
 {
-    public void Configure(EntityTypeBuilder<ProductsSectionEntity> builder)
+    public void Configure(EntityTypeBuilder<ProductSectionEntity> builder)
     {
         builder.HasKey(e => e.Id);
 
@@ -15,7 +15,7 @@ public class ProductsSectionEntityMapping : IEntityTypeConfiguration<ProductsSec
 
         builder
             .HasOne(e => e.Company)
-            .WithMany(e => e.ProductsSections)
+            .WithMany(e => e.ProductSections)
             .HasForeignKey(e => e.CompanyId)
             .OnDelete(DeleteBehavior.Cascade);
     }
