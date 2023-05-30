@@ -1,6 +1,6 @@
 ﻿namespace Unisantos.TI.Domain.Entities.Company;
 
-public class TagsSectionEntity
+public class TagSectionEntity
 {
     public byte Id { get; set; }
 

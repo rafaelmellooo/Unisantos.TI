@@ -12,8 +12,8 @@ using Unisantos.TI.Infrastructure;
 namespace Unisantos.TI.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230530034255_AddTriggerUpdateCompanyRating")]
-    partial class AddTriggerUpdateCompanyRating
+    [Migration("20230530141729_AddTables")]
+    partial class AddTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -319,17 +319,17 @@ namespace Unisantos.TI.Infrastructure.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<byte>("TagsSectionId")
+                    b.Property<byte>("TagSectionId")
                         .HasColumnType("smallint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TagsSectionId");
+                    b.HasIndex("TagSectionId");
 
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.TagsSectionEntity", b =>
+            modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.TagSectionEntity", b =>
                 {
                     b.Property<byte>("Id")
                         .ValueGeneratedOnAdd()
@@ -344,7 +344,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TagsSections");
+                    b.ToTable("TagSections");
                 });
 
             modelBuilder.Entity("Unisantos.TI.Domain.Entities.Token.TokenEntity", b =>
@@ -553,13 +553,13 @@ namespace Unisantos.TI.Infrastructure.Migrations
 
             modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.TagEntity", b =>
                 {
-                    b.HasOne("Unisantos.TI.Domain.Entities.Company.TagsSectionEntity", "TagsSection")
+                    b.HasOne("Unisantos.TI.Domain.Entities.Company.TagSectionEntity", "TagSection")
                         .WithMany("Tags")
-                        .HasForeignKey("TagsSectionId")
+                        .HasForeignKey("TagSectionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("TagsSection");
+                    b.Navigation("TagSection");
                 });
 
             modelBuilder.Entity("Unisantos.TI.Domain.Entities.Token.TokenEntity", b =>
@@ -604,7 +604,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.TagsSectionEntity", b =>
+            modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.TagSectionEntity", b =>
                 {
                     b.Navigation("Tags");
                 });

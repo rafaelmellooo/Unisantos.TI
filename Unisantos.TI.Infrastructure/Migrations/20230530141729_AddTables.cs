@@ -25,7 +25,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TagsSections",
+                name: "TagSections",
                 columns: table => new
                 {
                     Id = table.Column<byte>(type: "smallint", nullable: false)
@@ -34,7 +34,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TagsSections", x => x.Id);
+                    table.PrimaryKey("PK_TagSections", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -80,15 +80,15 @@ namespace Unisantos.TI.Infrastructure.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    TagsSectionId = table.Column<byte>(type: "smallint", nullable: false)
+                    TagSectionId = table.Column<byte>(type: "smallint", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tags", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tags_TagsSections_TagsSectionId",
-                        column: x => x.TagsSectionId,
-                        principalTable: "TagsSections",
+                        name: "FK_Tags_TagSections_TagSectionId",
+                        column: x => x.TagSectionId,
+                        principalTable: "TagSections",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -369,9 +369,9 @@ namespace Unisantos.TI.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tags_TagsSectionId",
+                name: "IX_Tags_TagSectionId",
                 table: "Tags",
-                column: "TagsSectionId");
+                column: "TagSectionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tokens_UserId",
@@ -413,7 +413,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
                 name: "ProductSections");
 
             migrationBuilder.DropTable(
-                name: "TagsSections");
+                name: "TagSections");
 
             migrationBuilder.DropTable(
                 name: "Companies");

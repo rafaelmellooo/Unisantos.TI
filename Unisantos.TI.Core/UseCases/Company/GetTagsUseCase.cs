@@ -4,7 +4,7 @@ using Unisantos.TI.Domain.DTO.Company;
 
 namespace Unisantos.TI.Core.UseCases.Company;
 
-public class GetTagsUseCase : IUseCase<GetTagsInputDTO, TagsSectionResponseDTO[]>
+public class GetTagsUseCase : IUseCase<GetTagsInputDTO, TagSectionResponseDTO[]>
 {
     private readonly IApplicationDbContext _applicationDbContext;
 
@@ -13,14 +13,14 @@ public class GetTagsUseCase : IUseCase<GetTagsInputDTO, TagsSectionResponseDTO[]
         _applicationDbContext = applicationDbContext;
     }
 
-    public Task<TagsSectionResponseDTO[]> Execute(GetTagsInputDTO request,
+    public Task<TagSectionResponseDTO[]> Execute(GetTagsInputDTO request,
         CancellationToken cancellationToken = default)
     {
-        var query = from tagsSection in _applicationDbContext.TagsSections
-            select new TagsSectionResponseDTO
+        var query = from tagSection in _applicationDbContext.TagSections
+            select new TagSectionResponseDTO
             {
-                Title = tagsSection.Title,
-                Tags = tagsSection.Tags.Select(tag => new TagResponseDTO
+                Title = tagSection.Title,
+                Tags = tagSection.Tags.Select(tag => new TagResponseDTO
                 {
                     Id = tag.Id,
                     Name = tag.Name

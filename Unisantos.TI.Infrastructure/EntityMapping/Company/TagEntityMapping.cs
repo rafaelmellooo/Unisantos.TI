@@ -14,9 +14,9 @@ public class TagEntityMapping : IEntityTypeConfiguration<TagEntity>
         builder.Property(e => e.Name).IsRequired();
 
         builder
-            .HasOne(e => e.TagsSection)
+            .HasOne(e => e.TagSection)
             .WithMany(e => e.Tags)
-            .HasForeignKey(e => e.TagsSectionId)
+            .HasForeignKey(e => e.TagSectionId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

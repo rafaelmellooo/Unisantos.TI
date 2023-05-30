@@ -19,7 +19,7 @@ public class TagsController : Controller
 
     [HttpGet]
     [AllowAnonymous]
-    [ProducesResponseType(typeof(SuccessResponse<TagsSectionResponseDTO[]>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(SuccessResponse<TagSectionResponseDTO[]>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetTags(CancellationToken cancellationToken)
     {
@@ -27,7 +27,7 @@ public class TagsController : Controller
         {
             var response = await _getTagsUseCase.Execute(new GetTagsInputDTO(), cancellationToken);
 
-            return Ok(new SuccessResponse<TagsSectionResponseDTO[]>(response));
+            return Ok(new SuccessResponse<TagSectionResponseDTO[]>(response));
         }
         catch (Exception exception)
         {

@@ -1,6 +1,6 @@
 ﻿namespace Unisantos.TI.Domain.DTO.Company;
 
-public record TagsSectionResponseDTO
+public record TagSectionResponseDTO
 {
     public required string Title { get; set; }
 

@@ -27,7 +27,7 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
             var productSectionEntity = ProductSectionEntityEntityType.Create(this);
             var rateEntity = RateEntityEntityType.Create(this);
             var tagEntity = TagEntityEntityType.Create(this);
-            var tagsSectionEntity = TagsSectionEntityEntityType.Create(this);
+            var tagSectionEntity = TagSectionEntityEntityType.Create(this);
             var tokenEntity = TokenEntityEntityType.Create(this);
             var userEntity = UserEntityEntityType.Create(this);
 
@@ -44,7 +44,7 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
             ProductSectionEntityEntityType.CreateForeignKey1(productSectionEntity, companyEntity);
             RateEntityEntityType.CreateForeignKey1(rateEntity, companyEntity);
             RateEntityEntityType.CreateForeignKey2(rateEntity, userEntity);
-            TagEntityEntityType.CreateForeignKey1(tagEntity, tagsSectionEntity);
+            TagEntityEntityType.CreateForeignKey1(tagEntity, tagSectionEntity);
             TokenEntityEntityType.CreateForeignKey1(tokenEntity, userEntity);
 
             CompanyEntityEntityType.CreateSkipNavigation1(companyEntity, tagEntity, companyTag);
@@ -61,7 +61,7 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
             ProductSectionEntityEntityType.CreateAnnotations(productSectionEntity);
             RateEntityEntityType.CreateAnnotations(rateEntity);
             TagEntityEntityType.CreateAnnotations(tagEntity);
-            TagsSectionEntityEntityType.CreateAnnotations(tagsSectionEntity);
+            TagSectionEntityEntityType.CreateAnnotations(tagSectionEntity);
             TokenEntityEntityType.CreateAnnotations(tokenEntity);
             UserEntityEntityType.CreateAnnotations(userEntity);
 

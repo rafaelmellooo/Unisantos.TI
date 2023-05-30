@@ -26,7 +26,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 
     public DbSet<CompanyEntity> Companies => Set<CompanyEntity>();
 
-    public DbSet<TagsSectionEntity> TagsSections => Set<TagsSectionEntity>();
+    public DbSet<TagSectionEntity> TagSections => Set<TagSectionEntity>();
 
     public DbSet<TagEntity> Tags => Set<TagEntity>();
 
@@ -63,7 +63,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
         modelBuilder.ApplyConfiguration(new AddressEntityMapping());
 
         modelBuilder.ApplyConfiguration(new CompanyEntityMapping());
-        modelBuilder.ApplyConfiguration(new TagsSectionEntityMapping());
+        modelBuilder.ApplyConfiguration(new TagSectionEntityMapping());
         modelBuilder.ApplyConfiguration(new TagEntityMapping());
         modelBuilder.ApplyConfiguration(new FavoriteEntityMapping());
         modelBuilder.ApplyConfiguration(new BusinessHoursEntityMapping());

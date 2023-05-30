@@ -4,9 +4,9 @@ using Unisantos.TI.Domain.Entities.Company;
 
 namespace Unisantos.TI.Infrastructure.EntityMapping.Company;
 
-public class TagsSectionEntityMapping : IEntityTypeConfiguration<TagsSectionEntity>
+public class TagSectionEntityMapping : IEntityTypeConfiguration<TagSectionEntity>
 {
-    public void Configure(EntityTypeBuilder<TagsSectionEntity> builder)
+    public void Configure(EntityTypeBuilder<TagSectionEntity> builder)
     {
         builder.HasKey(e => e.Id);
 
