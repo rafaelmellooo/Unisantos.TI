@@ -27,6 +27,7 @@ public class GetCompanyDetailsUseCase : IUseCase<GetCompanyDetailsInputDTO, Comp
             select new CompanyDetailsResponseDTO
             {
                 Name = company.Name,
+                ImagePreviewUrl = company.ImagePreviewUrl,
                 ImageUrl = company.ImageUrl,
                 Rating = company.Rating,
                 IsFavorited = _authenticatedUser.Id.HasValue
@@ -38,6 +39,7 @@ public class GetCompanyDetailsUseCase : IUseCase<GetCompanyDetailsInputDTO, Comp
                 Description = company.Description,
                 BusinessHours = company.BusinessHours.Select(businessHours => new BusinessHoursResponseDTO
                 {
+                    Id = businessHours.Id,
                     DayOfWeek = businessHours.DayOfWeek,
                     OpeningTime = businessHours.OpeningTime,
                     ClosingTime = businessHours.ClosingTime

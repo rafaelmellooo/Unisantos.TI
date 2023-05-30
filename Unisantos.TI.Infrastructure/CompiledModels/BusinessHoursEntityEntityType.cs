@@ -20,18 +20,12 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
                 typeof(BusinessHoursEntity),
                 baseEntityType);
 
-            var dayOfWeek = runtimeEntityType.AddProperty(
-                "DayOfWeek",
-                typeof(DayOfWeek),
-                propertyInfo: typeof(BusinessHoursEntity).GetProperty("DayOfWeek", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(BusinessHoursEntity).GetField("<DayOfWeek>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                afterSaveBehavior: PropertySaveBehavior.Throw);
-
-            var companyId = runtimeEntityType.AddProperty(
-                "CompanyId",
+            var id = runtimeEntityType.AddProperty(
+                "Id",
                 typeof(Guid),
-                propertyInfo: typeof(BusinessHoursEntity).GetProperty("CompanyId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(BusinessHoursEntity).GetField("<CompanyId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                propertyInfo: typeof(BusinessHoursEntity).GetProperty("Id", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(BusinessHoursEntity).GetField("<Id>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                valueGenerated: ValueGenerated.OnAdd,
                 afterSaveBehavior: PropertySaveBehavior.Throw);
 
             var closingTime = runtimeEntityType.AddProperty(
@@ -40,6 +34,18 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
                 propertyInfo: typeof(BusinessHoursEntity).GetProperty("ClosingTime", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(BusinessHoursEntity).GetField("<ClosingTime>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
+            var companyId = runtimeEntityType.AddProperty(
+                "CompanyId",
+                typeof(Guid),
+                propertyInfo: typeof(BusinessHoursEntity).GetProperty("CompanyId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(BusinessHoursEntity).GetField("<CompanyId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+
+            var dayOfWeek = runtimeEntityType.AddProperty(
+                "DayOfWeek",
+                typeof(DayOfWeek),
+                propertyInfo: typeof(BusinessHoursEntity).GetProperty("DayOfWeek", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(BusinessHoursEntity).GetField("<DayOfWeek>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+
             var openingTime = runtimeEntityType.AddProperty(
                 "OpeningTime",
                 typeof(TimeOnly),
@@ -47,7 +53,7 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
                 fieldInfo: typeof(BusinessHoursEntity).GetField("<OpeningTime>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
             var key = runtimeEntityType.AddKey(
-                new[] { dayOfWeek, companyId });
+                new[] { id });
             runtimeEntityType.SetPrimaryKey(key);
 
             var index = runtimeEntityType.AddIndex(

@@ -126,19 +126,23 @@ namespace Unisantos.TI.Infrastructure.Migrations
 
             modelBuilder.Entity("Unisantos.TI.Domain.Entities.Company.BusinessHoursEntity", b =>
                 {
-                    b.Property<int>("DayOfWeek")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("CompanyId")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<TimeOnly>("ClosingTime")
                         .HasColumnType("time without time zone");
 
+                    b.Property<Guid>("CompanyId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("DayOfWeek")
+                        .HasColumnType("integer");
+
                     b.Property<TimeOnly>("OpeningTime")
                         .HasColumnType("time without time zone");
 
-                    b.HasKey("DayOfWeek", "CompanyId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
 

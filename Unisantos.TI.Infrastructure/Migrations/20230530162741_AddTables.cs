@@ -179,14 +179,15 @@ namespace Unisantos.TI.Infrastructure.Migrations
                 name: "BusinessHours",
                 columns: table => new
                 {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
-                    DayOfWeek = table.Column<int>(type: "integer", nullable: false),
                     OpeningTime = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
-                    ClosingTime = table.Column<TimeOnly>(type: "time without time zone", nullable: false)
+                    ClosingTime = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
+                    DayOfWeek = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BusinessHours", x => new { x.DayOfWeek, x.CompanyId });
+                    table.PrimaryKey("PK_BusinessHours", x => x.Id);
                     table.ForeignKey(
                         name: "FK_BusinessHours_Companies_CompanyId",
                         column: x => x.CompanyId,

@@ -1,18 +1,8 @@
-﻿using Unisantos.TI.Domain.DTO.Address;
+﻿namespace Unisantos.TI.Domain.DTO.Company;
 
-namespace Unisantos.TI.Domain.DTO.Company;
-
-public record CompanyDetailsResponseDTO
+public record CompanyDetailsResponseDTO : CompanyResponseDTO
 {
-    public required string Name { get; set; }
-
-    public float? Rating { get; set; }
-    
     public bool? IsFavorited { get; set; }
-
-    public required AddressResponseDTO Address { get; set; }
-
-    public ICollection<string> Tags { get; set; } = new List<string>();
 
     public required string Description { get; set; }
 
