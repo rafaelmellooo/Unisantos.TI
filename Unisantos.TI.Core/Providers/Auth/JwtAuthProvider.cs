@@ -94,8 +94,9 @@ public class JwtAuthProvider : IAuthProvider
             throw new InvalidTokenAlgorithmException();
         }
 
-        var storedRefreshToken = await _applicationDbContext.Tokens.FirstOrDefaultAsync(t =>
-            t.Value == refreshToken.RefreshToken && t.Type == TokenType.RefreshToken, cancellationToken);
+        var storedRefreshToken = await _applicationDbContext.Tokens.FirstOrDefaultAsync(
+            token => token.Value == refreshToken.RefreshToken && token.Type == TokenType.RefreshToken,
+            cancellationToken);
 
         if (storedRefreshToken is null)
         {
@@ -129,7 +130,7 @@ public class JwtAuthProvider : IAuthProvider
         await _applicationDbContext.SaveChangesAsync(cancellationToken);
 
         var user = await _applicationDbContext.Users.AsNoTracking()
-            .FirstAsync(u => u.Id == storedRefreshToken.UserId, cancellationToken);
+            .FirstAsync(user => user.Id == storedRefreshToken.UserId, cancellationToken);
 
         return await GenerateToken(user, cancellationToken);
     }

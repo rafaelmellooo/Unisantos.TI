@@ -27,8 +27,6 @@ public class GetCompanyDetailsUseCase : IUseCase<GetCompanyDetailsInputDTO, Comp
             select new CompanyDetailsResponseDTO
             {
                 Name = company.Name,
-                Latitude = address.Latitude,
-                Longitude = address.Longitude,
                 ImageUrl = company.ImageUrl,
                 Rating = company.Rating,
                 IsFavorited = _authenticatedUser.Id.HasValue
@@ -48,6 +46,8 @@ public class GetCompanyDetailsUseCase : IUseCase<GetCompanyDetailsInputDTO, Comp
                 {
                     Id = address.Id,
                     Cep = address.Cep,
+                    Latitude = address.Latitude,
+                    Longitude = address.Longitude,
                     State = address.City.State.Id,
                     City = address.City.Name,
                     Street = address.Street,

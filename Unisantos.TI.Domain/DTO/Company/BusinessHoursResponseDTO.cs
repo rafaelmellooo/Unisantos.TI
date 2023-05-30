@@ -2,8 +2,6 @@
 
 public record BusinessHoursResponseDTO
 {
-    public byte Id { get; set; }
-    
     public DayOfWeek DayOfWeek { get; set; }
     
     public TimeOnly OpeningTime { get; set; }

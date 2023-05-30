@@ -6,6 +6,10 @@ public record AddressResponseDTO
     
     public required string Cep { get; set; }
     
+    public double Latitude { get; set; }
+
+    public double Longitude { get; set; }
+    
     public required string State { get; set; }
     
     public required string City { get; set; }

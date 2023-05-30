@@ -6,10 +6,6 @@ public record CompanyDetailsResponseDTO
 {
     public required string Name { get; set; }
 
-    public double Latitude { get; set; }
-
-    public double Longitude { get; set; }
-
     public float? Rating { get; set; }
     
     public bool? IsFavorited { get; set; }

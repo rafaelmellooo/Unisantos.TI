@@ -22,7 +22,7 @@ public class RateCompanyUseCase : IUseCase<RateCompanyInputDTO, RateResponseDTO>
         CancellationToken cancellationToken = default)
     {
         var company = await _applicationDbContext.Companies.AsNoTracking()
-            .FirstOrDefaultAsync(c => c.Id == request.CompanyId, cancellationToken);
+            .FirstOrDefaultAsync(company => company.Id == request.CompanyId, cancellationToken);
 
         if (company is null)
         {

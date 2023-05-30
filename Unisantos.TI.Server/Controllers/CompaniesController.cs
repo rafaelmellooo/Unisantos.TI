@@ -13,13 +13,16 @@ public class CompaniesController : Controller
     private readonly GetCompaniesUseCase _getCompaniesUseCase;
     private readonly GetCompanyDetailsUseCase _getCompanyDetailsUseCase;
     private readonly CreateCompanyUseCase _createCompanyUseCase;
+    private readonly DeleteCompanyUseCase _deleteCompanyUseCase;
 
     public CompaniesController(GetCompaniesUseCase getCompaniesUseCase,
-        GetCompanyDetailsUseCase getCompanyDetailsUseCase, CreateCompanyUseCase createCompanyUseCase)
+        GetCompanyDetailsUseCase getCompanyDetailsUseCase, CreateCompanyUseCase createCompanyUseCase,
+        DeleteCompanyUseCase deleteCompanyUseCase)
     {
         _getCompaniesUseCase = getCompaniesUseCase;
         _getCompanyDetailsUseCase = getCompanyDetailsUseCase;
         _createCompanyUseCase = createCompanyUseCase;
+        _deleteCompanyUseCase = deleteCompanyUseCase;
     }
 
     [HttpGet]
@@ -72,6 +75,27 @@ public class CompaniesController : Controller
             var response = await _createCompanyUseCase.Execute(request, cancellationToken);
 
             return Ok(new SuccessResponse<CreateCompanyResponseDTO>(response));
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(new ErrorResponse(exception.Message));
+        }
+    }
+
+    [HttpDelete("{id:guid}")]
+    [Authorize(Policy = "Admin")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> DeleteCompany([FromRoute] Guid id, CancellationToken cancellationToken)
+    {
+        try
+        {
+            await _deleteCompanyUseCase.Execute(new DeleteCompanyInputDTO
+            {
+                Id = id
+            }, cancellationToken);
+
+            return NoContent();
         }
         catch (Exception exception)
         {

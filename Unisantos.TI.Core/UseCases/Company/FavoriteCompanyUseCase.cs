@@ -21,7 +21,7 @@ public class FavoriteCompanyUseCase : IUseCase<FavoriteCompanyInputDTO>
     public async Task Execute(FavoriteCompanyInputDTO request, CancellationToken cancellationToken = default)
     {
         var company = await _applicationDbContext.Companies.AsNoTracking()
-            .FirstOrDefaultAsync(c => c.Id == request.CompanyId, cancellationToken);
+            .FirstOrDefaultAsync(company => company.Id == request.CompanyId, cancellationToken);
 
         if (company is null)
         {
