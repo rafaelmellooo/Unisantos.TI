@@ -30,7 +30,7 @@ namespace Unisantos.TI.Infrastructure.Migrations
                             LANGUAGE plpgsql;
 
                 CREATE TRIGGER update_company_rating AFTER INSERT ON ""Rates""
-                FOR EACH ROW EXECUTE FUNCTION  update_company_rating();
+                FOR EACH ROW EXECUTE FUNCTION update_company_rating();
             ");
         }
 
