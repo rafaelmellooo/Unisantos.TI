@@ -26,7 +26,7 @@ export class CompanyService {
 
   getAdminCompanies() {
     return lastValueFrom(
-      this.httpClient.get<Company[]>(`${environment}/admin/companies`)
+      this.httpClient.get<SuccessResponse<Company[]>>(`${environment.apiUrl}/admin/companies`)
     );
   }
 
@@ -45,6 +45,12 @@ export class CompanyService {
   updateCompany(id: string, updateCompanyData: UpdateCompanyData) {
     return lastValueFrom(
       this.httpClient.put<void>(`${environment.apiUrl}/companies/${id}`, updateCompanyData)
+    );
+  }
+
+  deleteCompany(id: string) {
+    return lastValueFrom(
+      this.httpClient.delete<void>(`${environment.apiUrl}/companies/${id}`)
     );
   }
 }

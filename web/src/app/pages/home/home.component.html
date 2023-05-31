@@ -1,1 +1,32 @@
-<a mat-flat-button color="accent" routerLink="/companies/new"><mat-icon>add</mat-icon> Empresa</a>
+<section>
+  <article
+    *ngFor="let company of companies"
+  >
+    {{company.name}}
+
+    <a
+      [routerLink]="['/companies', company.id]"
+      mat-icon-button
+      color="primary"
+    >
+      <mat-icon>visibility</mat-icon>
+    </a>
+    <a
+      [routerLink]="['/companies', company.id, 'update']"
+      mat-icon-button
+      color="accent"
+    >
+      <mat-icon>edit</mat-icon>
+    </a>
+    <button
+      mat-icon-button
+      color="warn"
+      type="button"
+      (click)="removeCompany(company.id)"
+    >
+      <mat-icon>delete</mat-icon>
+    </button>
+  </article>
+
+  <a mat-flat-button color="accent" routerLink="/companies/new"><mat-icon>add</mat-icon> Empresa</a>
+</section>
