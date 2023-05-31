@@ -6,7 +6,7 @@ public record BusinessHoursResponseDTO
     
     public DayOfWeek DayOfWeek { get; set; }
     
-    public TimeOnly OpeningTime { get; set; }
+    public required string OpeningTime { get; set; }
     
-    public TimeOnly ClosingTime { get; set; }
+    public required string ClosingTime { get; set; }
 }

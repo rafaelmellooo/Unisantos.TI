@@ -36,18 +36,20 @@ public class CreateCompanyUseCase : IUseCase<CreateCompanyInputDTO, CreateCompan
             ImageUrl = request.ImageUrl,
             Instagram = request.Instagram,
 
-            BusinessHours = request.BusinessHours
-                .Select(businessHours => BusinessHoursMapper.Mapper(businessHours))
-                .ToArray(),
-
-            ProductSections = request.ProductSections
-                .Select(productSection => ProductSectionMapper.Mapper(productSection))
-                .ToArray(),
-
             Address = AddressMapper.Mapper(request.Address),
 
             AdminId = _authenticatedUser.Id.Value
         };
+        
+        foreach (var businessHours in request.BusinessHours)
+        {
+            company.BusinessHours.Add(BusinessHoursMapper.Mapper(businessHours));
+        }
+
+        foreach (var productSection in request.ProductSections)
+        {
+            company.ProductSections.Add(ProductSectionMapper.Mapper(productSection));
+        }
         
         foreach (var tag in tags)
         {

@@ -34,9 +34,9 @@ export class LoginComponent {
       return;
     }
 
-    const sessionData = this.sessionForm.getRawValue() as CreateSessionData;
+    const createSessionData = this.sessionForm.getRawValue() as CreateSessionData;
 
-    const response = await this.loginService.createSession(sessionData);
+    const response = await this.loginService.createSession(createSessionData);
 
     localStorage.setItem('token', response.data.token);
 

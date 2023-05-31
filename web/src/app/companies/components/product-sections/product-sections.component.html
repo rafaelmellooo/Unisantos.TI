@@ -24,7 +24,7 @@
 
           <button
             mat-icon-button type="button" color="warn"
-            (click)="removeProductSectionForm(i)"
+            (click)="removeProductSectionForm(i, productSection)"
             [disabled]="formGroup.disabled"
           >
             <mat-icon>delete</mat-icon>
@@ -58,7 +58,7 @@
                 <button
                   mat-icon-button type="button"
                   color="warn"
-                  (click)="removeProductForm(i, j)"
+                  (click)="removeProductForm(i, j, product)"
                   [disabled]="formGroup.disabled"
                 >
                   <mat-icon>delete</mat-icon>

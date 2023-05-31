@@ -44,8 +44,8 @@ public class GetCompanyDetailsUseCase : IUseCase<GetCompanyDetailsInputDTO, Comp
                 {
                     Id = businessHours.Id,
                     DayOfWeek = businessHours.DayOfWeek,
-                    OpeningTime = businessHours.OpeningTime,
-                    ClosingTime = businessHours.ClosingTime
+                    OpeningTime = businessHours.OpeningTime.ToString("HH:mm"),
+                    ClosingTime = businessHours.OpeningTime.ToString("HH:mm")
                 }).ToArray(),
                 
                 Address = new AddressResponseDTO

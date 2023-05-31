@@ -9,6 +9,8 @@ import {BusinessHoursComponent} from "../../components/business-hours/business-h
 import {ProductSectionsComponent} from "../../components/product-sections/product-sections.component";
 import {AddressComponent} from "../../components/address/address.component";
 import {CompanyData} from "@shared/interfaces/Company/CompanyData";
+import {CreateCompanyData} from "@shared/interfaces/Company/CreateCompanyData";
+import {UpdateCompanyData} from "@shared/interfaces/Company/UpdateCompanyData";
 
 @Component({
   selector: 'app-new-company',
@@ -31,7 +33,7 @@ export class NewCompanyComponent implements OnInit, AfterViewInit {
 
   companyForm: FormGroup;
 
-  tagSections: TagSection[] = [];
+  tagSections = new Array<TagSection>();
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -140,13 +142,20 @@ export class NewCompanyComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    const companyData = this.companyForm.getRawValue() as CompanyData;
+    const createCompanyData = this.companyForm.getRawValue() as CreateCompanyData;
 
     try {
       if (this.updateMode) {
-        await this.companyService.updateCompany(this.id, companyData);
+        const updateCompanyData: UpdateCompanyData = {
+          ...createCompanyData,
+          removedBusinessHours: this.businessHoursComponent.businessHoursToRemove,
+          removedProductSections: this.productSectionsComponent.productSectionsToRemove,
+          removedProducts: this.productSectionsComponent.productsToRemove,
+        };
+
+        await this.companyService.updateCompany(this.id, updateCompanyData);
       } else {
-        await this.companyService.createCompany(companyData);
+        await this.companyService.createCompany(createCompanyData);
       }
 
       this.router.navigateByUrl('/home');

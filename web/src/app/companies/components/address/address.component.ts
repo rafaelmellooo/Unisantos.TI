@@ -19,8 +19,8 @@ export class AddressComponent implements OnInit {
   })
   formGroup: FormGroup;
 
-  states: State[] = [];
-  cities: City[] = [];
+  states = new Array<State>();
+  cities = new Array<City>();
 
   constructor(
     private readonly formBuilder: FormBuilder,

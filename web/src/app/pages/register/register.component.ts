@@ -39,15 +39,15 @@ export class RegisterComponent {
       return;
     }
 
-    const userData = this.registerForm.getRawValue() as CreateUserData;
+    const createUserData = this.registerForm.getRawValue() as CreateUserData;
 
     try {
-      await this.registerService.createUser(userData);
+      await this.registerService.createUser(createUserData);
 
       this.router.navigateByUrl('/login');
     } catch (exception) {
       if (exception instanceof HttpErrorResponse) {
-        if (exception.error.errors && typeof(exception.error.errors) === 'object') {
+        if (exception.error.errors && typeof (exception.error.errors) === 'object') {
           this.registerForm.setErrors(exception.error.errors);
         }
       }

@@ -43,13 +43,15 @@ public class UpdateCompanyUseCase : IUseCase<UpdateCompanyInputDTO>
         company.ImageUrl = request.ImageUrl;
         company.Instagram = request.Instagram;
 
-        company.BusinessHours = request.BusinessHours
-            .Select(businessHours => BusinessHoursMapper.Mapper(businessHours))
-            .ToArray();
-
-        company.ProductSections = request.ProductSections
-            .Select(productSection => ProductSectionMapper.Mapper(productSection))
-            .ToArray();
+        foreach (var businessHours in request.BusinessHours)
+        {
+            company.BusinessHours.Add(BusinessHoursMapper.Mapper(businessHours));
+        }
+        
+        foreach (var productSection in request.ProductSections)
+        {
+            company.ProductSections.Add(ProductSectionMapper.Mapper(productSection));
+        }
 
         company.Address = AddressMapper.Mapper(request.Address);
 
@@ -71,26 +73,27 @@ public class UpdateCompanyUseCase : IUseCase<UpdateCompanyInputDTO>
             company.Tags.Add(tag);
         }
 
+        _applicationDbContext.Companies.Update(company);
+
         var businessHoursToRemove = await _applicationDbContext.BusinessHours
             .Where(businessHours => request.RemovedBusinessHours.Contains(businessHours.Id))
             .ToArrayAsync(cancellationToken);
-
+        
         _applicationDbContext.BusinessHours.RemoveRange(businessHoursToRemove);
-
+        
         var productsToRemove = await _applicationDbContext.Products
             .Where(product => request.RemovedProducts.Contains(product.Id) &&
                               !request.RemovedProductSections.Contains(product.ProductSectionId))
             .ToArrayAsync(cancellationToken);
-
+        
         _applicationDbContext.Products.RemoveRange(productsToRemove);
-
+        
         var productSectionsToRemove = await _applicationDbContext.ProductSections
             .Where(productSection => request.RemovedProductSections.Contains(productSection.Id))
             .ToArrayAsync(cancellationToken);
 
         _applicationDbContext.ProductSections.RemoveRange(productSectionsToRemove);
-
-        _applicationDbContext.Companies.Update(company);
+        
         await _applicationDbContext.SaveChangesAsync(cancellationToken);
     }
 }

@@ -9,11 +9,13 @@ public static class ProductSectionMapper
     {
         var productSectionEntity = new ProductSectionEntity
         {
-            Title = productSection.Title,
-            Products = productSection.Products
-                .Select(ProductMapper.Mapper)
-                .ToArray()
+            Title = productSection.Title
         };
+
+        foreach (var product in productSection.Products)
+        {
+            productSectionEntity.Products.Add(ProductMapper.Mapper(product));
+        }
 
         if (productSection.Id.HasValue)
         {

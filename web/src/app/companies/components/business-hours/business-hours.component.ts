@@ -13,7 +13,9 @@ export class BusinessHoursComponent implements OnInit {
   })
   formGroup: FormGroup;
 
-  daysOfWeek: DayOfWeek[] = [
+  businessHoursToRemove = new Array<string>();
+
+  daysOfWeek = new Array<DayOfWeek>(
     {id: 0, name: 'Domingo'},
     {id: 1, name: 'Segunda-feira'},
     {id: 2, name: 'Terça-feira'},
@@ -21,7 +23,7 @@ export class BusinessHoursComponent implements OnInit {
     {id: 4, name: 'Quinta-feira'},
     {id: 5, name: 'Sexta-feira'},
     {id: 6, name: 'Sábado'},
-  ];
+  );
 
   constructor(
     private readonly formBuilder: FormBuilder
@@ -61,7 +63,13 @@ export class BusinessHoursComponent implements OnInit {
     this.businessHoursForm.push(this.createBusinessHoursForm());
   }
 
-  removeBusinessHoursForm(index: number) {
+  removeBusinessHoursForm(index: number, businessHours: AbstractControl) {
+    const id = businessHours.get('id')?.value;
+
+    if (id) {
+      this.businessHoursToRemove.push(id);
+    }
+
     this.businessHoursForm.removeAt(index);
   }
 }

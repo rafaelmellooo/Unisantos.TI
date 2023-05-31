@@ -12,6 +12,10 @@ export class ProductSectionsComponent implements OnInit {
   })
   formGroup: FormGroup;
 
+  productSectionsToRemove = new Array<string>();
+
+  productsToRemove = new Array<string>();
+
   constructor(
     private readonly formBuilder: FormBuilder
   ) {
@@ -71,11 +75,23 @@ export class ProductSectionsComponent implements OnInit {
     this.productsForm(section).push(this.createProductForm());
   }
 
-  removeProductSectionForm(index: number) {
+  removeProductSectionForm(index: number, productSection: AbstractControl) {
+    const id = productSection.get('id')?.value;
+
+    if (id) {
+      this.productSectionsToRemove.push(id);
+    }
+
     this.productSectionsForm.removeAt(index);
   }
 
-  removeProductForm(section: number, index: number) {
+  removeProductForm(section: number, index: number, product: AbstractControl) {
+    const id = product.get('id')?.value;
+
+    if (id) {
+      this.productsToRemove.push(id);
+    }
+
     this.productsForm(section).removeAt(index);
   }
 }
