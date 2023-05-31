@@ -18,7 +18,6 @@ import {RegisterComponent} from './pages/register/register.component';
 import {NgxMaskDirective, NgxMaskPipe, provideNgxMask} from "ngx-mask";
 import {MatSelectModule} from "@angular/material/select";
 import {MatTableModule} from "@angular/material/table";
-import {MatSortModule} from "@angular/material/sort";
 import {MatPaginatorModule} from "@angular/material/paginator";
 
 @NgModule({
@@ -47,7 +46,6 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     SharedModule,
     MatSelectModule,
     MatTableModule,
-    MatSortModule,
     MatPaginatorModule
   ],
   providers: [

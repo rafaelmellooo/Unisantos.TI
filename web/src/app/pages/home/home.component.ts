@@ -10,7 +10,15 @@ import {MatTableDataSource} from "@angular/material/table";
   styleUrls: ['./home.component.sass']
 })
 export class HomeComponent implements OnInit, AfterViewInit {
-  companies = new Array<Company>();
+  displayedColumns = new Array<string>(
+    'name',
+    'state',
+    'city',
+    'neighborhood',
+    'street',
+    'actions'
+  );
+
   dataSource = new MatTableDataSource<Company>();
 
   @ViewChild(MatPaginator)
@@ -22,9 +30,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.loadAdminCompanies().then(() => {
-      this.dataSource.data = this.companies;
-    });
+    this.loadAdminCompanies();
   }
 
   ngAfterViewInit() {
@@ -34,12 +40,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
   async loadAdminCompanies() {
     const response = await this.companyService.getAdminCompanies();
 
-    this.companies = response.data;
+    this.dataSource.data = response.data;
   }
 
   async removeCompany(id: string) {
     await this.companyService.deleteCompany(id);
 
-    this.companies = this.companies.filter(company => company.id !== id);
+    this.dataSource.data = this.dataSource.data.filter(company => company.id !== id);
   }
 }
