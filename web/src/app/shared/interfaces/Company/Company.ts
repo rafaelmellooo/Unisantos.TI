@@ -1,12 +1,11 @@
-import {Address} from "./Address";
+import {Address} from "../Address/Address";
+import {Tag} from "@shared/interfaces/Company/Tag";
 
 export interface Company {
   id: string;
   name: string;
-  latitude: number;
-  longitude: number;
   imagePreviewUrl: string;
   rating?: number;
   address: Address;
-  tags: string[];
+  tags: Tag[];
 }

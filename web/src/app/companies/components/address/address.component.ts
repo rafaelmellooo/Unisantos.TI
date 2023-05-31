@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AddressService} from "./address.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {State} from "@shared/interfaces/State";
-import {City} from "@shared/interfaces/City";
+import {State} from "@shared/interfaces/Address/State";
+import {City} from "@shared/interfaces/Address/City";
 import {BrasilService} from "@shared/services/brasil.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {MatDialog} from "@angular/material/dialog";
@@ -42,6 +42,7 @@ export class AddressComponent implements OnInit {
 
   createAddressForm() {
     return this.formBuilder.group({
+      id: [null],
       latitude: [null, Validators.required],
       longitude: [null, Validators.required],
       cep: [null, Validators.required],
@@ -84,13 +85,17 @@ export class AddressComponent implements OnInit {
         street: response.street,
         latitude: response.location.coordinates.latitude,
         longitude: response.location.coordinates.longitude
+      }, {
+        emitEvent: false
       });
 
       const city = this.cities.find(
         city => city.name === response.city
       );
 
-      this.addressForm.get('city')?.setValue(city?.id);
+      this.addressForm.get('city')?.setValue(city?.id, {
+        emitEvent: false
+      });
     } catch (exception) {
       if (exception instanceof HttpErrorResponse) {
         this.dialog.open(WarningDialogComponent, {

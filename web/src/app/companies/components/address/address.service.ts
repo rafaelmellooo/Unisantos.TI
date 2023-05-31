@@ -1,9 +1,9 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {SuccessResponse} from "@shared/interfaces/SuccessResponse";
-import {State} from "@shared/interfaces/State";
+import {State} from "@shared/interfaces/Address/State";
 import {environment} from "@env/environment";
-import {City} from "@shared/interfaces/City";
+import {City} from "@shared/interfaces/Address/City";
 import {lastValueFrom} from "rxjs";
 
 @Injectable({

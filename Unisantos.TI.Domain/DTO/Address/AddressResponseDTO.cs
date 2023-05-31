@@ -12,7 +12,7 @@ public record AddressResponseDTO
     
     public required string State { get; set; }
     
-    public required string City { get; set; }
+    public required CityResponseDTO City { get; set; }
     
     public required string Neighborhood { get; set; }
     

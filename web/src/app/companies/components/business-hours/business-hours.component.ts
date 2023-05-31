@@ -38,6 +38,7 @@ export class BusinessHoursComponent implements OnInit {
 
   createBusinessHoursForm() {
     return this.formBuilder.group({
+      id: [null],
       dayOfWeek: [null, Validators.required],
       openingTime: [null, Validators.required],
       closingTime: [null, Validators.required],

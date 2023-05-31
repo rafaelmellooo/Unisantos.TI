@@ -74,9 +74,21 @@
     </ul>
 
     <div class="buttons-group">
-      <button mat-flat-button color="warn" type="button" (click)="goBack()">Cancelar</button>
+      <button
+        mat-flat-button color="warn"
+        type="button"
+        (click)="goBack()"
+      >
+        Voltar
+      </button>
 
-      <button mat-flat-button color="accent" type="submit">Finalizar</button>
+      <button
+        mat-flat-button color="accent"
+        type="submit"
+        [disabled]="companyForm.disabled"
+      >
+        Finalizar
+      </button>
     </div>
   </form>
 </section>

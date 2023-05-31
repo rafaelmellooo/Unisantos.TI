@@ -28,12 +28,6 @@ namespace Unisantos.TI.Infrastructure.CompiledModels
                 valueGenerated: ValueGenerated.OnAdd,
                 afterSaveBehavior: PropertySaveBehavior.Throw);
 
-            var companyId = runtimeEntityType.AddProperty(
-                "CompanyId",
-                typeof(Guid),
-                propertyInfo: typeof(ProductEntity).GetProperty("CompanyId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(ProductEntity).GetField("<CompanyId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
-
             var description = runtimeEntityType.AddProperty(
                 "Description",
                 typeof(string),

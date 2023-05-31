@@ -4,6 +4,7 @@ import {RegisterService} from "./register.service";
 import {Router} from "@angular/router";
 import {HttpErrorResponse} from "@angular/common/http";
 import {CreateUserData} from "@shared/interfaces/CreateUserData";
+import {UserRole} from "@shared/enums/UserRole";
 
 @Component({
   selector: 'app-register',
@@ -27,7 +28,7 @@ export class RegisterComponent {
       email: [null, [Validators.required, Validators.email]],
       password: [null, Validators.required],
       passwordConfirmation: [null, Validators.required],
-      role: ['Admin']
+      role: [UserRole.Admin]
     });
   }
 

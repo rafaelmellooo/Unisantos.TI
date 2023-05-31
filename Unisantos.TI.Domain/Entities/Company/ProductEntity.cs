@@ -5,9 +5,7 @@ public class ProductEntity
     public Guid Id { get; set; }
     
     public Guid ProductSectionId { get; set; }
-    
-    public Guid CompanyId { get; set; }
-    
+
     public ProductSectionEntity? ProductSection { get; set; }
     
     public required string Name { get; set; }

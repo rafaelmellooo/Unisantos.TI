@@ -11,10 +11,8 @@ builder.Services.AddProviders();
 builder.Services.AddApplicationDbContext();
 builder.Services.AddAuth(builder.Configuration);
 builder.Services.AddUseCases();
-builder.Services
-    .AddControllers(
-        options => options.ModelMetadataDetailsProviders.Add(new SystemTextJsonValidationMetadataProvider()))
-    .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+builder.Services.AddControllers(options =>
+    options.ModelMetadataDetailsProviders.Add(new SystemTextJsonValidationMetadataProvider()));
 builder.Services.AddHealthChecks();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

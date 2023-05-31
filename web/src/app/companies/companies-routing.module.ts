@@ -5,11 +5,27 @@ import {NewCompanyComponent} from "./pages/new-company/new-company.component";
 const routes: Routes = [
   {
     path: 'new',
-    component: NewCompanyComponent
+    component: NewCompanyComponent,
+    data: {
+      viewMode: false,
+      updateMode: false
+    }
   },
   {
     path: ':id',
-    component: NewCompanyComponent
+    component: NewCompanyComponent,
+    data: {
+      viewMode: true,
+      updateMode: false
+    }
+  },
+  {
+    path: ':id/update',
+    component: NewCompanyComponent,
+    data: {
+      viewMode: false,
+      updateMode: true
+    }
   }
 ];
 

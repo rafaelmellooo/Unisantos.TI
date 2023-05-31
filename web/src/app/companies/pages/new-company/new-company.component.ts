@@ -3,11 +3,12 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CompanyService} from "../../services/company.service";
 import {Location} from "@angular/common";
 import {HttpErrorResponse} from "@angular/common/http";
-import {TagSection} from "@shared/interfaces/TagSection";
-import {ActivatedRoute} from "@angular/router";
+import {TagSection} from "@shared/interfaces/Company/TagSection";
+import {ActivatedRoute, Router} from "@angular/router";
 import {BusinessHoursComponent} from "../../components/business-hours/business-hours.component";
 import {ProductSectionsComponent} from "../../components/product-sections/product-sections.component";
 import {AddressComponent} from "../../components/address/address.component";
+import {CompanyData} from "@shared/interfaces/Company/CompanyData";
 
 @Component({
   selector: 'app-new-company',
@@ -24,6 +25,10 @@ export class NewCompanyComponent implements OnInit, AfterViewInit {
   @ViewChild('addressComponent', {static: true})
   addressComponent: AddressComponent;
 
+  id: string;
+
+  updateMode = false;
+
   companyForm: FormGroup;
 
   tagSections: TagSection[] = [];
@@ -32,7 +37,8 @@ export class NewCompanyComponent implements OnInit, AfterViewInit {
     private readonly formBuilder: FormBuilder,
     private readonly companyService: CompanyService,
     private readonly location: Location,
-    private readonly activatedRoute: ActivatedRoute
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly router: Router
   ) {
     this.companyForm = this.createCompanyForm();
   }
@@ -45,30 +51,63 @@ export class NewCompanyComponent implements OnInit, AfterViewInit {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
 
     if (id) {
-      this.companyService.getCompanyDetails(id).then(response => {
-        response.data.businessHours.forEach(() => {
-          this.businessHoursComponent.addBusinessHoursForm();
-        });
+      this.id = id;
 
-        response.data.productSections.forEach((productSection: any, section: number) => {
-          this.productSectionsComponent.addProductSectionForm();
-
-          productSection.products.forEach(() => {
-            this.productSectionsComponent.addProductForm(section);
-          });
-        });
-
-        this.addressComponent.loadCities(response.data.address.state).then(() => {
-          this.companyForm.patchValue(response.data, {
-            emitEvent: false
-          });
-
+      this.loadCompanyData(id).then(() => {
+        if (this.activatedRoute.snapshot.data['viewMode']) {
           this.companyForm.disable({
             emitEvent: false
           });
-        });
+        }
       });
     }
+
+    this.updateMode = this.activatedRoute.snapshot.data['updateMode'];
+  }
+
+  async loadCompanyData(id: string) {
+    const response = await this.companyService.getCompanyDetails(id);
+
+    response.data.businessHours.forEach(() => {
+      this.businessHoursComponent.addBusinessHoursForm();
+    });
+
+    response.data.productSections.forEach((productSection, index) => {
+      this.productSectionsComponent.addProductSectionForm();
+
+      productSection.products.forEach(() => {
+        this.productSectionsComponent.addProductForm(index);
+      });
+    });
+
+    await this.addressComponent.loadCities(response.data.address.state);
+
+    this.companyForm.patchValue({
+      name: response.data.name,
+      description: response.data.description,
+      imagePreviewUrl: response.data.imagePreviewUrl,
+      imageUrl: response.data.imageUrl,
+      phone: response.data.phone,
+      instagram: response.data.instagram,
+      facebook: response.data.facebook,
+      tags: response.data.tags.map(tag => tag.id),
+      address: {
+        id: response.data.address.id,
+        cep: response.data.address.cep,
+        latitude: response.data.address.latitude,
+        longitude: response.data.address.longitude,
+        state: response.data.address.state,
+        city: response.data.address.city.id,
+        street: response.data.address.street,
+        neighborhood: response.data.address.neighborhood,
+        number: response.data.address.number,
+        complement: response.data.address.complement
+      },
+      businessHours: response.data.businessHours,
+      productSections: response.data.productSections
+    }, {
+      emitEvent: false
+    });
   }
 
   async loadTags() {
@@ -101,10 +140,16 @@ export class NewCompanyComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    try {
-      const response = await this.companyService.createCompany(this.companyForm.getRawValue());
+    const companyData = this.companyForm.getRawValue() as CompanyData;
 
-      console.log(response);
+    try {
+      if (this.updateMode) {
+        await this.companyService.updateCompany(this.id, companyData);
+      } else {
+        await this.companyService.createCompany(companyData);
+      }
+
+      this.router.navigateByUrl('/home');
     } catch (exception) {
       if (exception instanceof HttpErrorResponse) {
         if (exception.error.errors && typeof (exception.error.errors) === 'object') {

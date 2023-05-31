@@ -17,7 +17,14 @@
       >
         <h3>
           <span>{{getInfoBusinessHours(businessHours)}}</span>
-          <button mat-icon-button color="warn" type="button" (click)="removeBusinessHoursForm(i)"><mat-icon>delete</mat-icon></button>
+
+          <button
+            mat-icon-button color="warn" type="button"
+            (click)="removeBusinessHoursForm(i)"
+            [disabled]="formGroup.disabled"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
         </h3>
 
         <div

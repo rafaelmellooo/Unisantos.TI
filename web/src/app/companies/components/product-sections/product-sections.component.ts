@@ -27,6 +27,7 @@ export class ProductSectionsComponent implements OnInit {
 
   createProductSectionsForm() {
     return this.formBuilder.group({
+      id: [null],
       title: [null, Validators.required],
       products: this.formBuilder.array([]),
     });
@@ -34,6 +35,7 @@ export class ProductSectionsComponent implements OnInit {
 
   createProductForm() {
     return this.formBuilder.group({
+      id: [null],
       name: [null, Validators.required],
       description: [null, Validators.required],
       price: [null, Validators.required]

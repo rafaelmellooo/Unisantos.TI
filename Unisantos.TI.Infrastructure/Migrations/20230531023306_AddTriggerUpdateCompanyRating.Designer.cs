@@ -12,8 +12,8 @@ using Unisantos.TI.Infrastructure;
 namespace Unisantos.TI.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230530162754_AddHaversineFunction")]
-    partial class AddHaversineFunction
+    [Migration("20230531023306_AddTriggerUpdateCompanyRating")]
+    partial class AddTriggerUpdateCompanyRating
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -232,9 +232,6 @@ namespace Unisantos.TI.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("CompanyId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Description")

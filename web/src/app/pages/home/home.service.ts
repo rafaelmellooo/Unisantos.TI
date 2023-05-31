@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Company} from "@shared/interfaces/Company";
+import {Company} from "@shared/interfaces/Company/Company";
 import {environment} from "@env/environment";
 import {lastValueFrom} from "rxjs";
 

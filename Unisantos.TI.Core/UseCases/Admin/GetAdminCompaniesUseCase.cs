@@ -27,21 +27,31 @@ public class GetAdminCompaniesUseCase : IUseCase<GetAdminCompaniesInputDTO, Comp
             {
                 Id = company.Id,
                 Name = company.Name,
-                Latitude = address.Latitude,
-                Longitude = address.Longitude,
+                
                 ImagePreviewUrl = company.ImagePreviewUrl,
                 Rating = company.Rating,
                 Address = new AddressResponseDTO
                 {
+                    Id = address.Id,
                     Cep = address.Cep,
+                    Latitude = address.Latitude,
+                    Longitude = address.Longitude,
                     State = address.City.State.Id,
-                    City = address.City.Name,
+                    City = new CityResponseDTO
+                    {
+                        Id = address.City.Id,
+                        Name = address.City.Name
+                    },
                     Street = address.Street,
                     Neighborhood = address.Neighborhood,
                     Number = address.Number,
                     Complement = address.Complement
                 },
-                Tags = company.Tags.Select(tag => tag.Name).ToArray()
+                Tags = company.Tags.Select(tag => new TagResponseDTO
+                {
+                    Id = tag.Id,
+                    Name = tag.Name
+                }).ToArray()
             };
 
         return query.ToArrayAsync(cancellationToken);

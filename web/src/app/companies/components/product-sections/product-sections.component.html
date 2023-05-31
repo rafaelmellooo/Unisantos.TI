@@ -3,8 +3,12 @@
     <h2>
       <span>Seções de Produtos</span>
 
-      <button mat-flat-button type="button" (click)="addProductSectionForm()">
-        <mat-icon>add</mat-icon>Seção de Produtos
+      <button
+        mat-flat-button type="button"
+        (click)="addProductSectionForm()"
+        [disabled]="formGroup.disabled"
+      >
+        <mat-icon>add</mat-icon>Nova Seção
       </button>
     </h2>
 
@@ -18,12 +22,20 @@
         <h3>
           <span>{{getInfoProductSection(productSection)}}</span>
 
-          <button mat-icon-button type="button" color="warn" (click)="removeProductSectionForm(i)">
+          <button
+            mat-icon-button type="button" color="warn"
+            (click)="removeProductSectionForm(i)"
+            [disabled]="formGroup.disabled"
+          >
             <mat-icon>delete</mat-icon>
           </button>
 
-          <button mat-flat-button type="button" (click)="addProductForm(i)">
-            <mat-icon>add</mat-icon>Produto
+          <button
+            mat-flat-button type="button"
+            (click)="addProductForm(i)"
+            [disabled]="formGroup.disabled"
+          >
+            <mat-icon>add</mat-icon>Novo Produto
           </button>
         </h3>
 
@@ -43,7 +55,12 @@
               <h4>
                 <span>{{getInfoProduct(product)}}</span>
 
-                <button mat-icon-button type="button" color="warn" (click)="removeProductForm(i, j)">
+                <button
+                  mat-icon-button type="button"
+                  color="warn"
+                  (click)="removeProductForm(i, j)"
+                  [disabled]="formGroup.disabled"
+                >
                   <mat-icon>delete</mat-icon>
                 </button>
               </h4>
