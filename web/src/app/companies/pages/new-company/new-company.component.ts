@@ -82,7 +82,7 @@ export class NewCompanyComponent implements OnInit, AfterViewInit {
       });
     });
 
-    await this.addressComponent.loadCities(response.data.address.state);
+    await this.addressComponent.loadCities(response.data.address.state.id);
 
     this.companyForm.patchValue({
       name: response.data.name,
@@ -98,7 +98,7 @@ export class NewCompanyComponent implements OnInit, AfterViewInit {
         cep: response.data.address.cep,
         latitude: response.data.address.latitude,
         longitude: response.data.address.longitude,
-        state: response.data.address.state,
+        state: response.data.address.state.id,
         city: response.data.address.city.id,
         street: response.data.address.street,
         neighborhood: response.data.address.neighborhood,

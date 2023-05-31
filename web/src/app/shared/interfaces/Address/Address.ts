@@ -1,11 +1,12 @@
 import {City} from "@shared/interfaces/Address/City";
+import {State} from "@shared/interfaces/Address/State";
 
 export interface Address {
   id: string;
   cep: string;
   latitude: number;
   longitude: number;
-  state: string;
+  state: State;
   city: City;
   neighborhood: string;
   street: string;

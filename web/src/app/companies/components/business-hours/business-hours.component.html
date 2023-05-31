@@ -1,13 +1,5 @@
-<div [formGroup]="formGroup" class="busines-hours">
+<div [formGroup]="formGroup" class="business-hours">
   <div formArrayName="businessHours">
-    <h2>
-      <span>Horários de Funcionamento</span>
-
-      <button mat-flat-button type="button" (click)="addBusinessHoursForm()">
-        <mat-icon>add</mat-icon>Horário de Funcionamento
-      </button>
-    </h2>
-
     <div
       *ngFor="let businessHours of businessHoursForm.controls; let i = index"
     >
@@ -53,4 +45,8 @@
       </div>
     </div>
   </div>
+
+  <button mat-flat-button type="button" (click)="addBusinessHoursForm()">
+    <mat-icon>add</mat-icon>Horário de Funcionamento
+  </button>
 </div>

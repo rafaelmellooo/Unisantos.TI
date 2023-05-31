@@ -1,17 +1,8 @@
 <div [formGroup]="formGroup" class="product-sections">
-  <div formArrayName="productSections">
-    <h2>
-      <span>Seções de Produtos</span>
-
-      <button
-        mat-flat-button type="button"
-        (click)="addProductSectionForm()"
-        [disabled]="formGroup.disabled"
-      >
-        <mat-icon>add</mat-icon>Nova Seção
-      </button>
-    </h2>
-
+  <div
+    formArrayName="productSections"
+    style="display: grid; gap: 20px"
+  >
     <div
       *ngFor="let productSection of productSectionsForm.controls; let i = index"
     >
@@ -90,5 +81,13 @@
       </div>
     </div>
   </div>
+
+  <button
+    mat-flat-button type="button"
+    (click)="addProductSectionForm()"
+    [disabled]="formGroup.disabled"
+  >
+    <mat-icon>add</mat-icon>Nova Seção
+  </button>
 </div>
 

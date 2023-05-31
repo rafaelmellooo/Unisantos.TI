@@ -2,22 +2,22 @@
   <form [formGroup]="registerForm" (ngSubmit)="submitForm()">
     <h1>Cadastro</h1>
 
-    <mat-form-field appearance="outline" style="width: 400px">
+    <mat-form-field style="width: 400px">
       <mat-label>Nome</mat-label>
       <input matInput formControlName="name">
     </mat-form-field>
 
-    <mat-form-field appearance="outline" style="width: 400px">
+    <mat-form-field style="width: 400px">
       <mat-label>E-mail</mat-label>
       <input matInput formControlName="email">
     </mat-form-field>
 
-    <mat-form-field appearance="outline" style="width: 400px">
+    <mat-form-field style="width: 400px">
       <mat-label>Senha</mat-label>
       <input matInput type="password" formControlName="password">
     </mat-form-field>
 
-    <mat-form-field appearance="outline" style="width: 400px">
+    <mat-form-field style="width: 400px">
       <mat-label>Confirmação da senha</mat-label>
       <input matInput type="password" formControlName="passwordConfirmation">
     </mat-form-field>

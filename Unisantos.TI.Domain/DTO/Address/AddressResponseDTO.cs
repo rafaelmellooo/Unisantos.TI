@@ -10,7 +10,7 @@ public record AddressResponseDTO
 
     public double Longitude { get; set; }
     
-    public required string State { get; set; }
+    public required StateResponseDTO State { get; set; }
     
     public required CityResponseDTO City { get; set; }
     

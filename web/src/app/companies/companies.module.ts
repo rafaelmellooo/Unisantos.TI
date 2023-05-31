@@ -13,6 +13,7 @@ import {NewCompanyComponent} from "./pages/new-company/new-company.component";
 import {AddressComponent} from "./components/address/address.component";
 import {BusinessHoursComponent} from "./components/business-hours/business-hours.component";
 import {ProductSectionsComponent} from "./components/product-sections/product-sections.component";
+import {MatTabsModule} from "@angular/material/tabs";
 
 
 @NgModule({
@@ -22,18 +23,19 @@ import {ProductSectionsComponent} from "./components/product-sections/product-se
     BusinessHoursComponent,
     ProductSectionsComponent
   ],
-  imports: [
-    CompaniesRoutingModule,
-    CommonModule,
-    SharedModule,
-    MatInputModule,
-    MatSelectModule,
-    NgxMaskDirective,
-    NgxMaskPipe,
-    MatButtonModule,
-    ReactiveFormsModule,
-    MatIconModule
-  ]
+    imports: [
+        CompaniesRoutingModule,
+        CommonModule,
+        SharedModule,
+        MatInputModule,
+        MatSelectModule,
+        NgxMaskDirective,
+        NgxMaskPipe,
+        MatButtonModule,
+        ReactiveFormsModule,
+        MatIconModule,
+        MatTabsModule
+    ]
 })
 export class CompaniesModule {
 }

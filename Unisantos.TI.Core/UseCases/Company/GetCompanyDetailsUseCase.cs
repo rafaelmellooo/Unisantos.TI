@@ -54,7 +54,11 @@ public class GetCompanyDetailsUseCase : IUseCase<GetCompanyDetailsInputDTO, Comp
                     Cep = address.Cep,
                     Latitude = address.Latitude,
                     Longitude = address.Longitude,
-                    State = address.City.State.Id,
+                    State = new StateResponseDTO
+                    {
+                        Id = address.City.State.Id,
+                        Name = address.City.State.Name
+                    },
                     City = new CityResponseDTO
                     {
                         Id = address.City.Id,
