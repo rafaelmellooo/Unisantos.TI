@@ -25,4 +25,10 @@ export class CompanyService {
       this.httpClient.post<SuccessResponse<any>>(`${environment.apiUrl}/companies`, company)
     );
   }
+
+  getCompanyDetails(id: string) {
+    return lastValueFrom(
+      this.httpClient.get<SuccessResponse<any>>(`${environment.apiUrl}/companies/${id}`)
+    );
+  }
 }

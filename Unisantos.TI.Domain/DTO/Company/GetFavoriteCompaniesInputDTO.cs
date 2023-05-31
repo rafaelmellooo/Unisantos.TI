@@ -1,6 +1,6 @@
 ﻿namespace Unisantos.TI.Domain.DTO.Company;
 
-public class GetFavoriteCompaniesInputDTO
+public record GetFavoriteCompaniesInputDTO
 {
     public double Latitude { get; set; }
     

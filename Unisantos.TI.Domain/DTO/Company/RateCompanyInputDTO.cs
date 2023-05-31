@@ -2,7 +2,7 @@
 
 namespace Unisantos.TI.Domain.DTO.Company;
 
-public class RateCompanyBodyInputDTO
+public record RateCompanyBodyInputDTO
 {
     [Required(ErrorMessage = "A nota é obrigatória")]
     [Range(0, 5, ErrorMessage = "O valor da nota deve ser entre 0 e 5")]
@@ -12,7 +12,7 @@ public class RateCompanyBodyInputDTO
     public string Comment { get; set; }
 }
 
-public class RateCompanyInputDTO : RateCompanyBodyInputDTO
+public record RateCompanyInputDTO : RateCompanyBodyInputDTO
 {
     public Guid CompanyId { get; set; }
 }

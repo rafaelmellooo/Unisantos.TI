@@ -13,15 +13,17 @@ public class CompaniesController : Controller
     private readonly GetCompaniesUseCase _getCompaniesUseCase;
     private readonly GetCompanyDetailsUseCase _getCompanyDetailsUseCase;
     private readonly CreateCompanyUseCase _createCompanyUseCase;
+    private readonly UpdateCompanyUseCase _updateCompanyUseCase;
     private readonly DeleteCompanyUseCase _deleteCompanyUseCase;
 
     public CompaniesController(GetCompaniesUseCase getCompaniesUseCase,
         GetCompanyDetailsUseCase getCompanyDetailsUseCase, CreateCompanyUseCase createCompanyUseCase,
-        DeleteCompanyUseCase deleteCompanyUseCase)
+        UpdateCompanyUseCase updateCompanyUseCase, DeleteCompanyUseCase deleteCompanyUseCase)
     {
         _getCompaniesUseCase = getCompaniesUseCase;
         _getCompanyDetailsUseCase = getCompanyDetailsUseCase;
         _createCompanyUseCase = createCompanyUseCase;
+        _updateCompanyUseCase = updateCompanyUseCase;
         _deleteCompanyUseCase = deleteCompanyUseCase;
     }
 
@@ -75,6 +77,41 @@ public class CompaniesController : Controller
             var response = await _createCompanyUseCase.Execute(request, cancellationToken);
 
             return Ok(new SuccessResponse<CreateCompanyResponseDTO>(response));
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(new ErrorResponse(exception.Message));
+        }
+    }
+
+    [HttpPut("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UpdateCompany([FromRoute] Guid id, [FromBody] UpdateCompanyBodyInputDTO request,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            await _updateCompanyUseCase.Execute(new UpdateCompanyInputDTO
+            {
+                Id = id,
+                Name = request.Name,
+                Description = request.Description,
+                Phone = request.Phone,
+                ImagePreviewUrl = request.ImagePreviewUrl,
+                ImageUrl = request.ImageUrl,
+                Instagram = request.Instagram,
+                Facebook = request.Facebook,
+                Tags = request.Tags,
+                Address = request.Address,
+                BusinessHours = request.BusinessHours,
+                ProductSections = request.ProductSections,
+                RemovedBusinessHours = request.RemovedBusinessHours,
+                RemovedProductSections = request.RemovedProductSections,
+                RemovedProducts = request.RemovedProducts
+            }, cancellationToken);
+
+            return NoContent();
         }
         catch (Exception exception)
         {

@@ -34,6 +34,7 @@ public class GetFavoriteCompaniesUseCase : IUseCase<GetFavoriteCompaniesInputDTO
                 Longitude = address.Longitude,
                 ImagePreviewUrl = company.ImagePreviewUrl,
                 Rating = company.Rating,
+                
                 Address = new AddressResponseDTO
                 {
                     Cep = address.Cep,
@@ -44,7 +45,10 @@ public class GetFavoriteCompaniesUseCase : IUseCase<GetFavoriteCompaniesInputDTO
                     Number = address.Number,
                     Complement = address.Complement
                 },
-                Tags = company.Tags.Select(tag => tag.Name).ToArray()
+                
+                Tags = company.Tags
+                    .Select(tag => tag.Name)
+                    .ToArray()
             };
 
         return query.ToArrayAsync(cancellationToken);

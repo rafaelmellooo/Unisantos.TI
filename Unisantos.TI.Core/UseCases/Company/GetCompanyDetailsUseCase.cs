@@ -30,13 +30,16 @@ public class GetCompanyDetailsUseCase : IUseCase<GetCompanyDetailsInputDTO, Comp
                 ImagePreviewUrl = company.ImagePreviewUrl,
                 ImageUrl = company.ImageUrl,
                 Rating = company.Rating,
+                
                 IsFavorited = _authenticatedUser.Id.HasValue
                     ? company.Favorites.Any(favorite => favorite.UserId == _authenticatedUser.Id.Value)
                     : null,
+                
                 Phone = company.Phone,
                 Facebook = company.Facebook,
                 Instagram = company.Instagram,
                 Description = company.Description,
+                
                 BusinessHours = company.BusinessHours.Select(businessHours => new BusinessHoursResponseDTO
                 {
                     Id = businessHours.Id,
@@ -44,6 +47,7 @@ public class GetCompanyDetailsUseCase : IUseCase<GetCompanyDetailsInputDTO, Comp
                     OpeningTime = businessHours.OpeningTime,
                     ClosingTime = businessHours.ClosingTime
                 }).ToArray(),
+                
                 Address = new AddressResponseDTO
                 {
                     Id = address.Id,
@@ -57,7 +61,11 @@ public class GetCompanyDetailsUseCase : IUseCase<GetCompanyDetailsInputDTO, Comp
                     Number = address.Number,
                     Complement = address.Complement
                 },
-                Tags = company.Tags.Select(tag => tag.Name).ToArray(),
+                
+                Tags = company.Tags
+                    .Select(tag => tag.Name)
+                    .ToArray(),
+                
                 Rates = company.Rates.Select(rate => new RateResponseDTO
                 {
                     Id = rate.Id,
@@ -65,6 +73,7 @@ public class GetCompanyDetailsUseCase : IUseCase<GetCompanyDetailsInputDTO, Comp
                     Rate = rate.Rate,
                     Comment = rate.Comment
                 }).ToArray(),
+                
                 ProductSections = company.ProductSections.Select(productSection => new ProductSectionResponseDTO
                 {
                     Id = productSection.Id,

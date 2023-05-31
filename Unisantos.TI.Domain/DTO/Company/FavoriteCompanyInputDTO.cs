@@ -1,6 +1,6 @@
 ﻿namespace Unisantos.TI.Domain.DTO.Company;
 
-public class FavoriteCompanyInputDTO
+public record FavoriteCompanyInputDTO
 {
     public Guid CompanyId { get; set; }
 }

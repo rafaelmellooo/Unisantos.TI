@@ -1,5 +1,5 @@
 ﻿namespace Unisantos.TI.Domain.DTO.Admin;
 
-public class GetAdminCompaniesInputDTO
+public record GetAdminCompaniesInputDTO
 {
 }

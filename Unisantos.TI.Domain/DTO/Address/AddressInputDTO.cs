@@ -4,6 +4,8 @@ namespace Unisantos.TI.Domain.DTO.Address;
 
 public record AddressInputDTO
 {
+    public Guid? Id { get; set; }
+    
     [Required(ErrorMessage = "A latitude é obrigatória")]
     public double Latitude { get; set; }
     

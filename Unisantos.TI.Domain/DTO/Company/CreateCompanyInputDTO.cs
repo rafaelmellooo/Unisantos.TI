@@ -24,11 +24,9 @@ public record CreateCompanyInputDTO
 
     public string? Facebook { get; set; }
 
-    public ICollection<CreateProductSectionInputDTO> ProductSections { get; set; } =
-        new List<CreateProductSectionInputDTO>();
+    public ICollection<BusinessHoursInputDTO> BusinessHours { get; set; } = new List<BusinessHoursInputDTO>();
 
-    public ICollection<CreateBusinessHoursInputDTO> BusinessHours { get; set; } =
-        new List<CreateBusinessHoursInputDTO>();
+    public ICollection<ProductSectionInputDTO> ProductSections { get; set; } = new List<ProductSectionInputDTO>();
 
     public required AddressInputDTO Address { get; set; }
 

@@ -56,13 +56,13 @@
       </mat-form-field>
     </div>
 
-    <app-business-hours [formGroup]="companyForm" style="width: 800px">
+    <app-business-hours #businessHoursComponent [formGroup]="companyForm" style="width: 800px">
     </app-business-hours>
 
-    <app-product-sections [formGroup]="companyForm" style="width: 800px">
+    <app-product-sections #productSectionsComponent [formGroup]="companyForm" style="width: 800px">
     </app-product-sections>
 
-    <app-address [formGroup]="companyForm" style="width: 800px">
+    <app-address #addressComponent [formGroup]="companyForm" style="width: 800px">
     </app-address>
 
     <ul *ngIf="companyForm.errors" class="error-list" style="width: 800px">

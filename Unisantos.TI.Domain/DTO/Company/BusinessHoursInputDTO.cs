@@ -2,8 +2,10 @@
 
 namespace Unisantos.TI.Domain.DTO.Company;
 
-public class CreateBusinessHoursInputDTO
+public record BusinessHoursInputDTO
 {
+    public Guid? Id { get; set; }
+    
     [Required(ErrorMessage = "O dia da semana é obrigatório")]
     public DayOfWeek DayOfWeek { get; set; }
     

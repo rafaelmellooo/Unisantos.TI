@@ -37,17 +37,17 @@ public class AdressesController : Controller
         }
     }
 
-    [HttpGet("states/{stateId:alpha}/cities")]
+    [HttpGet("states/{state:alpha}/cities")]
     [AllowAnonymous]
     [ProducesResponseType(typeof(SuccessResponse<CityResponseDTO[]>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> GetCities([FromRoute] string stateId, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetCities([FromRoute] string state, CancellationToken cancellationToken)
     {
         try
         {
             var response = await _getCitiesUseCase.Execute(new GetCitiesInputDTO
             {
-                State = stateId
+                State = state
             }, cancellationToken);
 
             return Ok(new SuccessResponse<CityResponseDTO[]>(response));

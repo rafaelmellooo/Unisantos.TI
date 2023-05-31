@@ -2,8 +2,10 @@
 
 namespace Unisantos.TI.Domain.DTO.Company;
 
-public class CreateProductInputDTO
+public record ProductInputDTO
 {
+    public Guid? Id { get; set; }
+    
     [Required(ErrorMessage = "O nome do produto é obrigatório")]
     public required string Name { get; set; }
 
